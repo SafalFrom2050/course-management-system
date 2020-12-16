@@ -2,36 +2,35 @@ import './Login.css';
 import './highlighters.css';
 import './typography.css';
 import Nav from './Nav';
-import {useRef} from 'react';
-import {useAuth} from '../../contexts/AuthContext';
-import {useHistory} from 'react-router-dom';
-import {useAlertBox} from '../../contexts/AlertBoxContext';
+import { useRef } from 'react';
+import { useAuth } from '../../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
+import { useAlertBox } from '../../contexts/AlertBoxContext';
 
-
-function login(){
+function Login() {
 
     const history = useHistory();
-    const {currentUser, login} = useAuth();
+    const { currentUser, login } = useAuth();
 
     // Not showing the login page if the user is already logged in!
-    if(currentUser) history.push('/');
-    
+    if (currentUser) history.push('/');
+
     const usernameRef = useRef();
     const passwordRef = useRef();
 
-    const {showAlertBox} = useAlertBox();
-    function authenticate(e){
+    const { showAlertBox } = useAlertBox();
+    function authenticate(e) {
         e.preventDefault();
         console.log("Authenticating User: " + usernameRef.current.value);
 
-        login(usernameRef.current.value, passwordRef.current.value).then(()=>{
-            console.log("Successful:  " + (currentUser? currentUser.username : ''))
+        login(usernameRef.current.value, passwordRef.current.value).then(() => {
+            console.log("Successful:  " + (currentUser ? currentUser.username : ''))
             showAlertBox('You are logged in...')
             history.push('/');
         });
     };
 
-    return(
+    return (
         <div>
             <Nav></Nav>
 
@@ -69,21 +68,21 @@ function login(){
                             <h2>Login</h2>
                             <div className="username">
                                 <label><h4>Username</h4> </label>
-                                    <input type="text" name="username" id="username-input" ref={usernameRef}></input>
+                                <input type="text" name="username" id="username-input" ref={usernameRef}></input>
                             </div>
                             <div className="password">
                                 <label><h4>Password</h4> </label>
-                                    <input type="password" name="password" id="password-input" ref={passwordRef}></input>
+                                <input type="password" name="password" id="password-input" ref={passwordRef}></input>
                             </div>
                             <input type="submit" id="submit-input" value="Continue"></input>
                         </form>
                     </div>
                 </div>
-                
+
             </div>
 
         </div>
     );
 }
 
-export default login;
+export default Login;

@@ -1,23 +1,23 @@
+import { useAuth } from '../contexts/AuthContext';
+import { useHistory } from 'react-router-dom';
 import './SideNavBar.css';
-import {useAuth} from '../contexts/AuthContext';
-import {useHistory} from 'react-router-dom';
 
-function sideNavBar(){
+function SideNavBar() {
 
-    const {currentUser, logout} = useAuth();
+    const { currentUser, logout } = useAuth();
     const history = useHistory();
 
     // Checking if the user is logged in...
-    if(!currentUser) history.push('/login');
+    if (!currentUser) history.push('/login');
 
 
-    function logoutSession(){
+    function logoutSession() {
         logout();
-        if(!currentUser) history.push('/login');
+        if (!currentUser) history.push('/login');
         console.log(currentUser.username);
     }
 
-    return(
+    return (
         // <!-- Navigation Starts -->
         <nav>
             <ul className="side-nav">
@@ -27,7 +27,7 @@ function sideNavBar(){
                 <li className="profile-preview">
                     <div className="account-preview-container">
                         <img className="profile-img-circular" src="favicon.ico" alt="profile picture"></img>
-                        <h4>Safal Sharma</h4>
+                        <h4>Safal</h4>
                         <h5 className="account-type">Student</h5>
                         <input type='button' value='Logout' onClick={logoutSession}></input>
                     </div>
@@ -56,7 +56,7 @@ function sideNavBar(){
                 <li className="personal-tutor">
                     <h4>Personal Tutor</h4>
                 </li>
-        
+
                 {/* <!-- Any last item in the list is sent to bottom and its color inverted --> */}
                 <li className="dark-mode">
                     <h4>Dark mode</h4>
@@ -67,4 +67,4 @@ function sideNavBar(){
     );
 }
 
-export default sideNavBar;
+export default SideNavBar;
