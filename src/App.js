@@ -1,25 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import Login from './pages/login/Login';
+import SideNavBar from './components/SideNavBar';
+import Alertbox from './components/Alertbox';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+
+import {AuthProvider} from './contexts/AuthContext';
+import {AlertBoxProvider} from './contexts/AlertBoxContext';
 
 function App() {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthProvider>
+      <AlertBoxProvider>
+        <Router>
+          <Switch>
+            <Route path='/login' exact component={Login}></Route>
+            <Route path='/' exact component={content}></Route>
+          </Switch>
+        </Router>
+      </AlertBoxProvider>
+    </AuthProvider>
   );
 }
+
+const content = ()=>(
+  <>  
+    <SideNavBar />
+    
+    <Alertbox/>
+  </>
+);
+
 
 export default App;
