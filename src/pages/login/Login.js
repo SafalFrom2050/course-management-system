@@ -3,31 +3,37 @@ import './highlighters.css';
 import './typography.css';
 import Nav from './Nav';
 import { useRef } from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { useHistory } from 'react-router-dom';
-import { useAlertBox } from '../../contexts/AlertBoxContext';
+// import { useAlertBox } from '../../contexts/AlertBoxContext';
+import { useHttpClient } from '../../hooks/http-hook';
+import { useAuth } from '../../hooks/auth-hook';
 
 function Login() {
-
-    const history = useHistory();
-    const { currentUser, login } = useAuth();
-
-    // Not showing the login page if the user is already logged in!
-    if (currentUser) history.push('/');
+    const { sendRequest } = useHttpClient();
+    const { login } = useAuth();
 
     const usernameRef = useRef();
     const passwordRef = useRef();
 
-    const { showAlertBox } = useAlertBox();
-    function authenticate(e) {
+    // const { showAlertBox } = useAlertBox();
+
+    async function authenticate(e) {
+        const obj = { email: usernameRef.current.value, password: passwordRef.current.value };
+        let config = {
+            headers: {
+                "Content-Type": "application/json",
+            }
+        }
+
         e.preventDefault();
         console.log("Authenticating User: " + usernameRef.current.value);
+        try {
+            const returnedData = await sendRequest("http://localhost:5000/student/login", "POST", obj, config);
+            login(returnedData.data);
+        } catch (error) {
 
-        login(usernameRef.current.value, passwordRef.current.value).then(() => {
-            console.log("Successful:  " + (currentUser ? currentUser.username : ''))
-            showAlertBox('You are logged in...')
-            history.push('/');
-        });
+        }
+
+
     };
 
     return (

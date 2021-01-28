@@ -1,20 +1,14 @@
-import { useAuth } from '../contexts/AuthContext';
-import { useHistory } from 'react-router-dom';
+import { useAuth } from '../hooks/auth-hook';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/AuthContext';
 import './SideNavBar.css';
 
 function SideNavBar() {
 
-    const { currentUser, logout } = useAuth();
-    const history = useHistory();
-
-    // Checking if the user is logged in...
-    if (!currentUser) history.push('/login');
-
-
+    const { logout } = useAuth();
+    const auth = useContext(AuthContext);
     function logoutSession() {
         logout();
-        if (!currentUser) history.push('/login');
-        console.log(currentUser.username);
     }
 
     return (
@@ -26,8 +20,8 @@ function SideNavBar() {
                         <!-- Any 1st item in the list is not highlighted on hover --> */}
                 <li className="profile-preview">
                     <div className="account-preview-container">
-                        <img className="profile-img-circular" src="favicon.ico" alt="profile picture"></img>
-                        <h4>Safal</h4>
+                        <img className="profile-img-circular" src="favicon.ico" alt="profile"></img>
+                        <h4>{auth.userName}</h4>
                         <h5 className="account-type">Student</h5>
                         <input type='button' value='Logout' onClick={logoutSession}></input>
                     </div>
