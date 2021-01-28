@@ -8,7 +8,8 @@ import { AuthContext } from './contexts/AuthContext';
 import { AlertBoxProvider } from './contexts/AlertBoxContext';
 
 function App() {
-  const { login, logout, token, userName } = useAuth();
+
+  const { token, userName, login, logout, } = useAuth();
 
   let routes = null;
   if (token) {
@@ -33,7 +34,6 @@ function App() {
       token: token,
       userName: userName
     }}>
-
 
       <AlertBoxProvider>
         <Router>

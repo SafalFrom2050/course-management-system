@@ -1,14 +1,12 @@
-import { useAuth } from '../hooks/auth-hook';
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
 import './SideNavBar.css';
 
 function SideNavBar() {
 
-    const { logout } = useAuth();
     const auth = useContext(AuthContext);
     function logoutSession() {
-        logout();
+        auth.logout();
     }
 
     return (

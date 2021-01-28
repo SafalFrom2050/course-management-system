@@ -2,14 +2,16 @@ import './Login.css';
 import './highlighters.css';
 import './typography.css';
 import Nav from './Nav';
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 // import { useAlertBox } from '../../contexts/AlertBoxContext';
 import { useHttpClient } from '../../hooks/http-hook';
-import { useAuth } from '../../hooks/auth-hook';
+import { AuthContext } from '../../contexts/AuthContext';
+
 
 function Login() {
     const { sendRequest } = useHttpClient();
-    const { login } = useAuth();
+    const auth = useContext(AuthContext);
+
 
     const usernameRef = useRef();
     const passwordRef = useRef();
@@ -28,7 +30,7 @@ function Login() {
         console.log("Authenticating User: " + usernameRef.current.value);
         try {
             const returnedData = await sendRequest("http://localhost:5000/student/login", "POST", obj, config);
-            login(returnedData.data);
+            auth.login(returnedData.data);
         } catch (error) {
 
         }
@@ -39,7 +41,6 @@ function Login() {
     return (
         <div>
             <Nav></Nav>
-
             {/* <!-- Body section of login page -->
                 <!-- Flex direction:row
                         Justify: Space-evenly --> */}

@@ -1,8 +1,10 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback } from 'react';
 
 export const useAuth = () => {
-    const [token, setToken] = useState(false);
+
+    const [token, setToken] = useState("");
     const [userName, setUsername] = useState("");
+
 
     const login = useCallback((recievedData) => {
         setToken(recievedData.token);
@@ -17,22 +19,20 @@ export const useAuth = () => {
     }, []);
 
     const logout = useCallback(() => {
-        setToken(null);
-        setUsername(null);
+        setToken("");
+        setUsername("");
         localStorage.removeItem('userData');
     }, []);
 
     useEffect(() => {
         const storedData = JSON.parse(localStorage.getItem('userData'));
-        console.log(storedData);
         if (storedData && storedData.token) {
-            console.log("Called");
             const recievedData = {
                 token: storedData.token,
                 name: storedData.name,
                 student_id: storedData.student_id
             }
-            login(recievedData)
+            login(recievedData);
         }
     }, [login])
 
