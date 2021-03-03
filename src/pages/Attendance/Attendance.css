@@ -33,7 +33,7 @@
 }
 .class-attendance-item .class-detail-active {
   border: none;
-  background-color: yellow;
+  background-color: #95e1d3;
 }
 
 .class-attendance-item > .class-detail > .class-heading {
@@ -79,7 +79,7 @@
   > .days-container
   > .day-marks
   > .present {
-  background-color: yellow;
+  background-color: #95e1d3;
 }
 
 .class-attendance-item
