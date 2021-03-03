@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import { NavLink } from 'react-router-dom'
 import './SideNavBar.css';
 
 function SideNavBar() {
@@ -25,28 +26,28 @@ function SideNavBar() {
                     </div>
                 </li>
 
-                <li className="modules active">
-                    <h4>Modules</h4>
+                <li className="modules">
+                    <NavLink to="/modules">Modules</NavLink>
                 </li>
 
                 <li className="assignments">
-                    <h4>Assignments</h4>
+                    <NavLink to="/assignments">Assignments</NavLink>
                 </li>
 
                 <li className="diary">
-                    <h4>Diary</h4>
+                    <NavLink to="/diary">Diary</NavLink>
                 </li>
 
                 <li className="attendance">
-                    <h4>Attendance</h4>
+                    <NavLink to="/attendance">Attendance</NavLink>
                 </li>
 
                 <li className="timetable">
-                    <h4>Timetable</h4>
+                    <NavLink to="/timetable">Timetable</NavLink>
                 </li>
 
                 <li className="personal-tutor">
-                    <h4>Personal Tutor</h4>
+                    <NavLink to="/personal-tutor">Personal Tutor</NavLink>
                 </li>
 
                 {/* <!-- Any last item in the list is sent to bottom and its color inverted --> */}

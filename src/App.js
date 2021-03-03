@@ -1,11 +1,10 @@
 import './App.css';
 import Login from './pages/login/Login';
-import SideNavBar from './components/SideNavBar';
-import Alertbox from './components/Alertbox';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useAuth } from './hooks/auth-hook';
 import { AuthContext } from './contexts/AuthContext';
 import { AlertBoxProvider } from './contexts/AlertBoxContext';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
 
@@ -15,8 +14,9 @@ function App() {
   if (token) {
     routes =
       <Switch>
-        <Route path='/' exact component={Content}></Route>
-        <Redirect to="/" />
+        <Route path='/' >
+          <Dashboard />
+        </Route>
       </Switch>
   } else {
     routes =
@@ -44,13 +44,7 @@ function App() {
   );
 }
 
-const Content = () => (
 
-  <>
-    <SideNavBar />
-    <Alertbox />
-  </>
-);
 
 
 export default App;

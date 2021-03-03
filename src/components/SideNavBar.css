@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
 nav {
-  display: fixed;
+  position: fixed;
   left: 0;
   height: 100vh;
   width: 12rem;
@@ -30,6 +30,11 @@ nav {
   height: 3rem;
 }
 
+.side-nav > li a {
+  text-decoration: none;
+  font-weight: 800;
+}
+
 .side-nav > li:not(:first-child):hover {
   background-color: white;
   cursor: pointer;
@@ -56,17 +61,25 @@ nav {
   filter: invert(1);
 }
 
-.side-nav .active {
+/* .side-nav .active {
   background-color: white;
   cursor: pointer;
   color: black;
-}
+} */
 
 .account-preview-container {
   margin: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.account-preview-container input {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
 .profile-img-circular {

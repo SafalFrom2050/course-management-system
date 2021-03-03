@@ -27,9 +27,8 @@ function Login() {
         }
 
         e.preventDefault();
-        console.log("Authenticating User: " + usernameRef.current.value);
         try {
-            const returnedData = await sendRequest("http://localhost:5000/student/login", "POST", obj, config);
+            const returnedData = await sendRequest("http://localhost:5000/common/login", "POST", obj, config);
             auth.login(returnedData.data);
         } catch (error) {
 

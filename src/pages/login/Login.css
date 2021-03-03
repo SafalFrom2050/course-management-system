@@ -84,6 +84,10 @@
   padding-left: 30px;
 }
 
+#username-input:focus {
+  background-color: white;
+}
+
 #submit-input {
   height: 2.5rem;
   border-radius: 42px 0 84px 42px;
