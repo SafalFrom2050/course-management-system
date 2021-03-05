@@ -21,9 +21,9 @@ function ClassAttendance(props) {
                     </div>
                 </div>
 
-                <button className="view-students-btn" type="submit">
-                    View Students
-            </button>
+                <button className="view-students-btn" type="submit" onClick={props.handler}>
+                    {props.current ? "Stop" : "View Students"}
+                </button>
             </div>
         </div>
     </div>

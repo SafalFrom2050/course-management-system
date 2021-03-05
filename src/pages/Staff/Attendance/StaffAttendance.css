@@ -136,3 +136,8 @@
   > .data {
   background-color: #95e1d3;
 }
+
+.inp {
+  width: 200px;
+  margin-left: 15px;
+}

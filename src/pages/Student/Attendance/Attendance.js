@@ -24,7 +24,7 @@ const Attendance = () => {
         setNewAttendance(result.data)
     }
 
-    const submitAssignment = async (attendance_module_id) => {
+    const submitAssignment = async (attendance_module_id, module_name, week) => {
         const payload = {
             attendance_module_id,
             student_id: user.student_id
@@ -34,8 +34,13 @@ const Attendance = () => {
                 "Content-Type": "application/json",
             }
         }
+
         const result = await sendRequest(`http://localhost:5000/student/submitAttendance`, "POST", payload, config);
         if (!result) { return; }
+        const obj = attendance.find((item) => {
+            return item.module_name === module_name;
+        });
+        obj.attendance_status[week] = 1;
         setNewAttendance([]);
     }
 
@@ -48,7 +53,7 @@ const Attendance = () => {
                     let minutes = date.getMinutes() + "".length > 1 ? date.getMinutes() : "0" + date.getMinutes();
                     let hours = date.getHours() + "".length > 1 ? date.getHours() : "0" + date.getHours();
                     let time = hours + ":" + minutes + " " + post;
-                    return <ActiveAttendance key={time} click={() => { submitAssignment(item.attendance_modules_id) }} time={time} module_name={item.module_name} week={item.week} />;
+                    return <ActiveAttendance key={time} click={() => { submitAssignment(item.attendance_modules_id, item.module_name, item.week) }} time={time} module_name={item.module_name} week={item.week} />;
                 })}
 
                 <div className="heading">Other Classes</div>
