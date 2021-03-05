@@ -1,0 +1,138 @@
+.new-attendance-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  margin: auto;
+  margin-bottom: 2rem;
+}
+
+#modules-selector {
+  padding: 8px;
+  margin: 8px;
+}
+
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  > .view-students-btn,
+.new-attendance-selector > .start-attendance-button {
+  padding: 12px;
+  margin-left: auto;
+
+  border: unset;
+  border-radius: 10px 10px 10px 10px;
+
+  font-size: medium;
+  font-weight: bold;
+  background-color: #95e1d3;
+  box-shadow: 0px 0px 6px rgba(255, 255, 36, 0.61);
+  cursor: pointer;
+}
+.new-attendance-selector > .start-attendance-button {
+  margin: 16px;
+}
+
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  > .view-students-btn:hover,
+.new-attendance-selector > .start-attendance-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(255, 255, 36, 0.61);
+}
+
+.class-attendance-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 26px;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.class-attendance-item > .heading {
+  font-size: larger;
+}
+
+.class-attendance-item > .class-detail {
+  width: 100%;
+  height: fit-content;
+  min-height: 150px;
+
+  margin-top: 16px;
+  padding: 16px;
+  padding-right: 22px;
+  padding-left: 22px;
+
+  border-radius: 16px 16px 16px 16px;
+  border: #bbbbbb solid 2px;
+  text-align: start;
+}
+.class-attendance-item .class-detail-active {
+  border: none;
+  background-color: #95e1d3;
+}
+
+.class-attendance-item > .class-detail > .class-heading {
+  font-size: large;
+  font-weight: bold;
+}
+
+.class-attendance-item > .class-detail > .attendance-details-container {
+  margin-top: 12px;
+  height: max-content;
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  > .data-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 75%;
+}
+
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  .data-label {
+  height: min-content;
+  margin: 8px;
+  margin-right: auto;
+}
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  .data-label-focus {
+  width: 100%;
+  padding-right: 0;
+}
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  .data-label
+  > .data {
+  border-radius: 8px 8px 8px 8px;
+  background-color: #eeeeee;
+  width: max-content;
+  padding: 4px;
+  margin: 2px;
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.class-attendance-item
+  > .class-detail
+  > .attendance-details-container
+  .data-label-focus
+  > .data {
+  background-color: #95e1d3;
+}

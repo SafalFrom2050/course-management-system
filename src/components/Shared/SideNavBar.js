@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
+import { AuthContext } from '../../contexts/AuthContext';
 import { NavLink } from 'react-router-dom'
 import './SideNavBar.css';
 
@@ -21,7 +21,7 @@ function SideNavBar() {
                     <div className="account-preview-container">
                         <img className="profile-img-circular" src="favicon.ico" alt="profile"></img>
                         <h4>{auth.userName}</h4>
-                        <h5 className="account-type">Student</h5>
+                        <h5 className="account-type" style={{ textTransform: "capitalize" }}>{auth.userType}</h5>
                         <input type='button' value='Logout' onClick={logoutSession}></input>
                     </div>
                 </li>

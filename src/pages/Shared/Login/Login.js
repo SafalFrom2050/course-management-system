@@ -4,8 +4,8 @@ import './typography.css';
 import Nav from './Nav';
 import { useRef, useContext } from 'react';
 // import { useAlertBox } from '../../contexts/AlertBoxContext';
-import { useHttpClient } from '../../hooks/http-hook';
-import { AuthContext } from '../../contexts/AuthContext';
+import { useHttpClient } from '../../../hooks/http-hook';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 
 function Login() {

@@ -1,21 +1,21 @@
 import './App.css';
-import Login from './pages/login/Login';
+import Login from './pages/Shared/Login/Login';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useAuth } from './hooks/auth-hook';
 import { AuthContext } from './contexts/AuthContext';
 import { AlertBoxProvider } from './contexts/AlertBoxContext';
-import Dashboard from './pages/Dashboard/Dashboard';
+import Dashboard from './pages/Shared/Dashboard/Dashboard';
 
 function App() {
 
-  const { token, userName, login, logout, } = useAuth();
+  const { token, userName, login, logout, userType } = useAuth();
 
   let routes = null;
   if (token) {
     routes =
       <Switch>
         <Route path='/' >
-          <Dashboard />
+          <Dashboard userType={userType} />
         </Route>
       </Switch>
   } else {
@@ -31,6 +31,7 @@ function App() {
       isLoggedIn: !!token,
       login: login,
       logout: logout,
+      userType: userType,
       token: token,
       userName: userName
     }}>

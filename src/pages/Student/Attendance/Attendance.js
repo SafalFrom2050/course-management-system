@@ -1,8 +1,8 @@
 import './Attendance.css';
 import { useState, useEffect } from 'react';
-import { useHttpClient } from '../../hooks/http-hook';
-import AttendanceDetail from '../../components/Attendance/AttendanceDetail';
-import ActiveAttendance from '../../components/Attendance/ActiveAttendance';
+import { useHttpClient } from '../../../hooks/http-hook';
+import AttendanceDetail from '../../../components/Student/Attendance/AttendanceDetail';
+import ActiveAttendance from '../../../components/Student/Attendance/ActiveAttendance';
 const Attendance = () => {
     const { sendRequest } = useHttpClient();
     const [attendance, setAttendance] = useState([]);
