@@ -1,18 +1,31 @@
 # Contents
 
-## Login Page
+## Common
+
+### SideBar
+
+- Works
+
+### Login Page
 
 - Works as intended
 - Missing validation and auth
 
-## SideBar
+### Diary
 
-- Works
+- Missing >
+  - Delete
+  - Modify
+  - Auto DateTime
 
 ## Student's Portal Pages
 
-- TODO
+#### Attendance
+
+    - Works
 
 ## Staff Portal
 
-- TODO
+#### Attendance
+
+    - Works
