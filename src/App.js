@@ -9,9 +9,11 @@ import Dashboard from './pages/Shared/Dashboard/Dashboard';
 function App() {
 
   const { token, userName, login, logout, userType } = useAuth();
+  const user = JSON.parse(localStorage.getItem("userData"))
 
   let routes = null;
-  if (token) {
+
+  if (user && user.token) {
     routes =
       <Switch>
         <Route path='/' >

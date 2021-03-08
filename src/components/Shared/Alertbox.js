@@ -1,12 +1,13 @@
 import classes from './Alertbox.module.css';
-import { useAlertBox } from '../contexts/AlertBoxContext';
+import './Alertbox.css'
+import { useAlertBoxMsg } from '../../contexts/AlertBoxContext';
 
 function Alertbox() {
-    const { alertMsg } = useAlertBox();
+    const  alertMsg  = useAlertBoxMsg();
 
     if (!alertMsg) return ('');
     return (
-        <div className={classes.Alertbox}><h3>{alertMsg}</h3></div>
+        <div className="alert-box"><h3>{alertMsg}</h3></div>
     );
 }
 
