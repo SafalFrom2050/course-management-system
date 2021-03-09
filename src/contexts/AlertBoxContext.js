@@ -1,31 +1,33 @@
 import { createContext, useContext, useState } from 'react';
 
-const AlertBoxContext = createContext();
+const AlertBoxMsg = createContext();
+const AlertBoxShowMsg = createContext();
 
-export function useAlertBox() {
-    return useContext(AlertBoxContext);
+export function useAlertBoxMsg() {
+    return useContext(AlertBoxMsg);
+}
+
+export function useAlertBoxShowMsg() {
+    return useContext(AlertBoxShowMsg);
 }
 
 export function AlertBoxProvider({ children }) {
-    const [alertMsg, setAlertMsg] = useState('Hello, this is working...');
+    const [alertMsg, setAlertMsg] = useState("");
 
-    function showAlertBox(message) {
-        setAlertMsg(message);
-        setTimeout(hide, 1000);
+    function showAlertBox(message, duration=1000) {
+        setAlertMsg(message)
+        setTimeout(hide, duration)
     }
 
     function hide() {
-        setAlertMsg(null);
+        setAlertMsg(null)
     }
 
-    const value = {
-        showAlertBox,
-        alertMsg
-    };
-
     return (
-        <AlertBoxContext.Provider value={value}>
-            {children}
-        </AlertBoxContext.Provider>
+        <AlertBoxMsg.Provider value={alertMsg}>
+            <AlertBoxShowMsg.Provider value={showAlertBox}>
+                {children}
+            </AlertBoxShowMsg.Provider>
+        </AlertBoxMsg.Provider>
     );
 }

@@ -2,7 +2,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  width: 18rem;
+  min-width: 3rem;
   height: auto;
 
   margin: 3rem;

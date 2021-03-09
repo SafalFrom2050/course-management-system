@@ -1,0 +1,80 @@
+.diary-create-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.diary-create-box {
+  margin-left: 24rem;
+  margin-right: 12rem;
+  text-align: center;
+}
+
+.diary-detail {
+  flex: 1;
+}
+
+.create-diary-label {
+  padding: 12px;
+  margin-bottom: 1rem;
+
+  font-size: larger;
+  font-weight: bold;
+}
+
+.diary-detail > form {
+  display: flex;
+  flex-direction: column;
+}
+.diary-date {
+  font-size: small;
+  white-space: nowrap;
+
+  margin: 12px;
+  margin-right: 100%;
+  margin-left: 2rem;
+}
+.diary-detail > form > .diary-heading,
+.diary-detail > form > .diary-body {
+  padding: 12px;
+  padding-left: 22px;
+  padding-right: 22px;
+  border: #ddd solid 1px;
+}
+
+.diary-detail > form > .diary-heading:focus,
+.diary-detail > form > .diary-body:focus {
+  outline: none;
+  border: #999 solid 2px;
+}
+
+.diary-detail > form > .diary-heading {
+  border-radius: 6px;
+  font-size: medium;
+  font-weight: normal;
+}
+
+.diary-detail > form > .diary-body {
+  border-radius: 8px;
+
+  font-weight: lighter;
+}
+
+.diary-detail > form > .save-diary-btn {
+  padding: 12px;
+  margin: 1rem;
+  margin-left: auto;
+
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  font-size: medium;
+  font-weight: bold;
+  background-color: #95e1d3;
+  box-shadow: 0px 0px 2px #95e1d322;
+
+  cursor: pointer;
+}
+
+.diary-detail > form > .save-diary-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px #95e1d322;
+}
