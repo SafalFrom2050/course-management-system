@@ -1,0 +1,84 @@
+.timetable-container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.timetable-container .heading {
+  font-size: larger;
+  font-weight: bolder;
+}
+
+.timetable-container
+  > .class-information
+  > .class-list
+  > .class-item
+  > .first-row
+  > .title {
+  font-weight: bold;
+}
+
+.timetable-container > .class-information > *,
+.timetable-container > .days-selector > * {
+  margin: 2rem;
+}
+.timetable-container > .class-information > .class-list,
+.timetable-container > .days-selector > .days-button-list {
+  display: flex;
+  flex-direction: column;
+}
+.timetable-container > .days-selector > .heading {
+  text-align: center;
+}
+
+.timetable-container > .class-information > .class-list .first-row,
+.timetable-container > .class-information > .class-list .second-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.timetable-container > .class-information > .class-list .second-row {
+  margin-bottom: 28px;
+}
+
+.timetable-container > .class-information > .class-list .first-row > .tutor,
+.timetable-container
+  > .class-information
+  > .class-list
+  .second-row
+  > .start-time,
+.timetable-container
+  > .class-information
+  > .class-list
+  .second-row
+  > .end-time {
+  padding: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  margin: 8px;
+  background-color: yellow;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.timetable-container > .days-selector > .days-button-list > button {
+  padding: 12px;
+  margin: 4px;
+
+  border: solid #eee 1px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: white;
+  font-size: medium;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.timetable-container > .days-selector > .days-button-list > .selected-btn {
+  border: unset;
+  background-color: yellow;
+  box-shadow: 0px 0px 6px rgba(255, 255, 36, 0.61);
+}
+
+.timetable-container > .days-selector > .days-button-list > button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(255, 255, 36, 0.61);
+}

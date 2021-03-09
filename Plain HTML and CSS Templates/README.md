@@ -1,27 +1,30 @@
 # Contents
 
-Designs for group project assignment about course management system
+These are plain HTML and CSS designs templates for the system.
 
-## Login Page
+Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pTX-OiSuQ2QHIX-mxuv7qJxZ-YJTJcdglw/edit?usp=sharing
 
-- Completed
+## Latest: Timetable
 
-## Side Nav Bar
+## Common Parts
 
-- Completed
+    These are same for all account types(admin, tutor and student).
 
-## Diary Page
+### Completed
 
-- Completed
+    - Timetable
+    - Login
+    - Side Nav Bar
+    - Diary
 
-## Student App
+## Student Account Specific Parts
 
-### Attendance Page
+### Completed
 
-- Completed
+    - Attendance
 
-## Module Leader App
+## Tutor Account Specific Parts
 
-### Attendance Page
+### Completed
 
-- Completed
+    - Attendance
