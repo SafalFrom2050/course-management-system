@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../nav.css" />
+    <link rel="stylesheet" href="../typography.css" />
+    <link rel="stylesheet" href="../style.css" />
+
+    <link rel="stylesheet" href="attendance.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Title Page (Same on all pages) -->
+    <nav>
+      <div class="page-title">
+        <h2>Attendance</h2>
+      </div>
+    </nav>
+
+    <!-- Attendance item of an individual class of a term -->
+
+    <!-- Attendance Item 
+        > Class Detail (states: active, inactive)
+            > Class Heading, Days Container
+                > Label(Days: ), Day Marks 
+                    > Day Mark Item (states: present, current) 
+                        > Check Attendance Button -->
+
+    <div>
+      <!-- Attendance Item -->
+      <div class="class-attendance-item">
+        <!-- Optional! -->
+        <div class="heading">Current Class: Attendance Required!</div>
+
+        <!-- Class Detail, Active Attendance! -->
+        <div class="class-detail class-detail-active">
+          <div class="class-heading">Group Project CSY2027</div>
+
+          <!-- Days information container -->
+          <div class="days-container">
+            <div class="label">Days:</div>
+
+            <!-- Days attendance marks list items  container -->
+            <div class="day-marks">
+              <!-- Attendance marks item (Either present, current or nothing:= absent) -->
+              <div class="day-mark-item present">1</div>
+              <div class="day-mark-item present">2</div>
+              <div class="day-mark-item">3</div>
+              <div class="day-mark-item">4</div>
+              <div class="day-mark-item present">5</div>
+              <div class="day-mark-item">6</div>
+              <div class="day-mark-item">7</div>
+              <div class="day-mark-item">8</div>
+              <div class="day-mark-item present">9</div>
+              <div class="day-mark-item">10</div>
+              <div class="day-mark-item">11</div>
+              <div class="day-mark-item current">12</div>
+            </div>
+
+            <!-- Check attendance button, only for active attendance -->
+            <button class="day-check-btn" type="submit">Check</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inactive Attendance Item Sample -->
+
+      <div class="class-attendance-item">
+        <div class="heading">Other Classes</div>
+        <div class="class-detail">
+          <div class="class-heading">Group Project CSY2027</div>
+          <div class="days-container">
+            <div class="label">Days:</div>
+
+            <div class="day-marks">
+              <div class="day-mark-item present">1</div>
+              <div class="day-mark-item present">2</div>
+              <div class="day-mark-item">3</div>
+              <div class="day-mark-item">4</div>
+              <div class="day-mark-item present">5</div>
+              <div class="day-mark-item">6</div>
+              <div class="day-mark-item">7</div>
+              <div class="day-mark-item">8</div>
+              <div class="day-mark-item present">9</div>
+              <div class="day-mark-item">10</div>
+              <div class="day-mark-item">11</div>
+              <div class="day-mark-item">12</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

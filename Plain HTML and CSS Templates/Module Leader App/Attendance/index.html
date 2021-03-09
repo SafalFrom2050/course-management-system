@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../nav.css" />
+    <link rel="stylesheet" href="../typography.css" />
+    <link rel="stylesheet" href="../style.css" />
+
+    <link rel="stylesheet" href="attendance.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Title Page (Same on all pages) -->
+    <nav>
+      <div class="page-title">
+        <h2>Attendance</h2>
+      </div>
+    </nav>
+
+    <!-- Start Attendance Recording Box -->
+
+    <div class="new-attendance-selector">
+      <div>
+        <label for="modules">Module:</label>
+
+        <select name="modules" id="modules-selector">
+          <option value="module-1">Group Project</option>
+          <option value="module-2">Software Engineering</option>
+          <option value="module-3">Web Development</option>
+        </select>
+      </div>
+
+      <button class="start-attendance-button">Start Recording +</button>
+    </div>
+
+    <!-- Attendance Record item of an individual class of a term -->
+
+    <!-- Attendance Record Item 
+        > Class Detail
+            > Class Heading, Attendance Detail Container
+                > Data Container, "View Students" Button
+                    > Data label (states: focus, inactive) 
+                        > Data -->
+
+    <div>
+      <!-- Attendance Record Item Sample -->
+      <div class="class-attendance-item">
+        <div class="heading">Records</div>
+        <div class="class-detail">
+          <div class="class-heading">Group Project CSY2027</div>
+
+          <div class="attendance-details-container">
+            <div class="data-container">
+              <div class="data-label data-label-focus">
+                Present Students:
+                <label class="data">18</label>
+              </div>
+              <br />
+              <div class="data-label">
+                Out Of:
+                <label class="data">20</label>
+              </div>
+              <div class="data-label">
+                Date:
+                <label class="data">08 - 12 - 2020</label>
+              </div>
+            </div>
+
+            <!-- View students button, OPTIONAL!!! -->
+            <button class="view-students-btn" type="submit">
+              View Students
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Attendance Record Item Sample 2 -->
+      <div class="class-attendance-item">
+        <div class="class-detail">
+          <div class="class-heading">Software Engineering CSY2027</div>
+
+          <div class="attendance-details-container">
+            <div class="data-container">
+              <div class="data-label data-label-focus">
+                Present Students:
+                <label class="data">8</label>
+              </div>
+              <br />
+              <div class="data-label">
+                Out Of:
+                <label class="data">10</label>
+              </div>
+              <div class="data-label">
+                Date:
+                <label class="data">08 - 12 - 2020</label>
+              </div>
+            </div>
+
+            <!-- View students button, OPTIONAL!!! -->
+            <button class="view-students-btn" type="submit">
+              View Students
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

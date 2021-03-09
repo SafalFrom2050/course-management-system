@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="typography.css">
+    <link rel="stylesheet" href="highlighters.css">
+    <link rel="stylesheet" href="nav.css">
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><h1>LOGO</h1></div>
+        <div class="alert-box"><h3>Please login to continue...</h3></div>
+
+    </nav>
+
+
+
+    <!-- Body section of login page -->
+                <!-- Flex direction:row
+                        Justify: Space-evenly -->
+    <div class="main-container">
+
+        <!-- Heading 'Woodlands University College' -->
+                <!-- Flex direction:column -->
+        <div class="first-half">
+            <div class="page-heading">
+                <h1>Woodlands</h1>
+                <h2>University</h2>
+                <h3>College</h3>
+            </div>
+        </div>
+
+        <!-- Login Part -->
+                <!-- Flex direction:row -->
+        <div class="second-half">
+            <!-- Three rounded rectangles on left of login box -->
+            <div class="highlighters-container">
+                <div class="label-highlighter"></div>
+                <div class="input-highlighter"></div>
+                <div class="input-highlighter"></div>
+            </div>
+
+            <!-- The main login box -->
+                    <!-- Flex direction:column
+                        Justify: flex-start -->
+            <div class="login-box">
+                <form class="login-form" method="POST">
+                    <h2>Login</h2>
+                    <div class="username">
+                        <label for="username"><h4>Username</h4></label>
+                        <input type="text" name="username" id="username-input">
+                    </div>
+                    <div class="password">
+                        <label for="password"><h4>Password</h4></label>
+                        <input type="password" name="password" id="password-input">
+                    </div>
+                    <input type="submit" id="submit-input" value="Continue">
+                </form>
+            </div>
+        </div>
+        
+    </div>
+
+    
+</body>
+</html>

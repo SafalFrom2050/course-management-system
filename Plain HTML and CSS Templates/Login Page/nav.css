@@ -1,0 +1,23 @@
+nav {
+  margin: 3rem;
+  margin-left: 12rem;
+  margin-right: 6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav > .logo {
+  border: #666666 solid 1px;
+  border-radius: 42px 0 84px 42px;
+  padding: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2.5rem;
+}
+
+nav > .alert-box {
+  border: #666666 solid 1px;
+  border-radius: 0 0 0 42px;
+  padding: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2.5rem;
+}

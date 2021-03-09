@@ -1,0 +1,15 @@
+nav {
+  margin: 3rem;
+  margin-left: 12rem;
+  margin-right: 6rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav > .page-title {
+  border: #666666 solid 2px;
+  border-radius: 42px 0 84px 42px;
+  padding: 1rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}

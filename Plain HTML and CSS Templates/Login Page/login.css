@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+
+  font-family: "Montserrat", sans-serif;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 10%;
+}
+.main-container > .second-half {
+  width: 30rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.login-box {
+  height: 15rem;
+  width: 25rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: yellow;
+  border-radius: 0 90% 0 0;
+}
+
+.login-form {
+  height: 100%;
+
+  margin-top: 15%;
+  margin-left: 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.login-form:first-child h2 {
+  margin-bottom: 1.5rem;
+  margin-left: 1rem;
+  font-size: 2rem;
+}
+
+.username,
+.password {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  color: #666666;
+}
+
+#username-input,
+#password-input {
+  border: none;
+
+  border-radius: 42px 0 0 42px;
+  height: 2.5rem;
+  padding-left: 6px;
+
+  transition: padding 0.2s ease-out;
+}
+
+#username-input:focus,
+#password-input:focus {
+  outline: none;
+  padding-left: 30px;
+}
+#username-input:hover,
+#password-input:hover {
+  outline: none;
+  padding-left: 30px;
+}
+
+#submit-input {
+  height: 2.5rem;
+  border-radius: 42px 0 84px 42px;
+  border-width: 1px;
+  margin-left: auto;
+  background: none;
+
+  padding: 4px;
+  padding-right: 1.5rem;
+  padding-left: 1rem;
+  transform: translateY(50px);
+  font-weight: bold;
+}
+
+#submit-input:hover {
+  background-color: yellow;
+  border: none;
+  cursor: pointer;
+}

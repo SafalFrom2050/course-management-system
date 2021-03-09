@@ -1,0 +1,25 @@
+.first-half {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-heading {
+  display: flex;
+  width: 25rem;
+  flex-direction: column;
+  color: #666666;
+}
+.page-heading > * {
+  margin-top: 1rem;
+}
+.page-heading > h1 {
+  font-size: 6rem;
+}
+
+.page-heading > h2 {
+  font-size: 5rem;
+}
+
+.page-heading > h3 {
+  font-size: 3rem;
+}
