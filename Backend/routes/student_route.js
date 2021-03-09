@@ -1,6 +1,6 @@
 const express = require('express');
 const student = require('../controllers/student_controller');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const authCheck = require('../middlewares/auth-check');
 const router = express.Router();
 
@@ -24,7 +24,8 @@ router.post("/submitAttendance", [
     check("attendance_module_id").isNumeric()
 ], student.submitAttendance);
 
-router.get("/routine/:id", student.getRoutine);
+router.get("/routine", [query("course_id").isNumeric(),
+query("day").not().isEmpty()], student.getRoutine);
 
 router.get("/assignment", student.getAssignment);
 
@@ -43,4 +44,4 @@ router.patch("/resetPassword", [
     check("newPassword").isLength(7)
 ], student.resetPassword);
 
-module.exports = router; 
+module.exports = router;

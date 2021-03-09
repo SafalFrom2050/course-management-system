@@ -69,14 +69,8 @@ async function currentModule(student_id, next) {
 const getAttendanceForm = async (req, res, next) => {
     const dbQuery = new Query();
     const student_id = req.params.id;
-    const date = "SELECT registration_year FROM students WHERE student_id = ?";
-    let dateResult;
-    try {
-        dateResult = await dbQuery.query(date, [student_id]);
-    } catch (error) {
-        return next(new HttpError(500, "Invalid user"));
-    }
-    const sem = getCurrentYear(dateResult[0].registration_year);
+
+    const sem = await getSemester(student_id);
     const query = "SELECT modules.module_name, attendancemodules.attendance_modules_id, attendancemodules.attendance_time, attendancemodules.week FROM attendancemodules JOIN modules ON attendancemodules.module_id = modules.module_id WHERE attendancemodules.attendance_status = 1 AND attendancemodules.semester = ?";
     let attendance;
     try {
@@ -128,18 +122,30 @@ const submitAttendance = async (req, res, next) => {
     });
 }
 
+const getRoutine = async (req, res, next) => {
+    const course_id = req.query.course_id;
+    const student_id = req.body.student_id;
+    const day = req.query.day;
+    const dbQuery = new Query();
+
+    const sem = await getSemester(student_id);
+
+    const query = "SELECT r.day, m.module_name, rm.start_time, rm.duration FROM routines r INNER JOIN routinemodules rm ON r.routine_id = rm.routine_id INNER JOIN modules m ON rm.module_id = m.module_id WHERE r.semester = ? AND r.day = ? AND r.course_id = ?";
+    let result;
+    try {
+        result = await dbQuery.query(query, [sem, day, course_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    res.json(result);
+}
+
 const getAttendanceStatus = async (req, res, next) => {
     const dbQuery = new Query();
     const student_id = req.params.id;
-    const date = "SELECT registration_year FROM students WHERE student_id = ?";
-    let dateResult;
-    try {
-        dateResult = await dbQuery.query(date, [student_id]);
-    } catch (error) {
-        return next(new HttpError(500, "Invalid user"));
-    }
-    const sem = getCurrentYear(dateResult[0].registration_year);
-
+    const sem = await getSemester(student_id);
+    console.log(sem);
     const responseArray = [];
     const modules = await currentModule(student_id, next);
 
@@ -175,7 +181,7 @@ const getAttendanceStatus = async (req, res, next) => {
 
 const getDiaries = (req, res, next) => {
     const student_id = req.params.id;
-    const query = "SELECT * FROM diaries WHERE student_id = ?";
+    const query = "SELECT * FROM diaries WHERE student_id = ? ORDER BY date_created DESC";
     sqlObj.con.query(query, [student_id], (err, result) => {
         if (err) {
             return next(new HttpError(500, "Error while creating diaries"));
@@ -209,31 +215,6 @@ const setDiaries = (req, res, next) => {
 
 }
 
-const getRoutine = (req, res, next) => {
-    const student_id = req.params.id;
-    const query = "SELECT * FROM students WHERE student_id = ?";
-    const dbQuery = new Query();
-
-    dbQuery.query(query, [student_id])
-        .then(result => {
-            const currentSem = getCurrentYear(result[0].registration_year);
-
-            if (result.length === 0) {
-                return next(new HttpError(500, "User not found"));
-            }
-            const query = "SELECT routines.day, modules.module_name, routines.start_time, routines.end_time,routines.class_type_1, routines.second_module_name" +
-                " ,routines.second_start_time, routines.second_end_time,routines.class_type_2 FROM routines INNER JOIN modules " +
-                "ON routines.module_id = modules.module_id AND routines.course_id = ? AND routines.semester = ? ORDER BY routines.day_number ASC";
-            dbQuery.query(query, [result[0].course_id, currentSem])
-                .then(result => {
-                    res.json(result);
-                })
-                .catch(() => {
-                    return next(new HttpError(500, "Something went wrong while fetching routines"));
-                });
-        });
-}
-
 const generatePass = (req, res, next) => {
     const { password } = req.body;
 
@@ -242,27 +223,21 @@ const generatePass = (req, res, next) => {
     });
 }
 
-const getAssignment = (req, res, next) => {
+const getAssignment = async (req, res, next) => {
     const module_id = req.query.module_id;
     const student_id = req.query.id;
+    const dbQuery = new Query();
 
-    const query = "SELECT registration_year FROM students WHERE student_id = ?";
-    sqlObj.con.query(query, [student_id], (err, result) => {
-        if (err) {
-            console.log(err);
-        }
-        const date = result[0].registration_year;
-        const currentSem = getCurrentYear(date);
+    const sem = await getSemester(student_id);
 
-        const query = "SELECT * FROM assignments WHERE semester = ? AND module_id = ?";
-        sqlObj.con.query(query, [currentSem, module_id], (err, result) => {
-            if (result[0].deadline < new Date()) {
-                res.status(200).json({});
-                return;
-            }
-            res.status(200).json(result);
-        });
-    })
+    const query = "SELECT * FROM assignments WHERE semester = ?";
+    const result = await dbQuery.query(query, [currentSem, module_id]);
+    if (result[0].deadline < new Date()) {
+        res.status(200).json({});
+        return;
+    }
+    res.status(200).json(result);
+
 }
 
 const submitAssignment = (req, res, next) => {
@@ -300,6 +275,20 @@ const submitAssignment = (req, res, next) => {
     });
 }
 
+const getSemester = async (student_id) => {
+    console.log(student_id);
+    const dbQuery = new Query();
+    const date = "SELECT registration_year FROM students WHERE student_id = ?";
+    let dateResult;
+    try {
+        dateResult = await dbQuery.query(date, [student_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Invalid user"));
+    }
+    const sem = getCurrentYear(dateResult[0].registration_year);
+    return Promise.resolve(sem);
+}
+
 function getCurrentYear(inputDate) {
     let year = JSON.stringify(inputDate);
     year = year.slice(1, 5);
@@ -320,8 +309,8 @@ exports.submitAttendance = submitAttendance;
 exports.getAttendanceStatus = getAttendanceStatus;
 exports.getDiaries = getDiaries;
 exports.setDiaries = setDiaries;
-exports.getRoutine = getRoutine;
 exports.getAssignment = getAssignment;
 exports.submitAssignment = submitAssignment;
 exports.resetPassword = resetPassword;
+exports.getRoutine = getRoutine;
 
