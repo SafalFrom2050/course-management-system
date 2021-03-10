@@ -75,10 +75,10 @@ export default function CreateDiary() {
                                 name=""
                                 id=""
                                 placeholder="Heading..."
-                                required="true"
+                                required={true}
                                 onChange={e => setDiaryHeading(e.target.value)}
                             />
-                            <label className="diary-date" for="">{date.split(" ")[0]}</label>
+                            <label className="diary-date">{date.split(" ")[0]}</label>
                             <textarea
                                 className="diary-body"
                                 name="diary-body"
