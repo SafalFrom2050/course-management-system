@@ -1,0 +1,126 @@
+.assignment-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 26px;
+  margin-right: 20%;
+  margin-left: 20%;
+  cursor: pointer;
+}
+
+.assignment-list {
+  text-align: center;
+}
+
+.assignment-item > .assignment-detail {
+  width: 100%;
+  height: fit-content;
+  min-height: 150px;
+
+  margin-top: 16px;
+  padding: 22px;
+  padding-right: 28px;
+  padding-left: 28px;
+
+  border-radius: 16px 16px 16px 16px;
+  border: #dddddd solid 2px;
+  text-align: start;
+
+  transition: background-color 0.2s;
+}
+.assignment-item .assignment-detail-full-text {
+  border: none;
+}
+
+.assignment-item > .assignment-detail > .assignment-heading {
+  font-size: large;
+  font-weight: bold;
+}
+
+.assignment-item > .assignment-detail > .body-container {
+  height: max-content;
+  padding: 12px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.assignment-item > .assignment-detail > .body-container > .body {
+  width: 100%;
+
+  text-align: justify;
+  text-justify: auto;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
+}
+
+.assignment-item > .assignment-detail-full-text > .body-container > .body {
+  white-space: unset;
+  overflow: unset;
+}
+
+.assignment-item > .assignment-detail > .body-container > .data-label {
+  height: min-content;
+  margin-top: 22px;
+  margin-right: auto;
+}
+.assignment-item > .assignment-detail > .body-container > .data-label {
+  width: 70%;
+}
+
+.assignment-item > .assignment-detail > .body-container > .data-label > .data {
+  border-radius: 8px;
+  padding: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  margin-left: 4px;
+  border: #dddddd solid 1px;
+}
+
+.assignment-item .assignment-detail:hover {
+  border: none;
+  background-color: yellow;
+}
+.assignment-item .assignment-detail-full-text:hover {
+  border: #dddddd solid 2px;
+  background-color: unset;
+}
+
+.assignment-item
+  > .assignment-detail:hover
+  > .body-container
+  > .data-label
+  > .data {
+  border: unset;
+  background-color: #fff;
+}
+.assignment-item > .assignment-detail > .create-diary-btn {
+  visibility: collapse;
+
+  padding: 12px;
+  align-self: flex-end;
+  float: right;
+
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  font-size: medium;
+  font-weight: bold;
+  background-color: white;
+  box-shadow: 0px 0px 2px rgba(36, 36, 36, 0.3);
+
+  cursor: pointer;
+}
+.assignment-item > .assignment-detail-full-text:hover > .create-diary-btn {
+  visibility: visible;
+}
+.assignment-item
+  > .assignment-detail-full-text:hover
+  > .create-diary-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(36, 36, 36, 0.3);
+}
