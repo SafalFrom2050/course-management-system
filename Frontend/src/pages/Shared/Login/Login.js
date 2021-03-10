@@ -3,7 +3,6 @@ import './highlighters.css';
 import './typography.css';
 import Nav from './Nav';
 import { useRef, useContext } from 'react';
-// import { useAlertBox } from '../../contexts/AlertBoxContext';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { AuthContext } from '../../../contexts/AuthContext';
 
@@ -12,11 +11,8 @@ function Login() {
     const { sendRequest } = useHttpClient();
     const auth = useContext(AuthContext);
 
-
     const usernameRef = useRef();
     const passwordRef = useRef();
-
-    // const { showAlertBox } = useAlertBox();
 
     async function authenticate(e) {
         const obj = { email: usernameRef.current.value, password: passwordRef.current.value };
