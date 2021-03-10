@@ -14,7 +14,14 @@ router.get("/attendance/:id", student.getAttendanceForm);
 router.get("/getDiaries/:id", student.getDiaries);
 
 router.post("/setDiaries", [
-    check("id").not().isEmpty(),
+    check("student_id").not().isEmpty(),
+    check("title").isLength({ min: 1 }),
+    check("body").isLength({ min: 1 }),
+], student.setDiaries);
+
+router.patch("/editDiaries", [
+    check("student_id").not().isEmpty(),
+    check("diary_id").not().isEmpty(),
     check("title").isLength({ min: 1 }),
     check("body").isLength({ min: 1 }),
 ], student.setDiaries);
@@ -24,8 +31,7 @@ router.post("/submitAttendance", [
     check("attendance_module_id").isNumeric()
 ], student.submitAttendance);
 
-router.get("/routine", [query("course_id").isNumeric(),
-query("day").not().isEmpty()], student.getRoutine);
+router.get("/routine", [query("day").not().isEmpty()], student.getRoutine);
 
 router.get("/assignment", student.getAssignment);
 

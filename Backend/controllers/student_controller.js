@@ -123,17 +123,24 @@ const submitAttendance = async (req, res, next) => {
 }
 
 const getRoutine = async (req, res, next) => {
-    const course_id = req.query.course_id;
-    const student_id = req.body.student_id;
+    const student_id = req.query.student_id;
     const day = req.query.day;
     const dbQuery = new Query();
 
     const sem = await getSemester(student_id);
 
-    const query = "SELECT r.day, m.module_name, rm.start_time, rm.duration FROM routines r INNER JOIN routinemodules rm ON r.routine_id = rm.routine_id INNER JOIN modules m ON rm.module_id = m.module_id WHERE r.semester = ? AND r.day = ? AND r.course_id = ?";
+    const courseQuery = "SELECT course_id FROM students WHERE student_id = ?";
+    let response;
+    try {
+        response = await dbQuery.query(courseQuery, [student_id]);
+    } catch (error) {
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+
+    const query = "SELECT m.module_name, rm.start_time, rm.end_time, s.name, s.surname FROM routines r INNER JOIN routinemodules rm ON r.routine_id = rm.routine_id INNER JOIN modules m ON rm.module_id = m.module_id INNER JOIN staff s ON s.module_id = m.module_id WHERE r.semester = ? AND r.day = ? AND r.course_id = ?";
     let result;
     try {
-        result = await dbQuery.query(query, [sem, day, course_id]);
+        result = await dbQuery.query(query, [sem, day, response[0].course_id]);
     } catch (error) {
         console.log(error);
         return next(new HttpError(500, "System error. Please try again."));
@@ -145,7 +152,6 @@ const getAttendanceStatus = async (req, res, next) => {
     const dbQuery = new Query();
     const student_id = req.params.id;
     const sem = await getSemester(student_id);
-    console.log(sem);
     const responseArray = [];
     const modules = await currentModule(student_id, next);
 
@@ -193,8 +199,8 @@ const getDiaries = (req, res, next) => {
     })
 }
 
-const setDiaries = (req, res, next) => {
-    const student_id = req.body.id;
+const setDiaries = async (req, res, next) => {
+    const student_id = req.body.student_id;
     const title = req.body.title;
     const body = req.body.body;
     const dbQuery = new Query();
@@ -204,15 +210,36 @@ const setDiaries = (req, res, next) => {
         throw new HttpError(422, "Invalid input passed");
     }
 
-
     const query = "INSERT INTO diaries (student_id, title, body) VALUES(?,?,?)";
-    dbQuery.query(query, [student_id, title, body])
-        .then(() => {
-            res.status(200).json({ message: "Diary added" });
-        }).catch((err) => {
-            return next(new HttpError(500, err));
-        })
 
+    try {
+        await dbQuery.query(query, [student_id, title, body]);
+    } catch (error) {
+        return next(new HttpError(500, err));
+    }
+    res.status(200).json({ message: "Diary added" });
+}
+
+const editDiaries = async (req, res, next) => {
+    const student_id = req.body.student_id;
+    const diary_id = req.body.diary_id;
+    const title = req.body.title;
+    const body = req.body.body;
+    const dbQuery = new Query();
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new HttpError(422, "Invalid input passed");
+    }
+
+    const query = "UPDATE diaries set title=?, body=? WHERE student_id=? AND diary_id = ?";
+
+    try {
+        await dbQuery.query(query, [title, body, student_id, diary_id]);
+    } catch (error) {
+        return next(new HttpError(500, err));
+    }
+    res.status(200).json({ message: "Diary added" });
 }
 
 const generatePass = (req, res, next) => {
@@ -276,7 +303,6 @@ const submitAssignment = (req, res, next) => {
 }
 
 const getSemester = async (student_id) => {
-    console.log(student_id);
     const dbQuery = new Query();
     const date = "SELECT registration_year FROM students WHERE student_id = ?";
     let dateResult;
@@ -309,6 +335,7 @@ exports.submitAttendance = submitAttendance;
 exports.getAttendanceStatus = getAttendanceStatus;
 exports.getDiaries = getDiaries;
 exports.setDiaries = setDiaries;
+exports.editDiaries = editDiaries;
 exports.getAssignment = getAssignment;
 exports.submitAssignment = submitAssignment;
 exports.resetPassword = resetPassword;

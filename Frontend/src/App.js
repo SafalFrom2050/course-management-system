@@ -13,7 +13,7 @@ function App() {
 
   let routes = null;
 
-  if (user && user.token) {
+  if (token || (user && user.token)) {
     routes =
       <Switch>
         <Route path='/' >

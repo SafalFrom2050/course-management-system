@@ -1,5 +1,6 @@
 import SideNavBar from '../../../components/Shared/SideNavBar';
 import Attendance from '../../Student/Attendance/Attendance';
+import Timetable from '../../Student/Timetable/Timetable';
 import StaffAttendance from '../../Staff/Attendance/StaffAttendance';
 import DiaryList from '../Diary/DiaryList';
 import CreateDiary from '../Diary/CreateDiary';
@@ -16,10 +17,13 @@ const Dashboard = (props) => (
             {props.userType === "student" ? <Attendance /> : <StaffAttendance />}
         </Route>
         <Route exact path="/diary">
-            <DiaryList />  
+            <DiaryList />
         </Route>
         <Route path="/diary/create">
-            <CreateDiary />  
+            <CreateDiary />
+        </Route>
+        <Route path="/timetable" exact>
+            <Timetable />
         </Route>
     </>
 );
