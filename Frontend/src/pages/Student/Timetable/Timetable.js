@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom'
 import { useHttpClient } from '../../../hooks/http-hook';
 import RoutineList from '../../../components/Student/Timetable/RoutineList';
+import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 function Timetable(props) {
     const [routine, setRoutine] = useState([]);
@@ -10,6 +11,9 @@ function Timetable(props) {
     const { sendRequest } = useHttpClient();
     const location = useLocation().search;
     const [activeBtn, setActiveBtn] = useState("Sunday");
+
+    const showAlertBox = useAlertBoxShowMsg();
+
 
     useEffect(() => {
         const day = new URLSearchParams(location).get('day');
@@ -23,8 +27,12 @@ function Timetable(props) {
             student_id: user.student_id,
             day
         }
-        const result = await sendRequest("http://localhost:5000/student/routine", "GET", { params }, null);
-        console.log(result);
+        const result = await sendRequest("http://localhost:5000/student/routine", "GET", { params }, null).catch((error)=>{
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+        if (!result) { 
+            return; 
+        }
         setRoutine(result.data)
     }
 

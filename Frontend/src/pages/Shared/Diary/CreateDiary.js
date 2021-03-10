@@ -1,5 +1,5 @@
 import './createDiary.css';
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { useHttpClient } from '../../../hooks/http-hook'
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
@@ -15,7 +15,7 @@ export default function CreateDiary() {
     // Date to set for future
     const [date, setDate] = useState(() => { return new Date().toISOString().replace('T', ' ').split('Z')[0] })
 
-    const showAlertBox = useAlertBoxShowMsg();
+    const showAlertBox = useAlertBoxShowMsg()
 
     const history = useHistory();
 
@@ -36,8 +36,13 @@ export default function CreateDiary() {
             }
         }
 
-        const result = await sendRequest(`http://localhost:5000/student/setDiaries`, "POST", payload, config);
-        if (!result) { return; }
+        const result = await sendRequest(`http://localhost:5000/student/setDiaries`, "POST", payload, config).catch((error)=>{
+            showAlertBox("Network error! Please try again later...", 2000)
+            console.log("error:"+error)
+        });
+        if (!result) { 
+            return; 
+        }
 
         showAlertBox("Diary Created!", 2000)
 

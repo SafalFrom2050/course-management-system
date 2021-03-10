@@ -1,17 +1,29 @@
-import { useContext } from 'react';
+import {useState, useContext } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import './SideNavBar.css';
+
 
 function SideNavBar() {
 
+    const [title, setTitle] = useState(getCurrentTitle());
     const auth = useContext(AuthContext);
+
     function logoutSession() {
         auth.logout();
     }
 
+    function getCurrentTitle(){
+        let route = useLocation().pathname.slice(1);
+
+        return route.charAt(0).toUpperCase() + route.slice(1);
+    }
+
     return (
         // <!-- Navigation Starts -->
+        <>
+         
+
         <nav>
             <ul className="side-nav">
 
@@ -26,27 +38,27 @@ function SideNavBar() {
                     </div>
                 </li>
 
-                <li className="modules">
+                <li className="modules" onClick={()=>setTitle("Modules")} >
                     <NavLink to="/modules">Modules</NavLink>
                 </li>
 
-                <li className="assignments">
+                <li className="assignments" onClick={()=>setTitle("Assignments")}>
                     <NavLink to="/assignments">Assignments</NavLink>
                 </li>
 
-                <li className="diary">
+                <li className="diary" onClick={()=>setTitle("Diary")}>
                     <NavLink to="/diary">Diary</NavLink>
                 </li>
 
-                <li className="attendance">
+                <li className="attendance" onClick={()=>setTitle("Attendance")}>
                     <NavLink to="/attendance">Attendance</NavLink>
                 </li>
 
-                <li className="timetable">
+                <li className="timetable" onClick={()=>setTitle("Timetable")}>
                     <NavLink to="/timetable">Timetable</NavLink>
                 </li>
 
-                <li className="personal-tutor">
+                <li className="personal-tutor" onClick={()=>setTitle("Personal Tutor")}>
                     <NavLink to="/personal-tutor">Personal Tutor</NavLink>
                 </li>
 
@@ -57,6 +69,13 @@ function SideNavBar() {
 
             </ul>
         </nav>
+        {/* <!-- Title Page (Same on all pages) --> */}
+        <div className="top-nav">
+            <div className="page-title">
+                <h2>{title}</h2>
+            </div>
+        </div>
+        </>
     );
 }
 
