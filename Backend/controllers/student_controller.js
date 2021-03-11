@@ -264,7 +264,6 @@ const getAssignment = async (req, res, next) => {
         return;
     }
     res.status(200).json(result);
-
 }
 
 const submitAssignment = (req, res, next) => {

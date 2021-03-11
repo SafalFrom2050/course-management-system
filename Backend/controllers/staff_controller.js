@@ -124,6 +124,22 @@ const getAllPresentStudents = async (req, res, next) => {
     }
 }
 
+const getRoutine = async (req, res, next) => {
+    const staff_id = req.query.staff_id;
+    const day = req.query.day;
+    const dbQuery = new Query();
+
+    const query = "SELECT m.module_name, rm.start_time, rm.end_time, s.name, s.surname, r.semester FROM routines r INNER JOIN routinemodules rm ON r.routine_id = rm.routine_id INNER JOIN modules m ON rm.module_id = m.module_id INNER JOIN staff s ON s.module_id = m.module_id WHERE r.day = ? AND s.staff_id = ?";
+    let result;
+    try {
+        result = await dbQuery.query(query, [day, staff_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    res.json(result);
+}
+
 
 exports.addAssignment = addAssignment;
 exports.activateAttendance = activateAttendance;
@@ -131,3 +147,4 @@ exports.deactivateAttendance = deactivateAttendance;
 exports.getModuleName = getModuleName;
 exports.getAllAttendanceRecords = getAllAttendanceRecords;
 exports.getAllPresentStudents = getAllPresentStudents;
+exports.getRoutine = getRoutine;

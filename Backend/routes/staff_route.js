@@ -1,5 +1,5 @@
 const express = require('express');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const router = express.Router();
 
 const staff = require('../controllers/staff_controller');
@@ -28,5 +28,7 @@ router.get("/getModuleName", staff.getModuleName);
 router.get("/getAllAttendanceRecords", staff.getAllAttendanceRecords);
 
 router.get("/getAllPresentStudents/:attendance_modules_id", staff.getAllPresentStudents);
+
+router.get("/routine", [query("day").not().isEmpty()], staff.getRoutine);
 
 module.exports = router;

@@ -23,12 +23,21 @@ function Timetable(props) {
 
     const downloadRoutine = async (day) => {
         const user = JSON.parse(localStorage.getItem("userData"));
-        const params = {
-            student_id: user.student_id,
-            day
+        let params;
+        if (user.userType === "student") {
+            params = {
+                student_id: user.student_id,
+                day
+            }
+        } else {
+            params = {
+                staff_id: user.staff_id,
+                day
+            }
         }
-        const result = await sendRequest("http://localhost:5000/student/routine", "GET", { params }, null).catch((error) => {
-            showAlertBox("Network error! Please try again later...", 2000)
+
+        const result = await sendRequest(`http://localhost:5000/${user.userType === "student" ? "student" : "staff"}/routine`, "GET", { params }, null).catch((error) => {
+            showAlertBox("Network error! Please try again later...", 2000);
         });
         if (!result) {
             return;
@@ -59,7 +68,8 @@ function Timetable(props) {
                                 name={item.name}
                                 surname={item.surname}
                                 start_time={item.start_time}
-                                end_time={item.end_time} />
+                                end_time={item.end_time}
+                                semester={item.semester} />
                         })}
                     </div>
                 </div>
