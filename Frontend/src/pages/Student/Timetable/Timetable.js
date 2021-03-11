@@ -24,7 +24,6 @@ function Timetable(props) {
             day
         }
         const result = await sendRequest("http://localhost:5000/student/routine", "GET", { params }, null);
-        console.log(result);
         setRoutine(result.data)
     }
 
