@@ -60,7 +60,7 @@ function SideNavBar() {
 
           {/* <!-- Any last item in the list is sent to bottom and its color inverted --> */}
           <li className="dark-mode">
-            <h4>Dark mode</h4>
+            <NavLink to="#" onClick={() => setTitle('Setting Dark Mode')}><h4>Dark mode</h4></NavLink>
           </li>
 
         </ul>

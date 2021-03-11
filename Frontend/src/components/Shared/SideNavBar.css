@@ -5,8 +5,33 @@ nav {
   left: 0;
   top: 0;
   height: 100vh;
+  overflow-y: auto;
   width: 12rem;
   background-color: #95e1d3;
+}
+nav::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+/* Track */
+nav::-webkit-scrollbar-track {
+  background: #ddd;
+  border-radius: 99px;
+  margin: 2px;
+}
+
+/* Handle */
+nav::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 99px;
+  height: 20px;
+}
+
+/* Handle on hover */
+nav::-webkit-scrollbar-thumb:hover {
+  background: #eee;
+  box-shadow: 0px 0px 5px #666666;
 }
 
 .top-nav {
@@ -32,7 +57,8 @@ nav {
   flex: 1;
   padding: 0;
   margin: 0;
-  height: 100%;
+  min-height: 100vh;
+  max-height: max-content;
 }
 
 .side-nav > li {
@@ -66,7 +92,9 @@ nav {
 }
 
 .side-nav > li:first-child {
-  height: 20rem;
+  height: 18rem;
+  display: flex;
+  align-items: center;
   margin-left: 0;
   padding-left: 0;
 }
