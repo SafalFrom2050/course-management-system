@@ -4,20 +4,32 @@ import { useHttpClient } from '../../../hooks/http-hook'
 import { useHistory } from "react-router-dom"
 
 import DiaryListItem from '../../../components/Shared/Diary/DiaryListItem'
+import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext'
+
 
 export default function DiaryList() {
-    const { sendRequest } = useHttpClient();
+    const { sendRequest, error } = useHttpClient();
     const user = JSON.parse(localStorage.getItem("userData"))
 
     const history = useHistory();
     const [diaryList, setDiaryList] = useState([])
+
+    const showAlertBox = useAlertBoxShowMsg()
 
     useEffect(() => {
         getDiaryList()
     }, [])
 
     const getDiaryList = async () => {
-        const result = await sendRequest(`http://localhost:5000/student/getDiaries/${user.student_id}`, "GET", null, null)
+        
+        const result = await sendRequest(`http://localhost:5000/student/getDiaries/${user.student_id}`, "GET", null, null).catch((error)=>{
+            showAlertBox("Network error! Please try again later...", 2000)
+        })
+
+        if (!result) { 
+            return; 
+        }
+
         setDiaryList(result.data)
     }
 

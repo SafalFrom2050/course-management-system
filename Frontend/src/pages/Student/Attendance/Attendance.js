@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react';
 import { useHttpClient } from '../../../hooks/http-hook';
 import AttendanceDetail from '../../../components/Student/Attendance/AttendanceDetail';
 import ActiveAttendance from '../../../components/Student/Attendance/ActiveAttendance';
+import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 const Attendance = () => {
     const { sendRequest } = useHttpClient();
     const [attendance, setAttendance] = useState([]);
     const [newAttendance, setNewAttendance] = useState([]);
     const user = JSON.parse(localStorage.getItem("userData"));
+
+    const showAlertBox = useAlertBoxShowMsg();
 
     useEffect(() => {
         downloadAttendance();
@@ -15,12 +18,22 @@ const Attendance = () => {
     }, [])
 
     const downloadAttendance = async () => {
-        const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, "GET", null, null);
+        const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, "GET", null, null).catch((error)=>{
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+        if (!result) { 
+            return; 
+        }
         setAttendance(result.data);
     }
 
     const downloadActiveAttendance = async () => {
-        const result = await sendRequest(`http://localhost:5000/student/attendance/${user.student_id}`, "GET", null, null);
+        const result = await sendRequest(`http://localhost:5000/student/attendance/${user.student_id}`, "GET", null, null).catch((error)=>{
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+        if (!result) { 
+            return; 
+        }
         setNewAttendance(result.data)
     }
 
@@ -35,8 +48,14 @@ const Attendance = () => {
             }
         }
 
-        const result = await sendRequest(`http://localhost:5000/student/submitAttendance`, "POST", payload, config);
-        if (!result) { return; }
+        const result = await sendRequest(`http://localhost:5000/student/submitAttendance`, "POST", payload, config).catch((error)=>{
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+        
+        if (!result) { 
+            return; 
+        }
+
         const obj = attendance.find((item) => {
             return item.module_name === module_name;
         });

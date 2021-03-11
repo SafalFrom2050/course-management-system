@@ -6,6 +6,7 @@ import { AuthContext } from './contexts/AuthContext';
 import { AlertBoxProvider } from './contexts/AlertBoxContext';
 import Dashboard from './pages/Shared/Dashboard/Dashboard';
 
+
 function App() {
 
   const { token, userName, login, logout, userType } = useAuth();

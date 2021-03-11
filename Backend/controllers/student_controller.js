@@ -255,7 +255,7 @@ const getAssignment = async (req, res, next) => {
     const student_id = req.query.id;
     const dbQuery = new Query();
 
-    const sem = await getSemester(student_id);
+    const currentSem = await getSemester(student_id);
 
     const query = "SELECT * FROM assignments WHERE semester = ?";
     const result = await dbQuery.query(query, [currentSem, module_id]);
