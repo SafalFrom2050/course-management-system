@@ -1,19 +1,33 @@
 import './Modal.css';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Backdrop from './Backdrop';
-import StudentTable from '../../components/Staff/StudentTable';
-
+import StudentTable from '../Staff/StudentTable';
 
 const Modal = (props) => {
-    return <>
-        {props.show && <Backdrop remove={props.hide} />}
-        <div className="Modal">
-            <section className="containForm">
-                <h3>{props.message}</h3>
-            </section>
-            {props.students.length > 0 ? <StudentTable students={props.students} /> : <p style={{ marginTop: "15px" }}>No attendance record found.</p>}
+  const {
+    show, hide, message, students,
+  } = props;
 
-        </div>
+  return (
+    <>
+      {show && <Backdrop remove={hide} />}
+      <div className="Modal">
+        <section className="containForm">
+          <h3>{message}</h3>
+        </section>
+        {students.length > 0 ? <StudentTable students={students} /> : <p style={{ marginTop: '15px' }}>No attendance record found.</p>}
+
+      </div>
     </>
-}
+  );
+};
+
+Modal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  hide: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired,
+  students: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default Modal;

@@ -1,60 +1,59 @@
 import './diaryList.css';
-import { useState, useEffect } from 'react'
-import { useHttpClient } from '../../../hooks/http-hook'
-import { useHistory } from "react-router-dom"
+import { React, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useHttpClient } from '../../../hooks/http-hook';
 
-import DiaryListItem from '../../../components/Shared/Diary/DiaryListItem'
-import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext'
-
+import DiaryListItem from '../../../components/Shared/Diary/DiaryListItem';
+import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 export default function DiaryList() {
-    const { sendRequest, error } = useHttpClient();
-    const user = JSON.parse(localStorage.getItem("userData"))
+  const { sendRequest, error } = useHttpClient();
+  const user = JSON.parse(localStorage.getItem('userData'));
 
-    const history = useHistory();
-    const [diaryList, setDiaryList] = useState([])
+  const history = useHistory();
+  const [diaryList, setDiaryList] = useState([]);
 
-    const showAlertBox = useAlertBoxShowMsg()
+  const showAlertBox = useAlertBoxShowMsg();
 
-    useEffect(() => {
-        getDiaryList()
-    }, [])
+  useEffect(() => {
+    getDiaryList();
+  }, []);
 
-    const getDiaryList = async () => {
-        
-        const result = await sendRequest(`http://localhost:5000/student/getDiaries/${user.student_id}`, "GET", null, null).catch((error)=>{
-            showAlertBox("Network error! Please try again later...", 2000)
-        })
+  const getDiaryList = async () => {
+    const result = await sendRequest(`http://localhost:5000/student/getDiaries/${user.student_id}`, 'GET', null, null).catch(() => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
 
-        if (!result) { 
-            return; 
-        }
-
-        setDiaryList(result.data)
+    if (!result) {
+      return;
     }
 
-    async function onEdit(diary_id) {
-    }
+    setDiaryList(result.data);
+  };
 
-    return (
+  async function onEdit(diaryId) {
+    // TODO
+  }
 
-        <>
-            <div className="diary-list">
-                <button className="create-diary-button" onClick={() => history.push("diary/create")}>Create New + </button>
-                {
-                    diaryList.map((item) => {
-                        return <DiaryListItem
-                            key={item.diary_id}
-                            heading={item.title}
-                            body={item.body}
-                            date={item.date_created}
-                            onEdit={() => { onEdit(item.diary_id) }}
-                        />
-                    })
+  return (
+
+    <>
+      <div className="diary-list">
+        <button type="button" className="create-diary-button" onClick={() => history.push('diary/create')}>Create New + </button>
+        {
+                    diaryList.map((item) => (
+                      <DiaryListItem
+                        key={item.diary_id}
+                        heading={item.title}
+                        body={item.body}
+                        date={item.date_created}
+                        onEdit={() => { onEdit(item.diary_id); }}
+                      />
+                    ))
                 }
-            </div>
+      </div>
 
-        </>
+    </>
 
-    )
+  );
 }

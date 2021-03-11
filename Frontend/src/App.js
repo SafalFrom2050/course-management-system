@@ -1,43 +1,49 @@
 import './App.css';
+import React from 'react';
+import {
+  BrowserRouter as Router, Switch, Route, Redirect,
+} from 'react-router-dom';
 import Login from './pages/Shared/Login/Login';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useAuth } from './hooks/auth-hook';
 import { AuthContext } from './contexts/AuthContext';
 import { AlertBoxProvider } from './contexts/AlertBoxContext';
 import Dashboard from './pages/Shared/Dashboard/Dashboard';
 
-
 function App() {
-
-  const { token, userName, login, logout, userType } = useAuth();
-  const user = JSON.parse(localStorage.getItem("userData"))
+  const {
+    token, userName, login, logout, userType,
+  } = useAuth();
+  const user = JSON.parse(localStorage.getItem('userData'));
 
   let routes = null;
 
   if (token || (user && user.token)) {
-    routes =
+    routes = (
       <Switch>
-        <Route path='/' >
+        <Route path="/">
           <Dashboard userType={userType} />
         </Route>
       </Switch>
+    );
   } else {
-    routes =
+    routes = (
       <Switch>
-        <Route path='/login' exact component={Login}></Route>
+        <Route path="/login" exact component={Login} />
         <Redirect to="/login" />
       </Switch>
+    );
   }
 
   return (
     <AuthContext.Provider value={{
       isLoggedIn: !!token,
-      login: login,
-      logout: logout,
-      userType: userType,
-      token: token,
-      userName: userName
-    }}>
+      login,
+      logout,
+      userType,
+      token,
+      userName,
+    }}
+    >
 
       <AlertBoxProvider>
         <Router>
@@ -47,8 +53,5 @@ function App() {
     </AuthContext.Provider>
   );
 }
-
-
-
 
 export default App;

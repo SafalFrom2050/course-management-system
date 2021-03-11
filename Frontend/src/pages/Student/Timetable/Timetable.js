@@ -1,101 +1,136 @@
-import "./Timetable.css"
-import { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom'
+import './Timetable.css';
+import { React, useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import RoutineList from '../../../components/Student/Timetable/RoutineList';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
-function Timetable(props) {
-    const [routine, setRoutine] = useState([]);
-    const history = useHistory();
-    const { sendRequest } = useHttpClient();
-    const location = useLocation().search;
-    const [activeBtn, setActiveBtn] = useState("Sunday");
+function Timetable() {
+  const [routine, setRoutine] = useState([]);
+  const history = useHistory();
+  const { sendRequest } = useHttpClient();
+  const location = useLocation().search;
+  const [activeBtn, setActiveBtn] = useState('Sunday');
 
-    const showAlertBox = useAlertBoxShowMsg();
+  const showAlertBox = useAlertBoxShowMsg();
 
+  useEffect(() => {
+    const day = new URLSearchParams(location).get('day');
+    day ? downloadRoutine(day) : downloadRoutine('Sunday');
+    day ? setActiveBtn(day) : setActiveBtn('Sunday');
+  }, []);
 
-    useEffect(() => {
-        const day = new URLSearchParams(location).get('day');
-        day ? downloadRoutine(day) : downloadRoutine("Sunday");
-        day ? setActiveBtn(day) : setActiveBtn("Sunday");
-    }, [])
-
-    const downloadRoutine = async (day) => {
-        const user = JSON.parse(localStorage.getItem("userData"));
-        let params;
-        if (user.userType === "student") {
-            params = {
-                student_id: user.student_id,
-                day
-            }
-        } else {
-            params = {
-                staff_id: user.staff_id,
-                day
-            }
-        }
-
-        const result = await sendRequest(`http://localhost:5000/${user.userType === "student" ? "student" : "staff"}/routine`, "GET", { params }, null).catch((error) => {
-            showAlertBox("Network error! Please try again later...", 2000);
-        });
-        if (!result) {
-            return;
-        }
-        setRoutine(result.data)
+  const downloadRoutine = async (day) => {
+    const user = JSON.parse(localStorage.getItem('userData'));
+    let params;
+    if (user.userType === 'student') {
+      params = {
+        student_id: user.student_id,
+        day,
+      };
+    } else {
+      params = {
+        staff_id: user.staff_id,
+        day,
+      };
     }
 
-    const buttonClickHandler = (day) => {
-        setActiveBtn(day);
-        history.push({
-            pathname: "/timetable",
-            search: `day=${day}`
-        })
-        downloadRoutine(day);
+    const result = await sendRequest(`http://localhost:5000/${user.userType === 'student' ? 'student' : 'staff'}/routine`, 'GET', { params }, null).catch(() => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      return;
     }
+    setRoutine(result.data);
+  };
 
-    return (
-        <>
-            <div className="timetable-container">
+  const buttonClickHandler = (day) => {
+    setActiveBtn(day);
+    history.push({
+      pathname: '/timetable',
+      search: `day=${day}`,
+    });
+    downloadRoutine(day);
+  };
 
-                <div className="class-information">
-                    <div className="heading">Classes</div>
+  return (
+    <>
+      <div className="timetable-container">
 
-                    <div className="class-list">
-                        {routine.map(item => {
-                            return <RoutineList
-                                module_name={item.module_name}
-                                name={item.name}
-                                surname={item.surname}
-                                start_time={item.start_time}
-                                end_time={item.end_time}
-                                semester={item.semester} />
-                        })}
-                    </div>
-                </div>
+        <div className="class-information">
+          <div className="heading">Classes</div>
 
-                <div className="days-selector">
-                    <div className="heading">Days</div>
-                    <div className="days-button-list">
-                        <button className={activeBtn === "Sunday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Sunday") }}>Sunday</button>
-                        <button className={activeBtn === "Monday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Monday") }}>Monday</button>
-                        <button className={activeBtn === "Tuesday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Tuesday") }}>Tuesday</button>
-                        <button className={activeBtn === "Wednesday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Wednesday") }}>Wednesday</button>
-                        <button className={activeBtn === "Thursday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Thursday") }}>Thursday</button>
-                        <button className={activeBtn === "Friday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Friday") }}>Friday</button>
-                        <button className={activeBtn === "Saturday" ? "selected-btn" : null}
-                            onClick={() => { buttonClickHandler("Saturday") }}>Saturday</button>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+          <div className="class-list">
+            {routine.map((item) => (
+              <RoutineList
+                module_name={item.module_name}
+                name={item.name}
+                surname={item.surname}
+                start_time={item.start_time}
+                end_time={item.end_time}
+                semester={item.semester}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="days-selector">
+          <div className="heading">Days</div>
+          <div className="days-button-list">
+            <button
+              type="button"
+              className={activeBtn === 'Sunday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Sunday'); }}
+            >
+              Sunday
+            </button>
+            <button
+              type="button"
+              className={activeBtn === 'Monday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Monday'); }}
+            >
+              Monday
+            </button>
+            <button
+              type="button"
+              className={activeBtn === 'Tuesday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Tuesday'); }}
+            >
+              Tuesday
+            </button>
+            <button
+              type="button"
+              className={activeBtn === 'Wednesday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Wednesday'); }}
+            >
+              Wednesday
+            </button>
+            <button
+              type="button"
+              className={activeBtn === 'Thursday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Thursday'); }}
+            >
+              Thursday
+            </button>
+            <button
+              type="button"
+              className={activeBtn === 'Friday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Friday'); }}
+            >
+              Friday
+            </button>
+            <button
+              type="button"
+              className={activeBtn === 'Saturday' ? 'selected-btn' : null}
+              onClick={() => { buttonClickHandler('Saturday'); }}
+            >
+              Saturday
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 export default Timetable;
