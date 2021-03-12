@@ -1,15 +1,22 @@
 import './Attendance.css';
-import { React, useState, useEffect } from 'react';
+
+import { React, useState, useEffect, useContext } from 'react';
+
 import { useHttpClient } from '../../../hooks/http-hook';
 import AttendanceDetail from '../../../components/Student/Attendance/AttendanceDetail';
 import ActiveAttendance from '../../../components/Student/Attendance/ActiveAttendance';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
+import { AuthContext } from '../../../contexts/AuthContext';
+
+
 const Attendance = () => {
-  const { sendRequest } = useHttpClient();
-  const [attendance, setAttendance] = useState([]);
-  const [newAttendance, setNewAttendance] = useState([]);
-  const user = JSON.parse(localStorage.getItem('userData'));
+    const { sendRequest } = useHttpClient();
+    const [attendance, setAttendance] = useState([]);
+    const [newAttendance, setNewAttendance] = useState([]);
+    const auth = useContext(AuthContext);
+    const user = JSON.parse(localStorage.getItem("userData"));
+
 
   const showAlertBox = useAlertBoxShowMsg();
 
@@ -18,22 +25,36 @@ const Attendance = () => {
     downloadActiveAttendance();
   }, []);
 
-  const downloadAttendance = async () => {
-    const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, 'GET', null, null).catch(() => {
-      showAlertBox('Network error! Please try again later...', 2000);
-    });
-    if (!result) {
-      return;
+
+    const downloadAttendance = async () => {
+        const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, "GET", {
+            headers: {
+                'Authorization': 'Bearer ' + auth.token
+            }
+        }, null).catch((error) => {
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+        if (!result) {
+            return;
+        }
+        setAttendance(result.data);
     }
     setAttendance(result.data);
   };
 
-  const downloadActiveAttendance = async () => {
-    const result = await sendRequest(`http://localhost:5000/student/attendance/${user.student_id}`, 'GET', null, null).catch(() => {
-      showAlertBox('Network error! Please try again later...', 2000);
-    });
-    if (!result) {
-      return;
+
+    const downloadActiveAttendance = async () => {
+        const result = await sendRequest(`http://localhost:5000/student/attendance/${user.student_id}`, "GET", {
+            headers: {
+                'Authorization': 'Bearer ' + auth.token
+            }
+        }, null).catch((error) => {
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+        if (!result) {
+            return;
+        }
+        setNewAttendance(result.data)
     }
     setNewAttendance(result.data);
   };
@@ -49,9 +70,14 @@ const Attendance = () => {
       },
     };
 
-    const result = await sendRequest('http://localhost:5000/student/submitAttendance', 'POST', payload, config).catch(() => {
-      showAlertBox('Network error! Please try again later...', 2000);
-    });
+
+        const result = await sendRequest(`http://localhost:5000/student/submitAttendance`, "POST", payload, config).catch((error) => {
+            showAlertBox("Network error! Please try again later...", 2000)
+        });
+
+        if (!result) {
+            return;
+        }
 
     if (!result) {
       return;
