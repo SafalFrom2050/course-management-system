@@ -1,12 +1,15 @@
-import { useState, useEffect, useCallback } from 'react';
+/* eslint-disable import/prefer-default-export */
+import {
+  useState, useRef, useEffect, useCallback,
+} from 'react';
 
 export const useAuth = () => {
-  const [token, setToken] = useState('');
+  const token = useRef('');
   const [userName, setUsername] = useState('');
   const [userType, setUserType] = useState('');
 
   const login = useCallback((recievedData) => {
-    setToken(recievedData.token);
+    token.current = recievedData.token;
     setUsername(recievedData.name);
     let obj = {
       token: recievedData.token,
@@ -27,7 +30,7 @@ export const useAuth = () => {
   }, []);
 
   const logout = useCallback(() => {
-    setToken('');
+    token.current = '';
     setUsername('');
     setUserType('');
     localStorage.removeItem('userData');

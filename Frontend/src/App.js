@@ -13,11 +13,10 @@ function App() {
   const {
     token, userName, login, logout, userType,
   } = useAuth();
-  const user = JSON.parse(localStorage.getItem('userData'));
 
   let routes = null;
 
-  if (token || (user && user.token)) {
+  if (token) {
     routes = (
       <Switch>
         <Route path="/">
