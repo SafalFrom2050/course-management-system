@@ -1,4 +1,6 @@
-import { React, useState, useContext } from 'react';
+import {
+  React, useState, useContext, useEffect,
+} from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import './SideNavBar.css';
@@ -7,12 +9,16 @@ function SideNavBar() {
   const [title, setTitle] = useState(GetCurrentTitle());
   const auth = useContext(AuthContext);
 
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
   function logoutSession() {
     auth.logout();
   }
 
   function GetCurrentTitle() {
-    const route = useLocation().pathname.slice(1);
+    const route = useLocation().pathname.slice(1).split('/')[0];
     return route.charAt(0).toUpperCase() + route.slice(1);
   }
 
