@@ -1,7 +1,7 @@
 # Section 1
 Completed
 # Section 2
-- assigning PAT day flow chart to be corrected
+- assigning PAT day flow chart is corrected
 - 2.2.2.1.10 to do
 - 2.2.2.1.11 not completed
 # Section 3
