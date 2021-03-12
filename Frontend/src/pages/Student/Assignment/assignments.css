@@ -1,3 +1,8 @@
+.assignment-list {
+  margin-left: 12rem;
+  text-align: center;
+}
+
 .assignment-item {
   text-align: center;
   display: flex;
@@ -7,10 +12,6 @@
   margin-right: 20%;
   margin-left: 20%;
   cursor: pointer;
-}
-
-.assignment-list {
-  text-align: center;
 }
 
 .assignment-item > .assignment-detail {

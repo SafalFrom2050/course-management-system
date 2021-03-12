@@ -24,7 +24,7 @@ const Dashboard = (props) => {
       <Route exact path="/diary">
         <DiaryList />
       </Route>
-      <Route path="/diary/create">
+      <Route exact path="/diary/create">
         <CreateDiary />
       </Route>
       <Route path="/timetable" exact>

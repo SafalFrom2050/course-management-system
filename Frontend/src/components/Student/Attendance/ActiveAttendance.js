@@ -16,14 +16,14 @@ const ActiveAttendance = (props) => {
         <p style={{ marginTop: '10px' }}>
           <strong>
             Week
-            {week}
+            {` ${week}`}
           </strong>
           {' '}
         </p>
         <div className="days-container" style={{ marginTop: '0' }}>
           <p>
             To be submitted by:
-            <strong>{time}</strong>
+            <strong>{` ${time}`}</strong>
           </p>
           <button type="button" className="day-check-btn" onClick={click}>Attend</button>
         </div>

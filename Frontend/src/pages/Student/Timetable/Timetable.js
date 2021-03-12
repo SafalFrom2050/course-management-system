@@ -6,43 +6,31 @@ import RoutineList from '../../../components/Student/Timetable/RoutineList';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 function Timetable() {
-    const [routine, setRoutine] = useState([]);
-    const [activeBtn, setActiveBtn] = useState("Sunday");
-    const history = useHistory();
-    const { sendRequest } = useHttpClient();
-    const location = useLocation().search;
-
+  const [routine, setRoutine] = useState([]);
+  const [activeBtn, setActiveBtn] = useState('Sunday');
+  const history = useHistory();
+  const { sendRequest } = useHttpClient();
+  const location = useLocation().search;
 
   const showAlertBox = useAlertBoxShowMsg();
 
+  useEffect(() => {
+    const day = new URLSearchParams(location).get('day');
+    day ? downloadRoutine(day) : downloadRoutine('Sunday');
+    day ? setActiveBtn(day) : setActiveBtn('Sunday');
+  }, []);
 
-    useEffect(() => {
-        const day = new URLSearchParams(location).get('day');
-        day ? downloadRoutine(day) : downloadRoutine("Sunday");
-        day ? setActiveBtn(day) : setActiveBtn("Sunday");
-    }, [])
-
-    const downloadRoutine = async (day) => {
-        const user = JSON.parse(localStorage.getItem("userData"));
-        let params = {
-            day
-        };
-        console.log(user.userType);
-        const result = await sendRequest(`http://localhost:5000/${user.userType === "student" ? "student" : "staff"}/routine`, "GET", {
-            params,
-            headers: {
-                'Authorization': 'Bearer ' + user.token
-            }
-        }, null).catch((error) => {
-            showAlertBox("Network error! Please try again later...", 2000);
-        });
-        if (!result) {
-            return;
-        }
-        setRoutine(result.data)
-    }
-
-    const result = await sendRequest(`http://localhost:5000/${user.userType === 'student' ? 'student' : 'staff'}/routine`, 'GET', { params }, null).catch(() => {
+  const downloadRoutine = async (day) => {
+    const user = JSON.parse(localStorage.getItem('userData'));
+    const params = {
+      day,
+    };
+    const result = await sendRequest(`http://localhost:5000/${user.userType === 'student' ? 'student' : 'staff'}/routine`, 'GET', {
+      params,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
     if (!result) {
@@ -67,20 +55,20 @@ function Timetable() {
         <div className="class-information">
           <div className="heading">Classes</div>
 
-
-                    <div className="class-list">
-                        {routine.map(item => {
-                            return <RoutineList
-                                module_name={item.module_name}
-                                name={item.name}
-                                surname={item.surname}
-                                start_time={item.start_time}
-                                end_time={item.end_time}
-                                semester={item.semester}
-                                key={item.start_time + item.name} />
-                        })}
-                    </div>
-                </div>
+          <div className="class-list">
+            {routine.map((item) => (
+              <RoutineList
+                module_name={item.module_name}
+                name={item.name}
+                surname={item.surname}
+                start_time={item.start_time}
+                end_time={item.end_time}
+                semester={item.semester}
+                key={item.start_time + item.name}
+              />
+            ))}
+          </div>
+        </div>
 
         <div className="days-selector">
           <div className="heading">Days</div>
