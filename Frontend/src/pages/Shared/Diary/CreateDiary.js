@@ -1,9 +1,10 @@
 import './createDiary.css';
-import { useState, useContext } from 'react'
-import { useHttpClient } from '../../../hooks/http-hook'
+
+import { React, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
-import { useHistory } from "react-router-dom"
 import { AuthContext } from '../../../contexts/AuthContext';
 
 export default function CreateDiary() {
@@ -21,9 +22,9 @@ export default function CreateDiary() {
     const history = useHistory();
 
 
-    // Creates a diary with date property set to current system date
-    async function createDiary(e) {
-        e.preventDefault()
+  // Creates a diary with date property set to current system date
+  async function createDiary(e) {
+    e.preventDefault();
 
         const payload = {
             title: diaryHeading,
@@ -45,64 +46,63 @@ export default function CreateDiary() {
             return;
         }
 
-        showAlertBox("Diary Created!", 2000)
+    showAlertBox('Diary Created!', 2000);
 
-        history.push("/diary")
-    }
+    history.push('/diary');
+  }
 
-    async function onEdit(diary_id) {
+  async function onEdit(diaryId) {
+    // TODO
+  }
 
+  return (
 
-    }
+    <>
+      <div className="diary-create-box">
+        <div className="create-diary-label">Create New +</div>
 
-    return (
+        {/* <!-- Diary Form -->
 
-        <>
-            <div className="diary-create-box">
-                <div className="create-diary-label">Create New +</div>
-
-                {/* <!-- Diary Form -->
-
-                <!-- Diary Form 
+                <!-- Diary Form
                     > Diary Detail
                         > diary Heading, Date Label, Body
-                            > Body, Data Label 
+                            > Body, Data Label
                                 > Edit Diary Button -->
 
                 <!-- Diary Item Without Full Text--> */}
 
-                <div className="diary-form">
-                    {/* <!-- Diary Detail --> */}
-                    <div className="diary-detail">
-                        <form onSubmit={createDiary}>
-                            <input
-                                className="diary-heading"
-                                type="text"
-                                name=""
-                                id=""
-                                placeholder="Heading..."
-                                required={true}
-                                onChange={e => setDiaryHeading(e.target.value)}
-                            />
-                            <label className="diary-date">{date.split(" ")[0]}</label>
-                            <textarea
-                                className="diary-body"
-                                name="diary-body"
-                                id=""
-                                cols="60"
-                                rows="10"
-                                required={true}
-                                onChange={e => setDiaryBody(e.target.value)}>
-                            </textarea>
+        <div className="diary-form">
+          {/* <!-- Diary Detail --> */}
+          <div className="diary-detail">
+            <form onSubmit={createDiary}>
+              <input
+                className="diary-heading"
+                type="text"
+                name=""
+                id=""
+                placeholder="Heading..."
+                required
+                onChange={(e) => setDiaryHeading(e.target.value)}
+              />
+              <label htmlFor="diary-body" className="diary-date">{date.split(' ')[0]}</label>
+              <textarea
+                className="diary-body"
+                name="diary-body"
+                id=""
+                cols="60"
+                rows="10"
+                required
+                onChange={(e) => setDiaryBody(e.target.value)}
+              />
 
-                            {/* <!-- Save diary --> */}
-                            <button className="save-diary-btn" type="submit">Save</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+              {/* <!-- Save diary --> */}
+              <button className="save-diary-btn" type="submit">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
 
-        </>
+    </>
 
-    )
+  );
 }

@@ -1,46 +1,61 @@
-import React, { useState } from 'react'
-
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 /*
     props.heading
     props.body
     props.date
-    props.selected
-    props.onSelect
     props.onEdit
 */
-export default function DiaryListItem(props){
+export default function DiaryListItem(props) {
+  const {
+    heading, body, date, onEdit,
+  } = props;
 
-    const [fullTextView, setFullTextView] = useState(false);
+  const [fullTextView, setFullTextView] = useState(false);
 
-    function toggleFullTextView(){
-        setFullTextView(prevFullTextView => !prevFullTextView);
-    }
+  function toggleFullTextView() {
+    setFullTextView((prevFullTextView) => !prevFullTextView);
+  }
 
-    return(
-        <div className="diary-item">
-            {/* <!-- Diary Detail, Active Item! --> */}
-            <div className={`diary-detail ${fullTextView === true ? 'diary-detail-full-text' : ''}`}  onClick={toggleFullTextView}>
-            <div className="diary-heading">{props.heading}</div>
+  return (
+    <div className="diary-item">
+      {/* <!-- Diary Detail, Active Item! --> */}
+      <div
+        role="button"
+        tabIndex={0}
+        className={`diary-detail ${fullTextView === true ? 'diary-detail-full-text' : ''}`}
+        onClick={toggleFullTextView}
+        onKeyPress={toggleFullTextView}
+      >
+        <div className="diary-heading">{heading}</div>
 
-            {/* <!-- Body information container --> */}
-            <div className="body-container">
-                <div className="body">
-                {props.body}
+        {/* <!-- Body information container --> */}
+        <div className="body-container">
+          <div className="body">
+            {body}
 
-                </div>
-                <div className="data-label">
-                <label className="data">
-                    {
-                        props.date.split("T",1)
+          </div>
+          <div className="data-label">
+            <label className="data">
+              {
+                        date.split('T', 1)
                     }
-                </label>
-                </div>
+            </label>
+          </div>
 
-                {/* <!-- Edit diary, only for active item --> */}
-                <button className="edit-diary-btn" onClick={props.onEdit} type="submit">Edit</button>
-            </div>
-            </div>
+          {/* <!-- Edit diary, only for active item --> */}
+          <button className="edit-diary-btn" onClick={onEdit} type="submit">Edit</button>
         </div>
-    )
+      </div>
+    </div>
+  );
 }
+
+DiaryListItem.propTypes = {
+  heading: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  onEdit: PropTypes.func.isRequired,
+};

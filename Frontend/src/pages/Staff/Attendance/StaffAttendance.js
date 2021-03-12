@@ -1,5 +1,6 @@
 import './StaffAttendance.css';
-import { useState, useEffect, useContext } from 'react';
+import { React, useState, useEffect, useContext } from 'react';
+
 import { useHttpClient } from '../../../hooks/http-hook';
 import ClassAttendance from '../../../components/Staff/ClassAttendance';
 import PostAttendance from '../../../components/Staff/PostAttendance';
