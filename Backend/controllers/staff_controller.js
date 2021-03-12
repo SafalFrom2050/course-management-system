@@ -1,7 +1,6 @@
 const Query = require('../Classes/Query');
 const { validationResult } = require('express-validator');
 const HttpError = require('../models/http_error');
-const { get } = require('../routes/staff_route');
 
 const addAssignment = (req, res, next) => {
     const errors = validationResult(req);
@@ -42,6 +41,7 @@ const getModuleName = async (req, res, next) => {
 }
 
 const activateAttendance = async (req, res, next) => {
+    console.log("Activate");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
@@ -125,10 +125,10 @@ const getAllPresentStudents = async (req, res, next) => {
 }
 
 const getRoutine = async (req, res, next) => {
-    const staff_id = req.query.staff_id;
+    const staff_id = req.userData.user_id;
     const day = req.query.day;
     const dbQuery = new Query();
-
+    console.log(staff_id);
     const query = "SELECT m.module_name, rm.start_time, rm.end_time, s.name, s.surname, r.semester FROM routines r INNER JOIN routinemodules rm ON r.routine_id = rm.routine_id INNER JOIN modules m ON rm.module_id = m.module_id INNER JOIN staff s ON s.module_id = m.module_id WHERE r.day = ? AND s.staff_id = ?";
     let result;
     try {

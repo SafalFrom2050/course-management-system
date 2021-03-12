@@ -7,10 +7,11 @@ import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 function Timetable(props) {
     const [routine, setRoutine] = useState([]);
+    const [activeBtn, setActiveBtn] = useState("Sunday");
     const history = useHistory();
     const { sendRequest } = useHttpClient();
     const location = useLocation().search;
-    const [activeBtn, setActiveBtn] = useState("Sunday");
+
 
     const showAlertBox = useAlertBoxShowMsg();
 
@@ -23,20 +24,16 @@ function Timetable(props) {
 
     const downloadRoutine = async (day) => {
         const user = JSON.parse(localStorage.getItem("userData"));
-        let params;
-        if (user.userType === "student") {
-            params = {
-                student_id: user.student_id,
-                day
+        let params = {
+            day
+        };
+        console.log(user.userType);
+        const result = await sendRequest(`http://localhost:5000/${user.userType === "student" ? "student" : "staff"}/routine`, "GET", {
+            params,
+            headers: {
+                'Authorization': 'Bearer ' + user.token
             }
-        } else {
-            params = {
-                staff_id: user.staff_id,
-                day
-            }
-        }
-
-        const result = await sendRequest(`http://localhost:5000/${user.userType === "student" ? "student" : "staff"}/routine`, "GET", { params }, null).catch((error) => {
+        }, null).catch((error) => {
             showAlertBox("Network error! Please try again later...", 2000);
         });
         if (!result) {
@@ -69,7 +66,8 @@ function Timetable(props) {
                                 surname={item.surname}
                                 start_time={item.start_time}
                                 end_time={item.end_time}
-                                semester={item.semester} />
+                                semester={item.semester}
+                                key={item.start_time + item.name} />
                         })}
                     </div>
                 </div>

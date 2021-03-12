@@ -1,18 +1,21 @@
-const HttpError = require("../models/http_error");
 const jwt = require('jsonwebtoken');
 
+const HttpError = require('../models/http_error');
+
 module.exports = (req, res, next) => {
-    let token;
+    if (req.method === 'OPTIONS') {
+        return next();
+    }
     try {
-        token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization.split(' ')[1]; // Authorization: 'Bearer TOKEN'
+        console.log(req.headers);
         if (!token) {
-            throw new HttpError(401, "Authentication failed");
+            return next(new HttpError(403, 'Authentication failed!. Try again'));
         }
-        const decodedToken = jwt.verify(token, "try_and_hack_me_noobs");
-        req.userData = { student_id: decodedToken.student_id };
+        const decodedToken = jwt.verify(token, 'try_and_hack_me_noobs');
+        req.userData = { user_id: decodedToken.user_id };
         next();
     } catch (err) {
-        err = new HttpError(401, 'Authentication failed');
-        return next(err);
+        return next(new HttpError(403, 'Authentication failed'));
     }
-}
+};

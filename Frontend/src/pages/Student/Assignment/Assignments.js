@@ -1,18 +1,18 @@
 import "./assignments.css"
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import AssignmentItem from '../../../components/Student/Assignment/AssignmentItem'
 
 import { useHttpClient } from '../../../hooks/http-hook'
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext'
+import { AuthContext } from "../../../contexts/AuthContext"
 
 
 export default function Assignments() {
-
+    const [assignmentList, setAssigmentList] = useState([]);
     const { sendRequest } = useHttpClient();
     const user = JSON.parse(localStorage.getItem("userData"));
-
-    const [assignmentList, setAssigmentList] = useState([]);
     const showAlertBox = useAlertBoxShowMsg();
+    const auth = useContext(AuthContext);
 
 
     useEffect(() => {
@@ -20,7 +20,11 @@ export default function Assignments() {
     }, [])
 
     async function getAssignmentList() {
-        const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${user.student_id}`, "GET", null, null).catch((error) => {
+        const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${user.student_id}`, "GET", {
+            headers: {
+                'Authorization': 'Bearer ' + auth.token
+            }
+        }, null).catch((error) => {
             showAlertBox("Network error! Please try again later...", 2000);
         })
 

@@ -1,22 +1,23 @@
 import './createDiary.css';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useHttpClient } from '../../../hooks/http-hook'
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 import { useHistory } from "react-router-dom"
+import { AuthContext } from '../../../contexts/AuthContext';
 
 export default function CreateDiary() {
-    const { sendRequest } = useHttpClient()
-    const user = JSON.parse(localStorage.getItem("userData"))
+    const [diaryBody, setDiaryBody] = useState("");
+    const [diaryHeading, setDiaryHeading] = useState("");
 
-    const [diaryBody, setDiaryBody] = useState("")
-    const [diaryHeading, setDiaryHeading] = useState("")
+    const { sendRequest } = useHttpClient();
+    const user = JSON.parse(localStorage.getItem("userData"));
+    const auth = useContext(AuthContext);
+
 
     // Date to set for future
-    const [date, setDate] = useState(() => { return new Date().toISOString().replace('T', ' ').split('Z')[0] })
-
-    const showAlertBox = useAlertBoxShowMsg()
-
+    const [date, setDate] = useState(() => { return new Date().toISOString().replace('T', ' ').split('Z')[0] });
+    const showAlertBox = useAlertBoxShowMsg();
     const history = useHistory();
 
 
@@ -25,7 +26,6 @@ export default function CreateDiary() {
         e.preventDefault()
 
         const payload = {
-            student_id: user.student_id,
             title: diaryHeading,
             body: diaryBody
         }
@@ -33,15 +33,16 @@ export default function CreateDiary() {
         let config = {
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + auth.token
             }
         }
 
-        const result = await sendRequest(`http://localhost:5000/student/setDiaries`, "POST", payload, config).catch((error)=>{
+        const result = await sendRequest(`http://localhost:5000/common/setDiaries?userType=${user.userType}`, "POST", payload, config).catch((error) => {
             showAlertBox("Network error! Please try again later...", 2000)
-            console.log("error:"+error)
+            console.log("error:" + error)
         });
-        if (!result) { 
-            return; 
+        if (!result) {
+            return;
         }
 
         showAlertBox("Diary Created!", 2000)

@@ -1,9 +1,11 @@
 const express = require('express');
 const { check, query } = require('express-validator');
 const router = express.Router();
+const authCheck = require('../middlewares/auth-check');
 
 const staff = require('../controllers/staff_controller');
 
+router.use(authCheck);
 
 router.post("/addAssignment", [
     check("module_id").isNumeric(),

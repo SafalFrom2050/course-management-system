@@ -1,9 +1,10 @@
 import './StaffAttendance.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useHttpClient } from '../../../hooks/http-hook';
 import ClassAttendance from '../../../components/Staff/ClassAttendance';
 import PostAttendance from '../../../components/Staff/PostAttendance';
 import Modal from '../../../components/Shared/Modal';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 const StaffAttendance = () => {
     const [activeAtt, setActiveAtt] = useState([]);
@@ -19,6 +20,7 @@ const StaffAttendance = () => {
 
     const { sendRequest } = useHttpClient();
     const user = JSON.parse(localStorage.getItem("userData"));
+    const auth = useContext(AuthContext);
 
     useEffect(() => {
         getActiveAttendance();
@@ -30,9 +32,17 @@ const StaffAttendance = () => {
             module_id: user.module_id,
             isActive: true
         }
-        const name = await sendRequest("http://localhost:5000/staff/getModuleName", "GET", { params }, null);
+        const name = await sendRequest("http://localhost:5000/staff/getModuleName", "GET", {
+            params, headers: {
+                'Authorization': 'Bearer ' + user.token
+            }
+        }, null);
         setModuleName(name.data.module_name);
-        const result = await sendRequest("http://localhost:5000/staff/getAllAttendanceRecords", "GET", { params }, null);
+        const result = await sendRequest("http://localhost:5000/staff/getAllAttendanceRecords", "GET", {
+            params, headers: {
+                'Authorization': 'Bearer ' + user.token
+            }
+        }, null);
         setActiveAtt(result.data);
     }
 
@@ -41,7 +51,11 @@ const StaffAttendance = () => {
             module_id: user.module_id,
             isActive: false
         }
-        const result = await sendRequest("http://localhost:5000/staff/getAllAttendanceRecords", "GET", { params }, null);
+        const result = await sendRequest("http://localhost:5000/staff/getAllAttendanceRecords", "GET", {
+            params, headers: {
+                'Authorization': 'Bearer ' + user.token
+            }
+        }, null);
         setAttRecord(result.data);
     }
 
@@ -52,6 +66,7 @@ const StaffAttendance = () => {
         let config = {
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + user.token
             }
         }
         await sendRequest("http://localhost:5000/staff/deactivateAttendance", "POST", payload, config);
@@ -101,6 +116,7 @@ const StaffAttendance = () => {
         let config = {
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + auth.token
             }
         }
         const res = await sendRequest("http://localhost:5000/staff/activateAttendance", "POST", obj, config);
@@ -125,7 +141,11 @@ const StaffAttendance = () => {
     }
 
     const viewStudents = async (attendance_modules_id) => {
-        const result = await sendRequest(`http://localhost:5000/staff/getAllPresentStudents/${attendance_modules_id}`, "GET", null, null);
+        const result = await sendRequest(`http://localhost:5000/staff/getAllPresentStudents/${attendance_modules_id}`, "GET", {
+            headers: {
+                'Authorization': 'Bearer ' + auth.token
+            }
+        }, null);
         setStudents(result.data);
         setModal(true);
     }

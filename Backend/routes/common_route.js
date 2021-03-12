@@ -10,4 +10,19 @@ router.post("/login", [
     check("password").isLength(7)
 ], common.login);
 
-module.exports = router; 
+router.use(authCheck);
+
+router.get("/getDiaries", common.getDiaries);
+
+router.post("/setDiaries", [
+    check("title").isLength({ min: 1 }),
+    check("body").isLength({ min: 1 }),
+], common.setDiaries);
+
+router.patch("/editDiaries", [
+    check("diary_id").not().isEmpty(),
+    check("title").isLength({ min: 1 }),
+    check("body").isLength({ min: 1 }),
+], common.editDiaries);
+
+module.exports = router;

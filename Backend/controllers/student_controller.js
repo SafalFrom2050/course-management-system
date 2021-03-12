@@ -39,7 +39,7 @@ const resetPassword = async (req, res, next) => {
 }
 
 const getCurrentModule = async (req, res, next) => {
-    const student_id = req.params.id;
+    const student_id = req.userData.user_id;
     const response = await currentModule(student_id, next);
     res.json(response)
 }
@@ -68,7 +68,7 @@ async function currentModule(student_id, next) {
 
 const getAttendanceForm = async (req, res, next) => {
     const dbQuery = new Query();
-    const student_id = req.params.id;
+    const student_id = req.userData.user_id;
 
     const sem = await getSemester(student_id);
     const query = "SELECT modules.module_name, attendancemodules.attendance_modules_id, attendancemodules.attendance_time, attendancemodules.week FROM attendancemodules JOIN modules ON attendancemodules.module_id = modules.module_id WHERE attendancemodules.attendance_status = 1 AND attendancemodules.semester = ?";
@@ -95,7 +95,7 @@ const getAttendanceForm = async (req, res, next) => {
 }
 
 const submitAttendance = async (req, res, next) => {
-    const student_id = req.body.student_id;
+    const student_id = req.userData.user_id;
     const attendance_module_id = req.body.attendance_module_id;
     const attendance_time = new Date();
     const dbQuery = new Query();
@@ -123,7 +123,7 @@ const submitAttendance = async (req, res, next) => {
 }
 
 const getRoutine = async (req, res, next) => {
-    const student_id = req.query.student_id;
+    const student_id = req.userData.user_id;
     const day = req.query.day;
     const dbQuery = new Query();
 
@@ -150,7 +150,7 @@ const getRoutine = async (req, res, next) => {
 
 const getAttendanceStatus = async (req, res, next) => {
     const dbQuery = new Query();
-    const student_id = req.params.id;
+    const student_id = req.userData.user_id;
     const sem = await getSemester(student_id);
     const responseArray = [];
     const modules = await currentModule(student_id, next);
@@ -186,7 +186,7 @@ const getAttendanceStatus = async (req, res, next) => {
 
 
 const getDiaries = (req, res, next) => {
-    const student_id = req.params.id;
+    const student_id = req.userData.user_id;
     const query = "SELECT * FROM diaries WHERE student_id = ? ORDER BY date_created DESC";
     sqlObj.con.query(query, [student_id], (err, result) => {
         if (err) {
@@ -200,7 +200,7 @@ const getDiaries = (req, res, next) => {
 }
 
 const setDiaries = async (req, res, next) => {
-    const student_id = req.body.student_id;
+    const student_id = req.userData.user_id;
     const title = req.body.title;
     const body = req.body.body;
     const dbQuery = new Query();
@@ -221,7 +221,7 @@ const setDiaries = async (req, res, next) => {
 }
 
 const editDiaries = async (req, res, next) => {
-    const student_id = req.body.student_id;
+    const student_id = req.userData.user_id;
     const diary_id = req.body.diary_id;
     const title = req.body.title;
     const body = req.body.body;
@@ -252,7 +252,7 @@ const generatePass = (req, res, next) => {
 
 const getAssignment = async (req, res, next) => {
     const module_id = req.query.module_id;
-    const student_id = req.query.id;
+    const student_id = req.userData.user_id;
     const dbQuery = new Query();
 
     const currentSem = await getSemester(student_id);
@@ -273,7 +273,7 @@ const submitAssignment = (req, res, next) => {
     }
 
     const assignment_id = req.body.assignment_id;
-    const student_id = req.body.student_id;
+    const student_id = req.userData.user_id;
     const submission_date = new Date();
     const content = req.body.content;
 

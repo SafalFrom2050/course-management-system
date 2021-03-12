@@ -1,14 +1,16 @@
 import './diaryList.css';
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useHttpClient } from '../../../hooks/http-hook'
 import { useHistory } from "react-router-dom"
 
 import DiaryListItem from '../../../components/Shared/Diary/DiaryListItem'
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext'
+import { AuthContext } from '../../../contexts/AuthContext';
 
 
 export default function DiaryList() {
     const { sendRequest, error } = useHttpClient();
+    const auth = useContext(AuthContext)
     const user = JSON.parse(localStorage.getItem("userData"))
 
     const history = useHistory();
@@ -21,13 +23,17 @@ export default function DiaryList() {
     }, [])
 
     const getDiaryList = async () => {
-        
-        const result = await sendRequest(`http://localhost:5000/student/getDiaries/${user.student_id}`, "GET", null, null).catch((error)=>{
+        const result = await sendRequest(`http://localhost:5000/common/getDiaries?userType=${user.userType}`, "GET", {
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + user.token
+            }
+        }, null).catch((error) => {
             showAlertBox("Network error! Please try again later...", 2000)
         })
 
-        if (!result) { 
-            return; 
+        if (!result) {
+            return;
         }
 
         setDiaryList(result.data)
