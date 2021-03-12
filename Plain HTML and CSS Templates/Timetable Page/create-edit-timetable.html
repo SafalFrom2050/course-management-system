@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../nav.css" />
+    <link rel="stylesheet" href="../typography.css" />
+    <link rel="stylesheet" href="../style.css" />
+
+    <link rel="stylesheet" href="timetable.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- Title Page (Same on all pages) -->
+    <nav>
+      <div class="page-title">
+        <h2>Timetable</h2>
+      </div>
+    </nav>
+
+    <!-- 
+      timetable-container >
+            class-information, days-selector
+    -->
+
+    <div class="timetable-container">
+      <!-- class-information >
+              heading, class-list > 
+                              class-item >
+                                    {(first-row > 
+                                            title, tutor)
+                                      , (second-row >
+                                            label, start-time, label, end-time) -->
+
+      <div class="class-information">
+        <div class="heading">Classes</div>
+
+        <div class="class-list">
+          <form class="class-item">
+            <div class="first-row">
+              <input
+                class="title"
+                value="Astronomy - Exploration of Spacetime | Lecture"
+              />
+
+              <input id="tutor" class="tutor" value="By Safal Sharma" />
+            </div>
+
+            <div class="second-row">
+              <label>Start Time</label>
+              <input
+                type="time"
+                id="start-time"
+                class="start-time"
+                value="12:40"
+              />
+              <label>End Time</label>
+              <input type="time" id="end-time" class="end-time" value="02:00" />
+              <button>Save</button>
+            </div>
+          </form>
+
+          <button>Add New</button>
+        </div>
+      </div>
+
+      <!-- days-selector >
+                heading, days-button-list > 
+                                button(states: selected-btn, inactive) -->
+
+      <div class="days-selector">
+        <div class="heading">Days</div>
+        <div class="days-button-list">
+          <button class="selected-btn">Sunday</button>
+          <button>Monday</button>
+          <button>Tuesday</button>
+          <button>Wednesday</button>
+          <button>Thursday</button>
+          <button>Friday</button>
+          <button>Saturday</button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
