@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function RoutineList(props) {
   const {
-    module_name, name, surname, start_time, end_time, semester,
+    module_name, name, surname, start_time, end_time, class_type,
   } = props;
 
   return (
@@ -22,10 +22,9 @@ function RoutineList(props) {
         <div className="start-time">{start_time}</div>
         <label>End Time</label>
         <div className="end-time">{end_time}</div>
-        {semester ? (
+        {class_type ? (
           <>
-            <label>Sem</label>
-            <div className="end-time">{semester}</div>
+            <div className="end-time">{class_type}</div>
           </>
         ) : null}
 
@@ -39,7 +38,7 @@ RoutineList.propTypes = {
   surname: PropTypes.string.isRequired,
   start_time: PropTypes.string.isRequired,
   end_time: PropTypes.string.isRequired,
-  semester: PropTypes.number.isRequired,
+  class_type: PropTypes.string.isRequired,
 };
 
 export default RoutineList;

@@ -16,7 +16,7 @@ export default function CreateDiary() {
   const auth = useContext(AuthContext);
 
   // Date to set for future
-  const [date, setDate] = useState(() => new Date().toISOString().replace('T', ' ').split('Z')[0]);
+  const [date] = useState(() => new Date().toISOString().replace('T', ' ').split('Z')[0]);
   const showAlertBox = useAlertBoxShowMsg();
   const history = useHistory();
 
@@ -49,9 +49,9 @@ export default function CreateDiary() {
     history.push('/diary');
   }
 
-  async function onEdit(diaryId) {
-    // TODO
-  }
+  // async function onEdit(diaryId) {
+  //   // TODO
+  // }
 
   return (
 

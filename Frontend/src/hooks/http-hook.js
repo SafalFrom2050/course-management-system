@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable import/prefer-default-export */
 import axios from 'axios';
 import { useState, useCallback } from 'react';
 
@@ -13,8 +15,8 @@ export const useHttpClient = () => {
         try {
           const result = axios.get(url, payload, config);
           return result;
-        } catch (error) {
-          setError(error);
+        } catch (err) {
+          setError(err);
         } finally {
           setIsLoading(false);
         }
@@ -22,8 +24,8 @@ export const useHttpClient = () => {
         try {
           const result = await axios.post(url, payload, config);
           return result;
-        } catch (error) {
-          setError(error);
+        } catch (err) {
+          setError(err);
         } finally {
           setIsLoading(false);
         }

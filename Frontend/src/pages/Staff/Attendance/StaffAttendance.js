@@ -16,8 +16,8 @@ const StaffAttendance = () => {
   const [students, setStudents] = useState([]);
   const [moduleName, setModuleName] = useState('Loading...');
   const [post, setPost] = useState({
-    semester: null,
-    week: null,
+    semester: 1,
+    week: 1,
     date: null,
   });
 
@@ -38,14 +38,14 @@ const StaffAttendance = () => {
     const name = await sendRequest('http://localhost:5000/staff/getModuleName', 'GET', {
       params,
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null);
     setModuleName(name.data.module_name);
     const result = await sendRequest('http://localhost:5000/staff/getAllAttendanceRecords', 'GET', {
       params,
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null);
     setActiveAtt(result.data);
@@ -59,7 +59,7 @@ const StaffAttendance = () => {
     const result = await sendRequest('http://localhost:5000/staff/getAllAttendanceRecords', 'GET', {
       params,
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null);
     setAttRecord(result.data);
@@ -72,7 +72,7 @@ const StaffAttendance = () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     };
     await sendRequest('http://localhost:5000/staff/deactivateAttendance', 'POST', payload, config);
@@ -109,9 +109,7 @@ const StaffAttendance = () => {
     const { semester } = post;
     const { week } = post;
     const attendance_time = post.date;
-    if (!attendance_time || !semester || !week) {
-      return;
-    }
+
     const obj = {
       module_id: user.module_id,
       attendance_time,
@@ -119,10 +117,11 @@ const StaffAttendance = () => {
       week,
       class_type: 'Lecture',
     };
+
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     };
     const res = await sendRequest('http://localhost:5000/staff/activateAttendance', 'POST', obj, config);
@@ -149,7 +148,7 @@ const StaffAttendance = () => {
   const viewStudents = async (attendance_modules_id) => {
     const result = await sendRequest(`http://localhost:5000/staff/getAllPresentStudents/${attendance_modules_id}`, 'GET', {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null);
     setStudents(result.data);

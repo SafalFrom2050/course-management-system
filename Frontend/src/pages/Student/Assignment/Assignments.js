@@ -20,7 +20,7 @@ export default function Assignments() {
   async function getAssignmentList() {
     const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${user.student_id}`, 'GET', {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);

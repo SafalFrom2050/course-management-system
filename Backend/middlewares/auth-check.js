@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
     }
     try {
         const token = req.headers.authorization.split(' ')[1]; // Authorization: 'Bearer TOKEN'
-        console.log(req.headers);
         if (!token) {
             return next(new HttpError(403, 'Authentication failed!. Try again'));
         }
