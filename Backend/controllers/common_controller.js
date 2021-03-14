@@ -94,7 +94,8 @@ const getDiaries = async (req, res, next) => {
 }
 
 const editDiaries = async (req, res, next) => {
-    const student_id = req.userData.student_id;
+    const user_id = req.userData.user_id;
+    const userType =  req.body.userType;
     const diary_id = req.body.diary_id;
     const title = req.body.title;
     const body = req.body.body;
@@ -105,17 +106,49 @@ const editDiaries = async (req, res, next) => {
         throw new HttpError(422, "Invalid input passed");
     }
 
-    const query = "UPDATE diaries set title=?, body=? WHERE student_id=? AND diary_id = ?";
+
+    let query = "UPDATE diaries set title=?, body=? WHERE student_id=? AND diary_id = ?";
+    if(userType=="staff"){
+        query = "UPDATE staffDiaries set title=?, body=? WHERE staff_id=? AND diary_id = ?";
+    }
 
     try {
-        await dbQuery.query(query, [title, body, student_id, diary_id]);
+        await dbQuery.query(query, [title, body, user_id, diary_id]);
     } catch (error) {
-        return next(new HttpError(500, error));
+        return next(new HttpError(500, "Error editing diaries.. Try again"));
     }
-    res.status(200).json({ message: "Diary added" });
+    res.status(200).json({ message: "Diary Edited" });
 }
+
+const deleteDiaries = async (req, res, next) => {
+    const userType =  req.body.userType;
+    const diary_id = req.body.diary_id;
+
+    const dbQuery = new Query();
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        throw new HttpError(422, "Invalid input passed");
+    }
+
+
+    let query = "DELETE FROM diaries WHERE diary_id = ?";
+    if(userType=="staff"){
+        query = "DELETE FROM staffDiaries WHERE diary_id = ?";
+    }
+
+    try {
+        await dbQuery.query(query, [diary_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Error deleting diaries.. Try again"));
+    }
+    res.status(200).json({ message: "Diary deleted" });
+}
+
+
 
 exports.login = login;
 exports.getDiaries = getDiaries;
 exports.setDiaries = setDiaries;
 exports.editDiaries = editDiaries;
+exports.deleteDiaries = deleteDiaries;
