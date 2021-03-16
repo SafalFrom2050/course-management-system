@@ -62,7 +62,7 @@
 
 .assignment-item > .assignment-detail-full-text > .body-container > .body {
   white-space: unset;
-  overflow: unset;
+  word-break: break-all;
 }
 
 .assignment-item > .assignment-detail > .body-container > .data-label {

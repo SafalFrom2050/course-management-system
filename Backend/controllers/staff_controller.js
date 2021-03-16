@@ -2,25 +2,27 @@ const Query = require('../Classes/Query');
 const { validationResult } = require('express-validator');
 const HttpError = require('../models/http_error');
 
-const addAssignment = (req, res, next) => {
+const addAssignment =async (req, res, next) => {
     const errors = validationResult(req);
+    const dbQuery = new Query();
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
     }
 
     const module_id = req.body.module_id;
+    const title = req.body.title;
     const content = req.body.content;
     const semester = req.body.semester;
     const deadline = req.body.deadline;
 
-    const query = "INSERT INTO assignments (module_id,content,semester,deadline) VALUES (?,?,?,?)";
-    sqlObj.con.query(query, [module_id, content, semester, deadline], (err, result) => {
-        if (err) {
-            console.log(err);
-            throw new HttpError(500, "Service Error. Please try again.");
-        }
-        res.status(200).json({ message: "Assignment added" });
-    })
+    const query = "INSERT INTO assignments (module_id,title,content,semester,deadline) VALUES (?,?,?,?,?)";
+    try {
+        await dbQuery.query(query, [module_id,title, content, semester, deadline]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.status(200).json({ message: "Assignment added" });
 }
 
 // This function is used to check if an attendance is active or not.

@@ -38,7 +38,7 @@ export default function Assignments() {
         {assignmentList.map((assignment) => (
           <AssignmentItem
             key={assignment.assignment_id}
-            heading={`Heading/Module ID: ${assignment.module_id}`}
+            heading={`${assignment.title} /Module ID: ${assignment.module_id}`}
             body={assignment.content}
             deadline={assignment.deadline}
           />

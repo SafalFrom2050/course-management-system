@@ -9,6 +9,7 @@ import Timetable from '../../Student/Timetable/Timetable';
 import StaffAttendance from '../../Staff/Attendance/StaffAttendance';
 import DiaryList from '../Diary/DiaryList';
 import StudentAssignments from '../../Student/Assignment/Assignments';
+import CreateAssignment from '../../Staff/Assignment/CreateAssignment';
 import CreateDiary from '../Diary/CreateDiary';
 import Alertbox from '../../../components/Shared/Alertbox';
 
@@ -31,7 +32,8 @@ const Dashboard = (props) => {
         <Timetable />
       </Route>
       <Route path="/assignments" exact>
-        <StudentAssignments />
+        {userType === 'student' ? <StudentAssignments /> : <CreateAssignment />}
+
       </Route>
     </>
   );

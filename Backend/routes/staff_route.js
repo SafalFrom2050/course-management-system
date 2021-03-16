@@ -10,6 +10,8 @@ router.use(authCheck);
 router.post("/addAssignment", [
     check("module_id").isNumeric(),
     check("content").not().isEmpty(),
+    check("title").not().isEmpty(),
+    check("deadline").not().isEmpty(),
     check("semester").isNumeric(),
 ], staff.addAssignment);
 

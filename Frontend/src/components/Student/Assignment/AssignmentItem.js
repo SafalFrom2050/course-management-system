@@ -6,13 +6,6 @@
 import React, { useState } from 'react';
 
 export default function AssignmentItem(props) {
-  /*
-            props.assignment_id
-            props.heading
-            props.body
-            props.deadline
-        */
-
   const [fullTextView, setFullTextView] = useState(false);
 
   function toggleFullTextView() {
