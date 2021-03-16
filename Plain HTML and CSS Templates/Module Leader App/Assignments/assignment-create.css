@@ -1,0 +1,167 @@
+.assignment-create-box {
+  margin-bottom: 26px;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.assignment-create-box {
+  text-align: center;
+}
+.create-assignment-label {
+  padding: 12px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  font-size: larger;
+  font-weight: bold;
+}
+
+.assignment-detail > form {
+  display: flex;
+  flex-direction: column;
+}
+.assignment-date {
+  font-size: small;
+  white-space: nowrap;
+
+  margin: 12px;
+  margin-right: 100%;
+  margin-left: 2rem;
+}
+.assignment-detail > form > .assignment-heading,
+.assignment-detail > form > .assignment-body {
+  padding: 12px;
+  margin: 8px;
+  padding-left: 22px;
+  padding-right: 22px;
+  border: #ddd solid 1px;
+}
+
+.assignment-detail > form > .assignment-heading:focus,
+.assignment-detail > form > .assignment-body:focus {
+  outline: none;
+  border: #999 solid 2px;
+}
+
+.assignment-detail > form > .assignment-heading {
+  border-radius: 6px;
+  font-size: medium;
+  font-weight: normal;
+}
+
+.assignment-detail > form > .assignment-body {
+  border-radius: 8px;
+
+  font-weight: lighter;
+}
+
+.options-box{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border: solid 1px #ddd;
+  border-radius: 12px;
+
+  margin: 8px;
+  padding:2rem;
+  padding-left: 3rem;
+}
+
+.options-box .heading{
+  margin-bottom: 1rem;
+}
+
+.options-box  a{
+  font-size: small;
+  font-style: italic;
+  margin-left: 2rem;
+  margin-right: 1rem;
+}
+
+.options-box .link{
+  display: flex;
+  align-items: center;
+  margin:4px;
+  width: 100%;
+  text-align: start;
+}
+.options-box .link button{
+  font-size: small;
+  font-weight: normal;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: auto;
+  padding:8px;
+  background-color: white;
+}
+
+.options-box .date-level-selector,
+.options-box .module-selector{
+  margin-top: 2rem;
+}
+
+#modules-selector {
+  background-color: yellow;
+  border: unset;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 8px;
+}
+
+form #start-date,
+form #end-date,
+form #level{
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  border: unset;
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  background-color: yellow;
+}
+
+form #start-date:focus,
+form #end-date:focus,
+form #level:focus{
+  background-color: white;
+}
+
+form #level{
+  width: 3rem;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+form button{
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+
+
+
+  background-color: yellow;
+  box-shadow: 0px 0px 2px rgba(128, 128, 0, 0.493);
+
+  cursor: pointer;
+}
+
+.assignment-detail > form  .save-assignment-btn {
+  font-size: medium;
+  margin: 1rem;
+  background-color: yellow;
+  font-weight: bold;
+ 
+  margin-left: auto;
+}
+
+form button:hover,
+.assignment-detail > form  .save-assignment-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(128, 128, 0, 0.493);
+}

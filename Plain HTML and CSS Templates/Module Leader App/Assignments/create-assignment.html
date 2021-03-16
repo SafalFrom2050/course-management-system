@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="assignment-create.css" />
+    <link rel="stylesheet" href="../../nav.css" />
+    <link rel="stylesheet" href="../../typography.css" />
+    <link rel="stylesheet" href="../../style.css" />
+  </head>
+  <body>
+    <!-- Title Page (Same on all pages) -->
+    <nav>
+      <div class="page-title">
+        <h2>Assignments</h2>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+
+    <div class="assignment-create-box">
+      <div class="create-assignment-label">Create New +</div>
+
+      <!-- .Assignment Form > .Assignment Detail > Form -->
+      <div class="assignment-form">
+        <div class="assignment-detail">
+          <!-- WHOLE CONTENTS -->
+          <form>
+            <!-- Title -->
+            <input
+              class="assignment-heading"
+              type="text"
+              name=""
+              id=""
+              placeholder="Heading..."
+            />
+
+            <!-- Body -->
+            <textarea
+              class="assignment-body"
+              name="assignment-body"
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Body"
+            ></textarea>
+
+            <!-- Other Options -->
+            <div class="options-box">
+              <!-- Option Heading -->
+              <h4 class="heading">Brief Links</h4>
+
+              <!-- Links Maker -->
+              <div class="link">
+                <a
+                  href="https://docs.google.com/document/d/1QKUtEXrf2pTX-OiSuQ2QHIX-mxuv7qJxZ-YJTJcdglw/edit"
+                >
+                  https://docs.google.com/document/d/1QKUtEXrf2pTX-OiSuQ2QHIX-mxuv7qJxZ-YJTJcdglw/edit
+                </a>
+                <button>Remove</button>
+              </div>
+
+              <div class="link">
+                <a href="http://www.google.com">Google.com</a>
+                <button>Remove</button>
+              </div>
+
+              <!-- Add New Link Button -->
+              <button>Add New</button>
+
+              <!-- Module Selector -->
+              <div class="module-selector">
+                <label for="modules">Select Module</label>
+
+                <select name="modules" id="modules-selector">
+                  <option value="module-1">Group Project</option>
+                  <option value="module-2">Software Engineering</option>
+                  <option value="module-3">Web Development</option>
+                </select>
+              </div>
+
+              <!-- Date And Level Selector -->
+              <div class="date-level-selector">
+                <label>Start Date</label>
+                <input type="date" id="start-date" value="2020-01-01" />
+                <label>Due Date</label>
+                <input type="date" id="end-date" value="2020-09-09" />
+                <label>Level</label>
+                <input type="text" id="level" value="L5" placeholder="Level" />
+              </div>
+            </div>
+
+            <!-- Save assignment -->
+            <button class="save-assignment-btn" type="submit">Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
