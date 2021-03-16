@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 10, 2021 at 07:10 AM
+-- Generation Time: Mar 13, 2021 at 04:17 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -30,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `assignments` (
   `assignment_id` int(10) NOT NULL,
   `module_id` int(10) NOT NULL,
+  `title` varchar(255) NOT NULL,
   `deadline` datetime NOT NULL,
   `content` longtext NOT NULL,
   `semester` int(5) NOT NULL
@@ -39,8 +40,8 @@ CREATE TABLE `assignments` (
 -- Dumping data for table `assignments`
 --
 
-INSERT INTO `assignments` (`assignment_id`, `module_id`, `deadline`, `content`, `semester`) VALUES
-(3, 2006, '2021-03-21 23:59:59', 'Go to this link google.com', 4);
+INSERT INTO `assignments` (`assignment_id`, `module_id`, `title`, `deadline`, `content`, `semester`) VALUES
+(3, 2006, 'Swing GUI Vehicle rental', '2021-03-21 23:59:59', 'Go to this link google.com', 4);
 
 -- --------------------------------------------------------
 
@@ -138,7 +139,8 @@ INSERT INTO `diaries` (`diary_id`, `student_id`, `title`, `body`, `date_created`
 (1, 1, 'My first diary', 'Node.js is an open-source, cross-platform, back-end, JavaScript runtime environment that executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user\'s web browser. Consequently, Node.js represents a \"JavaScript everywhere\" paradigm,[6] unifying web-application development around a single programming language, rather than different languages for server-side and client-side scripts.\r\n\r\nThough .js is the standard filename extension for JavaScript code, the name \"Node.js\" doesn\'t refer to a particular file in this context and is merely the name of the product. Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications (e.g., real-time communication programs and browser games).[7]\r\n\r\nThe Node.js distributed development project was previously governed by the Node.js Foundation,[8] and has now merged with the JS Foundation to form the OpenJS Foundation, which is facilitated by the Linux Foundation\'s Collaborative Projects program.[9]', '2020-12-19 00:00:00'),
 (2, 1, 'Second Diary', 'This is a built-in middleware function in Express. It parses incoming request payloads into a Buffer and is based on body-parser.\r\n\r\nReturns middleware that parses all bodies as a Buffer and only looks at requests where the Content-Type header matches the type option. This parser accepts any Unicode encoding of the body and supports automatic inflation of gzip and deflate encodings.\r\n\r\nA new body Buffer containing the parsed data is populated on the request object after the middleware (i.e. req.body), or an empty object ({}) if there was no body to parse, the Content-Type was not matched, or an error occurred.\r\n\r\nAs req.body’s shape is based on user-controlled input, all properties and values in this object are untrusted and should be validated before trusting. For example, req.body.toString() may fail in multiple ways, for example stacking multiple parsers req.body may be from a different parser. Testing that req.body is a Buffer before calling buffer methods is recommended.\r\n\r\nThe following table describes the properties of the optional options object.', '2020-12-18 00:00:00'),
 (3, 1, 'Third diary', 'The only method you must define in a React.Component subclass is called render(). All the other methods described on this page are optional.\r\n\r\nWe strongly recommend against creating your own base component classes. In React components, code reuse is primarily achieved through composition rather than inheritance.\r\n\r\nNote:\r\n\r\nReact doesn’t force you to use the ES6 class syntax. If you prefer to avoid it, you may use the create-react-class module or a similar custom abstraction instead. Take a look at Using React without ES6 to learn more.\r\n\r\nThe Component Lifecycle\r\nEach component has several “lifecycle methods” that you can override to run code at particular times in the process. You can use this lifecycle diagram as a cheat sheet. In the list below, commonly used lifecycle methods are marked as bold. The rest of them exist for relatively rare use cases.\r\n\r\nMounting\r\nThese methods are called in the following order when an instance of a component is being created and inserted into the DOM:\r\n\r\nconstructor()\r\nstatic getDerivedStateFromProps()\r\nrender()\r\ncomponentDidMount()\r\nNote:\r\n\r\nThese methods are considered legacy and you should avoid them in new code:\r\n\r\nUNSAFE_componentWillMount()\r\nUpdating\r\nAn update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:\r\n\r\nstatic getDerivedStateFromProps()\r\nshouldComponentUpdate()\r\nrender()\r\ngetSnapshotBeforeUpdate()\r\ncomponentDidUpdate()', '2020-12-17 00:00:00'),
-(6, 1, 'Test', 'Test diary', '2021-03-09 00:00:00');
+(10, 1, 'Hello', 'Body', '2021-03-12 18:24:44'),
+(11, 1, 'Ello', 'ELO ELO', '2021-03-12 18:26:30');
 
 -- --------------------------------------------------------
 
@@ -180,16 +182,18 @@ CREATE TABLE `routinemodules` (
   `routine_id` int(10) NOT NULL,
   `module_id` int(10) NOT NULL,
   `start_time` time NOT NULL,
-  `duration` varchar(255) NOT NULL
+  `end_time` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `routinemodules`
 --
 
-INSERT INTO `routinemodules` (`routine_modules_id`, `routine_id`, `module_id`, `start_time`, `duration`) VALUES
-(1, 1, 2004, '07:00:00', '1:30 hr'),
-(2, 1, 2005, '11:00:00', '2 hr');
+INSERT INTO `routinemodules` (`routine_modules_id`, `routine_id`, `module_id`, `start_time`, `end_time`) VALUES
+(1, 1, 2004, '07:00:00', '09:30:00'),
+(2, 1, 2005, '11:00:00', '12:30:00'),
+(5, 2, 2005, '09:00:00', '11:00:00'),
+(6, 3, 2004, '11:00:00', '13:00:00');
 
 -- --------------------------------------------------------
 
@@ -201,6 +205,7 @@ CREATE TABLE `routines` (
   `routine_id` int(10) NOT NULL,
   `day` varchar(255) NOT NULL,
   `course_id` int(10) NOT NULL,
+  `class_type` varchar(255) NOT NULL,
   `semester` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -208,8 +213,10 @@ CREATE TABLE `routines` (
 -- Dumping data for table `routines`
 --
 
-INSERT INTO `routines` (`routine_id`, `day`, `course_id`, `semester`) VALUES
-(1, 'Sunday', 101, 4);
+INSERT INTO `routines` (`routine_id`, `day`, `course_id`, `class_type`, `semester`) VALUES
+(1, 'Sunday', 101, 'Lecture', 4),
+(2, 'Monday', 101, 'Tutorial', 4),
+(3, 'Sunday', 101, 'Tutorial', 4);
 
 -- --------------------------------------------------------
 
@@ -237,11 +244,33 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
 (1, 'Thomas', 'Smith', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
-(2, 'Prajita', 'Upreti', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
+(2, 'Michael', 'Jackson', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
 (4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, 'Software Engineering Teacher', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
 (5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
-(6, 'Laurie ', 'R Gonsalez', '5o306qwq4hw@temporary-mail.net', '1579  Coburn Hollow Road', '2018-04-09 00:00:00', 101, 2004, 3423, 'FSSS Teacher', '$2b$12$mqvHVKw.kIBgVDKb1PctRerNjGE9Gn1t9b7wIN0Vuu7ivnKiVgFoW'),
 (7, 'Sujal', 'Gautam', 'sgautam@gmail.com', 'Bhairahawa-Nepal', '2020-01-21 22:30:11', 102, 3001, 33423, 'Tutor', 'pass');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staffdiaries`
+--
+
+CREATE TABLE `staffdiaries` (
+  `diary_id` int(10) NOT NULL,
+  `staff_id` int(10) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `body` mediumtext NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `staffdiaries`
+--
+
+INSERT INTO `staffdiaries` (`diary_id`, `staff_id`, `title`, `body`, `date_created`) VALUES
+(1, 4, 'Teest', 'Testing', '2021-03-12 16:43:40'),
+(2, 4, 'Supp', 'Supp supp', '2021-03-12 18:28:08'),
+(3, 4, 'Ello', 'TEst', '2021-03-12 18:28:25');
 
 -- --------------------------------------------------------
 
@@ -364,6 +393,13 @@ ALTER TABLE `staff`
   ADD KEY `fk_m_staff` (`module_id`);
 
 --
+-- Indexes for table `staffdiaries`
+--
+ALTER TABLE `staffdiaries`
+  ADD PRIMARY KEY (`diary_id`),
+  ADD KEY `fk_s_id` (`staff_id`);
+
+--
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
@@ -392,7 +428,7 @@ ALTER TABLE `assignments`
 -- AUTO_INCREMENT for table `attendancemodules`
 --
 ALTER TABLE `attendancemodules`
-  MODIFY `attendance_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `attendance_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `attendances`
@@ -404,25 +440,31 @@ ALTER TABLE `attendances`
 -- AUTO_INCREMENT for table `diaries`
 --
 ALTER TABLE `diaries`
-  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `routinemodules`
 --
 ALTER TABLE `routinemodules`
-  MODIFY `routine_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `routine_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `routines`
 --
 ALTER TABLE `routines`
-  MODIFY `routine_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `routine_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
   MODIFY `staff_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `staffdiaries`
+--
+ALTER TABLE `staffdiaries`
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `students`
@@ -490,6 +532,12 @@ ALTER TABLE `routines`
 ALTER TABLE `staff`
   ADD CONSTRAINT `fk_c_staff` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`),
   ADD CONSTRAINT `fk_m_staff` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_id`);
+
+--
+-- Constraints for table `staffdiaries`
+--
+ALTER TABLE `staffdiaries`
+  ADD CONSTRAINT `fk_s_staffDiaries` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
 
 --
 -- Constraints for table `students`

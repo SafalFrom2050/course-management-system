@@ -28,8 +28,8 @@ function PostAttendance(props) {
             <br />
             <div className="data-label">
               Week:
-              <select style={{ marginLeft: '45px', width: '50px' }} onChange={weekHandler}>
-                <option>1</option>
+              <select style={{ marginLeft: '45px', width: '50px' }} defaultValue="1" onChange={weekHandler}>
+                <option value="1">1</option>
                 <option>2</option>
                 <option>3</option>
                 <option>4</option>

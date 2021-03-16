@@ -11,9 +11,9 @@ import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 export default function DiaryList() {
-  const { sendRequest, error } = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
-  const user = JSON.parse(localStorage.getItem('userData'));
+  // const user = JSON.parse(localStorage.getItem('userData'));
 
   const history = useHistory();
   const [diaryList, setDiaryList] = useState([]);
@@ -24,10 +24,10 @@ export default function DiaryList() {
     getDiaryList();
   }, []);
   const getDiaryList = async () => {
-    const result = await sendRequest(`http://localhost:5000/common/getDiaries?userType=${user.userType}`, 'GET', {
+    const result = await sendRequest(`http://localhost:5000/common/getDiaries?userType=${auth.userType}`, 'GET', {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
@@ -40,9 +40,9 @@ export default function DiaryList() {
     setDiaryList(result.data);
   };
 
-  async function onEdit(diaryId) {
-    // TODO
-  }
+  // async function onEdit(diaryId) {
+  //   // TODO
+  // }
 
   return (
 
@@ -50,16 +50,16 @@ export default function DiaryList() {
       <div className="diary-list">
         <button type="button" className="create-diary-button" onClick={() => history.push('diary/create')}>Create New + </button>
         {
-                    diaryList.map((item) => (
-                      <DiaryListItem
-                        key={item.diary_id}
-                        heading={item.title}
-                        body={item.body}
-                        date={item.date_created}
-                        onEdit={() => { onEdit(item.diary_id); }}
-                      />
-                    ))
-                }
+          diaryList.map((item) => (
+            <DiaryListItem
+              key={item.diary_id}
+              heading={item.title}
+              body={item.body}
+              date={item.date_created}
+            // onEdit={() => { onEdit(item.diary_id); }}
+            />
+          ))
+        }
       </div>
 
     </>

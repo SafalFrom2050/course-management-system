@@ -1,9 +1,12 @@
 import './Timetable.css';
-import { React, useState, useEffect } from 'react';
+import {
+  React, useState, useEffect, useContext,
+} from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import RoutineList from '../../../components/Student/Timetable/RoutineList';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 function Timetable() {
   const [routine, setRoutine] = useState([]);
@@ -11,24 +14,25 @@ function Timetable() {
   const history = useHistory();
   const { sendRequest } = useHttpClient();
   const location = useLocation().search;
-
+  const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
 
   useEffect(() => {
     const day = new URLSearchParams(location).get('day');
+    console.log(auth.token);
     day ? downloadRoutine(day) : downloadRoutine('Sunday');
     day ? setActiveBtn(day) : setActiveBtn('Sunday');
-  }, []);
+  }, [auth.token]);
 
   const downloadRoutine = async (day) => {
-    const user = JSON.parse(localStorage.getItem('userData'));
+    // const user = JSON.parse(localStorage.getItem('userData'));
     const params = {
       day,
     };
-    const result = await sendRequest(`http://localhost:5000/${user.userType === 'student' ? 'student' : 'staff'}/routine`, 'GET', {
+    const result = await sendRequest(`http://localhost:5000/${auth.userType === 'student' ? 'student' : 'staff'}/routine`, 'GET', {
       params,
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
@@ -63,7 +67,7 @@ function Timetable() {
                 surname={item.surname}
                 start_time={item.start_time}
                 end_time={item.end_time}
-                semester={item.semester}
+                class_type={item.class_type}
                 key={item.start_time + item.name}
               />
             ))}

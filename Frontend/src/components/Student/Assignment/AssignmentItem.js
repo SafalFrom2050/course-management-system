@@ -1,50 +1,53 @@
-import React, { useState } from 'react'
-
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+import React, { useState } from 'react';
 
 export default function AssignmentItem(props) {
+  /*
+            props.assignment_id
+            props.heading
+            props.body
+            props.deadline
+        */
 
-    /*
-        props.assignment_id
-        props.heading
-        props.body
-        props.deadline
-    */
+  const [fullTextView, setFullTextView] = useState(false);
 
-    const [fullTextView, setFullTextView] = useState(false)
+  function toggleFullTextView() {
+    setFullTextView((prevFullTextView) => !prevFullTextView);
+  }
 
-    function toggleFullTextView() {
-        setFullTextView(prevFullTextView => !prevFullTextView);
-    }
+  return (
 
-    return (
+    <>
 
-        <>
+      <div className="assignment-item">
+        {/* <!-- Assignment Detail, Active Item! --> */}
+        <div className={`assignment-detail ${fullTextView === true ? 'assignment-detail-full-text' : ''}`} onClick={toggleFullTextView}>
+          <div className="assignment-heading">{props.heading}</div>
 
-            <div className="assignment-item">
-                {/* <!-- Assignment Detail, Active Item! --> */}
-                <div className={`assignment-detail ${fullTextView === true ? 'assignment-detail-full-text' : ''}`} onClick={toggleFullTextView}>
-                    <div className="assignment-heading">{props.heading}</div>
+          {/* <!-- Body information container --> */}
+          <div className="body-container">
+            <div className="body">
+              {props.body}
+            </div>
+            <div className="data-label">
+              Assignment Due
+              <label className="data">{props.deadline.split('T')[0]}</label>
+            </div>
+          </div>
 
-                    {/* <!-- Body information container --> */}
-                    <div className="body-container">
-                        <div className="body">
-                            {props.body}
-                        </div>
-                        <div className="data-label">
-                            Assignment Due
-                                <label className="data">{props.deadline.split("T")[0]}</label>
-                        </div>
-                    </div>
-
-                    {/* <!-- Create diary, only for active item --> */}
-                    {
+          {/* <!-- Create diary, only for active item --> */}
+          {
                         fullTextView === true ? <button className="create-diary-btn" type="submit">Create Diary</button> : ''
                     }
 
-                </div>
-            </div>
+        </div>
+      </div>
 
-        </>
+    </>
 
-    )
+  );
 }

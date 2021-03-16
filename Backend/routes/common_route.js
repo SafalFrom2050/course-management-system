@@ -25,4 +25,8 @@ router.patch("/editDiaries", [
     check("body").isLength({ min: 1 }),
 ], common.editDiaries);
 
+router.delete("/deleteDiaries", [
+    check("diary_id").not().isEmpty(),
+], common.deleteDiaries);
+
 module.exports = router;

@@ -8,16 +8,14 @@ import { useHttpClient } from '../../../hooks/http-hook';
 import AttendanceDetail from '../../../components/Student/Attendance/AttendanceDetail';
 import ActiveAttendance from '../../../components/Student/Attendance/ActiveAttendance';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
-
 import { AuthContext } from '../../../contexts/AuthContext';
 
 const Attendance = () => {
   const { sendRequest } = useHttpClient();
   const [attendance, setAttendance] = useState([]);
   const [newAttendance, setNewAttendance] = useState([]);
-  const auth = useContext(AuthContext);
   const user = JSON.parse(localStorage.getItem('userData'));
-
+  const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
 
   useEffect(() => {
@@ -28,7 +26,7 @@ const Attendance = () => {
   const downloadAttendance = async () => {
     const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, 'GET', {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
@@ -42,7 +40,7 @@ const Attendance = () => {
   const downloadActiveAttendance = async () => {
     const result = await sendRequest(`http://localhost:5000/student/attendance/${user.student_id}`, 'GET', {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
@@ -61,7 +59,7 @@ const Attendance = () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${auth.token}`,
       },
     };
 

@@ -1,5 +1,6 @@
 # Section 1
 Completed
+# I added DFD, Activity diagram, table explaining attributes and constraints of tables of database and many more small parts.
 # Section 2
 - assigning PAT day flow chart is corrected
 - 2.2.2.1.10 to do
