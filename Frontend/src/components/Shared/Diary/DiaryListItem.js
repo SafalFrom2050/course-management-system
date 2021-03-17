@@ -7,10 +7,11 @@ import PropTypes from 'prop-types';
     props.body
     props.date
     props.onEdit
+    props.onDelete
 */
 export default function DiaryListItem(props) {
   const {
-    heading, body, date, onEdit,
+    heading, body, date, onEdit, onDelete,
   } = props;
 
   const [fullTextView, setFullTextView] = useState(false);
@@ -46,7 +47,8 @@ export default function DiaryListItem(props) {
           </div>
 
           {/* <!-- Edit diary, only for active item --> */}
-          <button className="edit-diary-btn" onClick={onEdit} type="submit">Edit</button>
+          <button className="action-btn" onClick={onEdit} type="submit">Edit</button>
+          <button className="action-btn" onClick={onDelete} type="submit">Delete</button>
         </div>
       </div>
     </div>
@@ -58,4 +60,5 @@ DiaryListItem.propTypes = {
   body: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };

@@ -29,6 +29,17 @@ export const useHttpClient = () => {
         } finally {
           setIsLoading(false);
         }
+      } else if (method === 'DELETE') {
+        try {
+          const result = await axios.delete(url, { config, data: payload });
+
+          return result;
+        } catch (err) {
+          console.log(err);
+          setError(err);
+        } finally {
+          setIsLoading(false);
+        }
       }
     }, [],
   );

@@ -40,9 +40,37 @@ export default function DiaryList() {
     setDiaryList(result.data);
   };
 
-  // async function onEdit(diaryId) {
-  //   // TODO
-  // }
+  async function onDelete(diaryId, e) {
+    e.stopPropagation();
+
+    const payload = {
+      userType: auth.userType,
+      diary_id: diaryId,
+    };
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/common/deleteDiaries', 'DELETE', payload, config).catch((error) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+
+    if (!result) {
+      return;
+    }
+
+    showAlertBox('Diary Deleted!', 2000);
+
+    history.push('/diary');
+  }
+
+  async function onEdit(diaryId) {
+    // TODO
+  }
 
   return (
 
@@ -56,7 +84,8 @@ export default function DiaryList() {
               heading={item.title}
               body={item.body}
               date={item.date_created}
-            // onEdit={() => { onEdit(item.diary_id); }}
+              onDelete={(e) => onDelete(item.diary_id, e)}
+              onEdit={(e) => onEdit(item.diary_id, e)}
             />
           ))
         }
