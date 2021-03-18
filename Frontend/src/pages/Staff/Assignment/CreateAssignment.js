@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useHttpClient } from '../../../hooks/http-hook';
 import './CreateAssignment.css';
@@ -19,6 +20,7 @@ export default function CreateAssignment() {
   const [linkActive, setLinkActive] = useState(false);
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
+  const location = useLocation();
   const user = JSON.parse(localStorage.getItem('userData'));
 
   const linkHandler = () => {
@@ -51,8 +53,19 @@ export default function CreateAssignment() {
   };
 
   const addAssignment = async () => {
-    if (formData.title === '' || formData.content === '' || formData.deadline === '' || formData.semester === '') {
-      return;
+    const obj = { ...formData };
+    let endPoint = 'http://localhost:5000/staff/addAssignment';
+    if (user.userType === 'staff') {
+      if (formData.title === '' || formData.content === '' || formData.deadline === '' || formData.semester === '') {
+        return;
+      }
+    } else if (user.userType === 'student') {
+      endPoint = 'http://localhost:5000/student/submitAssignment';
+      obj.assignment_id = location.assignment_id;
+      obj.student_id = user.student_id;
+      if (formData.title === '' || formData.content === '') {
+        return;
+      }
     }
 
     if (links.length !== 0) {
@@ -61,7 +74,6 @@ export default function CreateAssignment() {
       });
     }
 
-    const obj = { ...formData };
     obj.module_id = user.module_id;
     obj.semester = parseInt(obj.semester);
 
@@ -71,7 +83,8 @@ export default function CreateAssignment() {
         Authorization: `Bearer ${auth.token}`,
       },
     };
-    await sendRequest('http://localhost:5000/staff/addAssignment', 'POST', obj, config);
+
+    await sendRequest(endPoint, 'POST', obj, config);
     setFormData({
       title: '',
       content: '',
@@ -131,12 +144,14 @@ export default function CreateAssignment() {
 
               <button type="button" onClick={linkHandler}>{linkActive ? 'Post Link' : 'Add new'}</button>
 
-              <div className="date-level-selector">
-                <label>Due Date</label>
-                <input type="datetime-local" id="end-date" value={formData.deadline} onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} />
-                <label>Semester</label>
-                <input type="text" id="level" value={formData.semester} placeholder="..." onChange={(e) => setFormData({ ...formData, semester: e.target.value })} />
-              </div>
+              {user.userType === 'staff' ? (
+                <div className="date-level-selector">
+                  <label>Due Date</label>
+                  <input type="datetime-local" id="end-date" value={formData.deadline} onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} />
+                  <label>Semester</label>
+                  <input type="text" id="level" value={formData.semester} placeholder="..." onChange={(e) => setFormData({ ...formData, semester: e.target.value })} />
+                </div>
+              ) : null}
             </div>
 
             <button className="save-assignment-btn" type="submit" onClick={addAssignment}>Save</button>

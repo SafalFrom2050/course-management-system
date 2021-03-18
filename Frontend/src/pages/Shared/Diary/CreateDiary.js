@@ -37,6 +37,7 @@ export default function CreateDiary() {
     };
 
     const result = await sendRequest(`http://localhost:5000/common/setDiaries?userType=${user.userType}`, 'POST', payload, config).catch((error) => {
+      console.log(error);
       showAlertBox('Network error! Please try again later...', 2000);
     });
     if (!result) {

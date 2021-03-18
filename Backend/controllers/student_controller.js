@@ -266,7 +266,8 @@ const getAssignment = async (req, res, next) => {
     res.status(200).json(result);
 }
 
-const submitAssignment = (req, res, next) => {
+const submitAssignment =async (req, res, next) => {
+    const dbQery = new Query();
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         throw new HttpError(422, "Invalid input passed");
@@ -275,30 +276,29 @@ const submitAssignment = (req, res, next) => {
     const assignment_id = req.body.assignment_id;
     const student_id = req.userData.user_id;
     const submission_date = new Date();
+    const title = req.body.title;
     const content = req.body.content;
 
-    const query = "SELECT COUNT(*) FROM submissions WHERE assignment_id = ? AND student_id = ?";
-    sqlObj.con.query(query, [assignment_id, student_id], (err, result) => {
+    let query = "SELECT COUNT(*) FROM submissions WHERE assignment_id = ? AND student_id = ?";
+    const result = await dbQery.query(query, [assignment_id, student_id]);
         let count;
         for (const key in result[0]) {
             count = result[0][key];
         }
-        let query;
-        let params = [submission_date, content, assignment_id, student_id];
+        let newQuery;
+        let params = [submission_date, content,title, assignment_id, student_id];
         if (count > 0) {
-            query = "UPDATE submissions SET submission_date = ?, content = ? WHERE assignment_id = ? AND student_id = ?";
+            newQuery = "UPDATE submissions SET submission_date = ?, content = ?, title=? WHERE assignment_id = ? AND student_id = ?";
         } else {
-            query = "INSERT INTO submissions (student_id,assignment_id,submission_date,content) VALUES (?,?,?,?)";
+            newQuery = "INSERT INTO submissions (student_id,assignment_id,submission_date,content) VALUES (?,?,?,?)";
             params = [student_id, assignment_id, submission_date, content];
         }
-        sqlObj.con.query(query, params, (err, result) => {
-            if (err) {
-                return next(new HttpError(500, "Something went wrong while submitting assignments"));
-            }
-            res.status(200).json({ message: "Assignment submitted" });
-        });
-
-    });
+        try {
+            await dbQery.query(newQuery, params); 
+        } catch (error) {
+            return next(new HttpError(500, "Something went wrong while submitting assignments"));
+        }
+        res.status(200).json({ message: "Assignment submitted" });
 }
 
 const getSemester = async (student_id) => {

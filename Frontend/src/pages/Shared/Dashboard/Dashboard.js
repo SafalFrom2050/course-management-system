@@ -1,7 +1,7 @@
 import '../../../components/Shared/SideNavBar.css';
 
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import SideNavBar from '../../../components/Shared/SideNavBar';
 import Attendance from '../../Student/Attendance/Attendance';
@@ -19,22 +19,28 @@ const Dashboard = (props) => {
     <>
       <Alertbox />
       <SideNavBar />
-      <Route path="/attendance">
-        {userType === 'student' ? <Attendance /> : <StaffAttendance />}
-      </Route>
-      <Route exact path="/diary">
-        <DiaryList />
-      </Route>
-      <Route exact path="/diary/create">
-        <CreateDiary />
-      </Route>
-      <Route path="/timetable" exact>
-        <Timetable />
-      </Route>
-      <Route path="/assignments" exact>
-        {userType === 'student' ? <StudentAssignments /> : <CreateAssignment />}
+      <Switch>
+        <Route path="/attendance">
+          {userType === 'student' ? <Attendance /> : <StaffAttendance />}
+        </Route>
+        <Route exact path="/diary">
+          <DiaryList />
+        </Route>
+        <Route exact path="/diary/create">
+          <CreateDiary />
+        </Route>
+        <Route path="/timetable" exact>
+          <Timetable />
+        </Route>
+        <Route path="/assignments" exact>
+          {userType === 'student' ? <StudentAssignments /> : <CreateAssignment />}
+        </Route>
+        <Route path="/assignments/submit" exact>
+          <CreateAssignment />
+        </Route>
+        <Redirect to="/modules" />
+      </Switch>
 
-      </Route>
     </>
   );
 };

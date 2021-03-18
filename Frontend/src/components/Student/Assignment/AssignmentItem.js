@@ -4,9 +4,11 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function AssignmentItem(props) {
   const [fullTextView, setFullTextView] = useState(false);
+  const history = useHistory();
 
   function toggleFullTextView() {
     setFullTextView((prevFullTextView) => !prevFullTextView);
@@ -34,7 +36,20 @@ export default function AssignmentItem(props) {
 
           {/* <!-- Create diary, only for active item --> */}
           {
-                        fullTextView === true ? <button className="create-diary-btn" type="submit">Create Diary</button> : ''
+                        fullTextView === true ? (
+                          <button
+                            className="create-diary-btn"
+                            type="button"
+                            onClick={() => {
+                              history.push({
+                                pathname: '/assignments/submit',
+                                assignment_id: props.assignment_id,
+                              });
+                            }}
+                          >
+                            Submit Assignment
+                          </button>
+                        ) : ''
                     }
 
         </div>

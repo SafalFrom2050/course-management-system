@@ -55,7 +55,7 @@ export default function DiaryList() {
       },
     };
 
-    const result = await sendRequest('http://localhost:5000/common/deleteDiaries', 'DELETE', payload, config).catch((error) => {
+    const result = await sendRequest('http://localhost:5000/common/deleteDiaries', 'DELETE', payload, config).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
 
@@ -68,7 +68,7 @@ export default function DiaryList() {
     history.push('/diary');
   }
 
-  async function onEdit(diaryId) {
+  async function onEdit() {
     // TODO
   }
 
