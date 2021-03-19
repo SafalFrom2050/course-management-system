@@ -13,6 +13,7 @@ router.post("/login", [
 router.use(authCheck);
 
 router.get("/getDiaries", common.getDiaries);
+router.get("/getDiaryById", common.getDiaryById);
 
 router.post("/setDiaries", [
     check("title").isLength({ min: 1 }),
