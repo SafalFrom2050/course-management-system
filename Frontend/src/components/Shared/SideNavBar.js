@@ -6,20 +6,28 @@ import { AuthContext } from '../../contexts/AuthContext';
 import './SideNavBar.css';
 
 function SideNavBar() {
-  const [title, setTitle] = useState(GetCurrentTitle());
+  const [activeMenuItem, setActiveMenuItem] = useState('');
+  const [title, setTitle] = useState('');
   const auth = useContext(AuthContext);
+  const location = useLocation();
 
   useEffect(() => {
     document.title = title;
   }, [title]);
 
+  useEffect(() => {
+    setCurrentTitleAndActiveMenuItem();
+  }, []);
+
   function logoutSession() {
     auth.logout();
   }
 
-  function GetCurrentTitle() {
-    const route = useLocation().pathname.slice(1).split('/')[0];
-    return route.charAt(0).toUpperCase() + route.slice(1);
+  function setCurrentTitleAndActiveMenuItem() {
+    const route = location.pathname.slice(1).split('/')[0];
+    setActiveMenuItem(route);
+    const head = route.charAt(0).toUpperCase() + route.slice(1);
+    setTitle(head);
   }
 
   return (
@@ -40,28 +48,76 @@ function SideNavBar() {
             </div>
           </li>
 
-          <li className="modules">
-            <NavLink to="/modules" onClick={() => setTitle('Modules')}>Modules</NavLink>
+          <li className={`modules ${activeMenuItem === 'modules' ? 'active' : ''}`}>
+            <NavLink
+              to="/modules"
+              onClick={() => {
+                setTitle('Modules');
+                setActiveMenuItem('modules');
+              }}
+            >
+              Modules
+            </NavLink>
           </li>
 
-          <li className="assignments">
-            <NavLink to="/assignments" onClick={() => setTitle('Assignments')}>Assignments</NavLink>
+          <li className={`assignments ${activeMenuItem === 'assignments' ? 'active' : ''}`}>
+            <NavLink
+              to="/assignments"
+              onClick={() => {
+                setTitle('Assignments');
+                setActiveMenuItem('assignments');
+              }}
+            >
+              Assignments
+            </NavLink>
           </li>
 
-          <li className="diary">
-            <NavLink to="/diary" onClick={() => setTitle('Diary')}>Diary</NavLink>
+          <li className={`diary ${activeMenuItem === 'diary' ? 'active' : ''}`}>
+            <NavLink
+              to="/diary"
+              onClick={() => {
+                setTitle('Diary');
+                setActiveMenuItem('diary');
+              }}
+            >
+              Diary
+            </NavLink>
           </li>
 
-          <li className="attendance">
-            <NavLink to="/attendance" onClick={() => setTitle('Attendance')}>Attendance</NavLink>
+          <li className={`attendance ${activeMenuItem === 'attendance' ? 'active' : ''}`}>
+            <NavLink
+              to="/attendance"
+              onClick={() => {
+                setTitle('Attendance');
+                setActiveMenuItem('attendance');
+              }}
+            >
+              Attendance
+            </NavLink>
           </li>
 
-          <li className="timetable">
-            <NavLink to="/timetable" onClick={() => setTitle('Timetable')}>Timetable</NavLink>
+          <li className={`timetable ${activeMenuItem === 'timetable' ? 'active' : ''}`}>
+            <NavLink
+              to="/timetable"
+              onClick={() => {
+                setTitle('Timetable');
+                setActiveMenuItem('timetable');
+              }}
+            >
+              Timetable
+            </NavLink>
           </li>
 
-          <li className="personal-tutor">
-            <NavLink to="/personal-tutor" onClick={() => setTitle('Personal Tutor')}>Personal Tutor</NavLink>
+          <li className={`personal-tutor ${activeMenuItem === 'personal-tutor' ? 'active' : ''}`}>
+            <NavLink
+              to="/personal-tutor"
+              onClick={() => {
+                setTitle('Personal Tutor');
+                setActiveMenuItem('personal-tutor');
+              }}
+            >
+              Personal Tutor
+            </NavLink>
           </li>
 
           {/* <!-- Any last item in the list is sent to bottom and its color inverted --> */}

@@ -79,12 +79,8 @@ nav::-webkit-scrollbar-thumb:hover {
   font-weight: 800;
 }
 
-.side-nav > li:not(:first-child):hover {
-  background-color: white;
-  cursor: pointer;
-  color: black;
-}
-
+.side-nav > .active,
+.side-nav > li:not(:first-child):hover,
 .side-nav > li:not(:first-child):focus {
   background-color: white;
   cursor: pointer;
