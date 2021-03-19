@@ -93,9 +93,28 @@ const getDiaries = async (req, res, next) => {
     res.json(result);
 }
 
+const getDiaryById = async (req, res, next) => {
+    const dbQuery = new Query();
+    let user_id = req.userData.user_id;
+    const userType = req.query.userType;
+    const diary_id = req.query.diary_id;
+    let query = "SELECT * FROM diaries WHERE student_id = ? AND diary_id = ? ORDER BY date_created DESC";
+    if (userType === "staff") {
+        query = "SELECT * FROM staffDiaries WHERE staff_id = ? AND diary_id = ? ORDER BY date_created DESC";
+    }
+
+    let result = [];
+    try {
+        result = await dbQuery.query(query, [user_id, diary_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Error while creating diaries"));
+    }
+    res.json(result);
+}
+
 const editDiaries = async (req, res, next) => {
     const user_id = req.userData.user_id;
-    const userType =  req.body.userType;
+    const userType =  req.query.userType;
     const diary_id = req.body.diary_id;
     const title = req.body.title;
     const body = req.body.body;
@@ -121,8 +140,8 @@ const editDiaries = async (req, res, next) => {
 }
 
 const deleteDiaries = async (req, res, next) => {
-    const userType =  req.body.userType;
-    const diary_id = req.body.diary_id;
+    const userType =  req.query.userType;
+    const diary_id = req.query.diary_id;
 
     const dbQuery = new Query();
 
@@ -149,6 +168,7 @@ const deleteDiaries = async (req, res, next) => {
 
 exports.login = login;
 exports.getDiaries = getDiaries;
+exports.getDiaryById = getDiaryById;
 exports.setDiaries = setDiaries;
 exports.editDiaries = editDiaries;
 exports.deleteDiaries = deleteDiaries;
