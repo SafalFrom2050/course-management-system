@@ -1,6 +1,8 @@
 import './createDiary.css';
 
-import { React, useState, useContext } from 'react';
+import {
+  React, useState, useContext, useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
@@ -10,13 +12,13 @@ import { AuthContext } from '../../../contexts/AuthContext';
 export default function CreateDiary() {
   const [diaryBody, setDiaryBody] = useState('');
   const [diaryHeading, setDiaryHeading] = useState('');
+  // Date to set for future
+  const [date] = useState((new Date()).toISOString().replace('T', ' ').split('Z')[0]);
 
   const { sendRequest } = useHttpClient();
   const user = JSON.parse(localStorage.getItem('userData'));
   const auth = useContext(AuthContext);
 
-  // Date to set for future
-  const [date] = useState(() => new Date().toISOString().replace('T', ' ').split('Z')[0]);
   const showAlertBox = useAlertBoxShowMsg();
   const history = useHistory();
 
@@ -36,7 +38,7 @@ export default function CreateDiary() {
       },
     };
 
-    const result = await sendRequest(`http://localhost:5000/common/setDiaries?userType=${user.userType}`, 'POST', payload, config).catch((error) => {
+    const result = await sendRequest(`http://localhost:5000/common/setDiaries?userType=${auth.userType}`, 'POST', payload, config).catch((error) => {
       console.log(error);
       showAlertBox('Network error! Please try again later...', 2000);
     });
@@ -48,10 +50,6 @@ export default function CreateDiary() {
 
     history.push('/diary');
   }
-
-  // async function onEdit(diaryId) {
-  //   // TODO
-  // }
 
   return (
 

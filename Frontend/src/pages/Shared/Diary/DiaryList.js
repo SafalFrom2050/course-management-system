@@ -21,8 +21,9 @@ export default function DiaryList() {
   const showAlertBox = useAlertBoxShowMsg();
 
   useEffect(() => {
-    getDiaryList();
-  }, []);
+    if (auth.token) getDiaryList();
+  }, [auth.token]);
+
   const getDiaryList = async () => {
     const result = await sendRequest(`http://localhost:5000/common/getDiaries?userType=${auth.userType}`, 'GET', {
       headers: {
@@ -43,11 +44,6 @@ export default function DiaryList() {
   async function onDelete(diaryId, e) {
     e.stopPropagation();
 
-    const payload = {
-      userType: auth.userType,
-      diary_id: diaryId,
-    };
-
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -55,7 +51,7 @@ export default function DiaryList() {
       },
     };
 
-    const result = await sendRequest('http://localhost:5000/common/deleteDiaries', 'DELETE', payload, config).catch(() => {
+    const result = await sendRequest(`http://localhost:5000/common/deleteDiaries?userType=${auth.userType}&diary_id=${diaryId}`, 'DELETE', null, config).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
 
@@ -65,11 +61,12 @@ export default function DiaryList() {
 
     showAlertBox('Diary Deleted!', 2000);
 
-    history.push('/diary');
+    getDiaryList();
   }
 
-  async function onEdit() {
-    // TODO
+  async function onEdit(diaryId, heading, body, date, e) {
+    e.stopPropagation();
+    history.push(`diary/edit/${diaryId}`);
   }
 
   return (
@@ -85,7 +82,7 @@ export default function DiaryList() {
               body={item.body}
               date={item.date_created}
               onDelete={(e) => onDelete(item.diary_id, e)}
-              onEdit={(e) => onEdit(item.diary_id, e)}
+              onEdit={(e) => onEdit(item.diary_id, item.title, item.body, item.date_created, e)}
             />
           ))
         }
