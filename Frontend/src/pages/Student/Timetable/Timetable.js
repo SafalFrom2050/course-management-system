@@ -18,6 +18,7 @@ function Timetable() {
   const showAlertBox = useAlertBoxShowMsg();
 
   useEffect(() => {
+    if (!auth.token) return;
     const day = new URLSearchParams(location).get('day');
     console.log(auth.token);
     day ? downloadRoutine(day) : downloadRoutine('Sunday');

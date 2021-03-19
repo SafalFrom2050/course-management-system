@@ -19,9 +19,10 @@ const Attendance = () => {
   const showAlertBox = useAlertBoxShowMsg();
 
   useEffect(() => {
+    if (!auth.token) return;
     downloadAttendance();
     downloadActiveAttendance();
-  }, []);
+  }, [auth.token]);
 
   const downloadAttendance = async () => {
     const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, 'GET', {
