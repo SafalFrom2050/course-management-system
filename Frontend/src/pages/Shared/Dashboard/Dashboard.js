@@ -12,6 +12,7 @@ import StudentAssignments from '../../Student/Assignment/Assignments';
 import CreateAssignment from '../../Staff/Assignment/CreateAssignment';
 import CreateDiary from '../Diary/CreateDiary';
 import Alertbox from '../../../components/Shared/Alertbox';
+import EditDairy from '../Diary/EditDiary';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -28,6 +29,9 @@ const Dashboard = (props) => {
         </Route>
         <Route exact path="/diary/create">
           <CreateDiary />
+        </Route>
+        <Route exact path="/diary/edit/:id">
+          <EditDairy />
         </Route>
         <Route path="/timetable" exact>
           <Timetable />
