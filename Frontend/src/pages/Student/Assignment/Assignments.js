@@ -18,7 +18,7 @@ export default function Assignments() {
   }, []);
 
   async function getAssignmentList() {
-    const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${user.student_id}`, 'GET', {
+    const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${auth.student_id}`, 'GET', {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },

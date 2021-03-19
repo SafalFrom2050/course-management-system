@@ -8,6 +8,7 @@ import Attendance from '../../Student/Attendance/Attendance';
 import Timetable from '../../Student/Timetable/Timetable';
 import StaffAttendance from '../../Staff/Attendance/StaffAttendance';
 import DiaryList from '../Diary/DiaryList';
+import StudentModules from '../../Student/Modules/Modules';
 import StudentAssignments from '../../Student/Assignment/Assignments';
 import CreateAssignment from '../../Staff/Assignment/CreateAssignment';
 import CreateDiary from '../Diary/CreateDiary';
@@ -21,6 +22,9 @@ const Dashboard = (props) => {
       <Alertbox />
       <SideNavBar />
       <Switch>
+        <Route path="/modules">
+          <StudentModules />
+        </Route>
         <Route path="/attendance">
           {userType === 'student' ? <Attendance /> : <StaffAttendance />}
         </Route>
