@@ -15,6 +15,12 @@ router.post("/addAssignment", [
     check("semester").isNumeric(),
 ], staff.addAssignment);
 
+router.get("/getAllAssignments",[query("moudle_id").isNumeric()],staff.getAllAssignments);
+
+router.get("/getSubmissions",[query("attendance_id").isNumeric()],staff.getSubmissions);
+
+router.get("/getSubmissionCount",[query("attendance_id").isNumeric()],staff.getSubmissionCount);
+
 router.post("/activateAttendance", [
     check("module_id").isNumeric(),
     check("attendance_time").not().isEmpty(),

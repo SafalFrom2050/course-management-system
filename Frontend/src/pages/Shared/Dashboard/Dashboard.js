@@ -11,6 +11,8 @@ import DiaryList from '../Diary/DiaryList';
 import StudentModules from '../../Student/Modules/Modules';
 import StudentAssignments from '../../Student/Assignment/Assignments';
 import CreateAssignment from '../../Staff/Assignment/CreateAssignment';
+import AssignmentSubmissions from '../../Staff/Assignment/AssignmentSubmissions';
+import ViewSubmissions from '../../Staff/Assignment/ViewSubmissions';
 import CreateDiary from '../Diary/CreateDiary';
 import Alertbox from '../../../components/Shared/Alertbox';
 import EditDairy from '../Diary/EditDiary';
@@ -41,11 +43,20 @@ const Dashboard = (props) => {
           <Timetable />
         </Route>
         <Route path="/assignments" exact>
-          {userType === 'student' ? <StudentAssignments /> : <CreateAssignment />}
+          {userType === 'student' ? <StudentAssignments /> : <AssignmentSubmissions />}
         </Route>
-        <Route path="/assignments/submit" exact>
-          <CreateAssignment />
-        </Route>
+        {userType === 'student' ? <Route path="/assignments/submit"><CreateAssignment /></Route> : null}
+
+        { userType === 'staff' ? (
+          <>
+            <Route path="/assignments/create" exact>
+              <CreateAssignment />
+            </Route>
+            <Route path="/assignments/view">
+              <ViewSubmissions />
+            </Route>
+          </>
+        ) : null}
         <Redirect to="/modules" />
       </Switch>
 

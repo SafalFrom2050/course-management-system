@@ -294,8 +294,8 @@ const submitAssignment =async (req, res, next) => {
         if (count > 0) {
             newQuery = "UPDATE submissions SET submission_date = ?, content = ?, title=? WHERE assignment_id = ? AND student_id = ?";
         } else {
-            newQuery = "INSERT INTO submissions (student_id,assignment_id,submission_date,content) VALUES (?,?,?,?)";
-            params = [student_id, assignment_id, submission_date, content];
+            newQuery = "INSERT INTO submissions (student_id,assignment_id,submission_date,content,title) VALUES (?,?,?,?,?)";
+            params = [student_id, assignment_id, submission_date, content,title];
         }
         try {
             await dbQery.query(newQuery, params); 

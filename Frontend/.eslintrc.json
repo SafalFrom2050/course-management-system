@@ -20,7 +20,7 @@
     "rules": {
         "linebreak-style":"off",
         "max-len":"warn",
-        "no-unused-expressions":"warn",
+        // "no-unused-expressions":"warn",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "no-use-before-define":"off",
         "camelcase":"warn",

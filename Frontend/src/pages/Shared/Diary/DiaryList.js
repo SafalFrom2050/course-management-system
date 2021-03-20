@@ -13,7 +13,6 @@ import { AuthContext } from '../../../contexts/AuthContext';
 export default function DiaryList() {
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
-  // const user = JSON.parse(localStorage.getItem('userData'));
 
   const history = useHistory();
   const [diaryList, setDiaryList] = useState([]);

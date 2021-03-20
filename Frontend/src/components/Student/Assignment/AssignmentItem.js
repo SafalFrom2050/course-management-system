@@ -36,21 +36,21 @@ export default function AssignmentItem(props) {
 
           {/* <!-- Create diary, only for active item --> */}
           {
-                        fullTextView === true ? (
-                          <button
-                            className="create-diary-btn"
-                            type="button"
-                            onClick={() => {
-                              history.push({
-                                pathname: '/assignments/submit',
-                                assignment_id: props.assignment_id,
-                              });
-                            }}
-                          >
-                            Submit Assignment
-                          </button>
-                        ) : ''
-                    }
+            fullTextView === true ? (
+              <button
+                className="create-diary-btn"
+                type="button"
+                onClick={() => {
+                  history.push({
+                    pathname: '/assignments/submit',
+                    assignment_id: props.assignment_id,
+                  });
+                }}
+              >
+                Submit Assignment
+              </button>
+            ) : ''
+    }
 
         </div>
       </div>

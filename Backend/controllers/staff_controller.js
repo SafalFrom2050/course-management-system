@@ -25,7 +25,64 @@ const addAssignment =async (req, res, next) => {
     res.status(200).json({ message: "Assignment added" });
 }
 
-// This function is used to check if an attendance is active or not.
+const getAllAssignments =async (req,res,next)=>{
+    const errors = validationResult(req.query);
+    const module_id = req.query.module_id;
+    if (!errors.isEmpty()) {
+        return next(new HttpError(422, "Invalid input passed"));
+    }
+    const dbQuery = new Query();
+    const query = "SELECT m.module_name, a.assignment_id, a.title, a.deadline, a.content, a.semester FROM assignments a INNER JOIN modules m ON a.module_id = m.module_id WHERE m.module_id = ?";
+    let result;
+    try {
+       result = await dbQuery.query(query,[module_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Server error while fetching submissions"));
+    }
+    res.json(result);
+}
+
+const getSubmissionCount = async (req,res,next)=>{
+    const errors = validationResult(req.query);
+    const assignment_id = req.query.assignment_id;
+    if (!errors.isEmpty()) {
+        return next(new HttpError(422, "Invalid input passed"));
+    }
+    const dbQuery = new Query();
+    const query = "SELECT COUNT(*) FROM submissions WHERE assignment_id = ?";
+    let result;
+    try {
+       result = await dbQuery.query(query,[assignment_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Server error while fetching submissions"));
+    }
+    let count;
+    for (const key in result[0]) {
+        count = result[0][key];
+    }
+    res.json(count);
+}
+
+const getSubmissions = async (req,res,next)=>{
+    const errors = validationResult(req.query);
+    const assignment_id = req.query.assignment_id;
+    if (!errors.isEmpty()) {
+        return next(new HttpError(422, "Invalid input passed"));
+    }
+    const dbQuery = new Query();
+    const query = "SELECT su.title, su.content, su.submission_date, s.name, s.surname FROM submissions su INNER JOIN students s ON su.student_id = s.student_id WHERE su.assignment_id = ?";
+    try {
+        result = await dbQuery.query(query,[assignment_id]);
+     } catch (error) {
+         console.log(error);
+         return next(new HttpError(500, "Server error while fetching submissions"));
+     }
+     res.json(result);
+}
+
+
 const getModuleName = async (req, res, next) => {
     const module_id = req.query.module_id;
     if (!module_id) {
@@ -148,4 +205,7 @@ exports.deactivateAttendance = deactivateAttendance;
 exports.getModuleName = getModuleName;
 exports.getAllAttendanceRecords = getAllAttendanceRecords;
 exports.getAllPresentStudents = getAllPresentStudents;
+exports.getAllAssignments = getAllAssignments;
+exports.getSubmissions = getSubmissions;
+exports.getSubmissionCount = getSubmissionCount;
 exports.getRoutine = getRoutine;
