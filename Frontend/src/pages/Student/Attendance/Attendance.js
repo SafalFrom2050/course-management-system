@@ -25,7 +25,7 @@ const Attendance = () => {
   }, [auth.token]);
 
   const downloadAttendance = async () => {
-    const result = await sendRequest(`http://localhost:5000/student/getAttendanceStatus/${user.student_id}`, 'GET', {
+    const result = await sendRequest('http://localhost:5000/student/getAttendanceStatus', 'GET', {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -39,7 +39,7 @@ const Attendance = () => {
   };
 
   const downloadActiveAttendance = async () => {
-    const result = await sendRequest(`http://localhost:5000/student/attendance/${user.student_id}`, 'GET', {
+    const result = await sendRequest('http://localhost:5000/student/attendance', 'GET', {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },

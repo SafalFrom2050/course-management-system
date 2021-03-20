@@ -74,8 +74,8 @@ export default function DiaryList() {
     <>
       <div className="diary-list">
         <button type="button" className="create-diary-button" onClick={() => history.push('diary/create')}>Create New + </button>
-        {
-          diaryList.map((item) => (
+        {diaryList.length > 0
+          ? diaryList.map((item) => (
             <DiaryListItem
               key={item.diary_id}
               heading={item.title}
@@ -84,8 +84,7 @@ export default function DiaryList() {
               onDelete={(e) => onDelete(item.diary_id, e)}
               onEdit={(e) => onEdit(item.diary_id, item.title, item.body, item.date_created, e)}
             />
-          ))
-        }
+          )) : <p>No existing diaries found.</p>}
       </div>
 
     </>

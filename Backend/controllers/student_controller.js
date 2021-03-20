@@ -257,10 +257,14 @@ const getAssignment = async (req, res, next) => {
 
     const currentSem = await getSemester(student_id);
 
-    const query = "SELECT * FROM assignments WHERE semester = ?";
+    const query = "SELECT * FROM assignments WHERE semester = ? AND isActive = 1";
     const result = await dbQuery.query(query, [currentSem, module_id]);
+    if(result.length===0){
+        res.status(200).json([]);
+        return;
+    }
     if (result[0].deadline < new Date()) {
-        res.status(200).json({});
+        res.status(200).json([]);
         return;
     }
     res.status(200).json(result);

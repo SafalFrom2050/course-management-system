@@ -9,7 +9,6 @@ import { AuthContext } from '../../../contexts/AuthContext';
 export default function Assignments() {
   const [assignmentList, setAssigmentList] = useState([]);
   const { sendRequest } = useHttpClient();
-  const user = JSON.parse(localStorage.getItem('userData'));
   const showAlertBox = useAlertBoxShowMsg();
   const auth = useContext(AuthContext);
 
@@ -35,7 +34,7 @@ export default function Assignments() {
   return (
     <>
       <div className="assignment-list">
-        {assignmentList.map((assignment) => (
+        {assignmentList.length > 0 ? assignmentList.map((assignment) => (
           <AssignmentItem
             key={assignment.assignment_id}
             assignment_id={assignment.assignment_id}
@@ -43,7 +42,7 @@ export default function Assignments() {
             body={assignment.content}
             deadline={assignment.deadline}
           />
-        ))}
+        )) : <p>No active assignments found.</p>}
       </div>
     </>
   );

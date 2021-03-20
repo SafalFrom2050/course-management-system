@@ -1,7 +1,7 @@
 import './createDiary.css';
 
 import {
-  React, useState, useContext, useEffect,
+  React, useState, useContext,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
@@ -16,7 +16,6 @@ export default function CreateDiary() {
   const [date] = useState((new Date()).toISOString().replace('T', ' ').split('Z')[0]);
 
   const { sendRequest } = useHttpClient();
-  const user = JSON.parse(localStorage.getItem('userData'));
   const auth = useContext(AuthContext);
 
   const showAlertBox = useAlertBoxShowMsg();

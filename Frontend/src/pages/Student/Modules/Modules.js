@@ -17,7 +17,7 @@ export default function Modules() {
   }, [auth.token]);
 
   async function getModulesList() {
-    const result = await sendRequest(`http://localhost:5000/student/modules/${auth.student_id}`, 'GET', {
+    const result = await sendRequest('http://localhost:5000/student/modules', 'GET', {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -30,7 +30,6 @@ export default function Modules() {
     }
 
     setModulesList(result.data);
-    console.log(result.data);
   }
 
   return (

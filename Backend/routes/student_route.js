@@ -9,8 +9,8 @@ router.post("/password", student.generatePass);
 
 router.use(authCheck);
 
-router.get("/modules/:id", student.getCurrentModule);
-router.get("/attendance/:id", student.getAttendanceForm);
+router.get("/modules", student.getCurrentModule);
+router.get("/attendance", student.getAttendanceForm);
 router.get("/getDiaries/:id", student.getDiaries);
 
 router.post("/setDiaries", [
@@ -32,7 +32,7 @@ router.get("/routine", [query("day").not().isEmpty()], student.getRoutine);
 
 router.get("/assignment", student.getAssignment);
 
-router.get("/getAttendanceStatus/:id", student.getAttendanceStatus);
+router.get("/getAttendanceStatus", student.getAttendanceStatus);
 
 router.post("/submitAssignment", [
     check("assignment_id").isNumeric(),
