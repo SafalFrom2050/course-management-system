@@ -1,6 +1,6 @@
 # Section 1
 Completed
-# I added DFD, Activity diagram, table explaining attributes and constraints of tables of database and many more small parts.
+-  added DFD, Activity diagram, table explaining attributes and constraints of tables of database and many more small parts.
 # Section 2
 - assigning PAT day flow chart is corrected
 - 2.2.2.1.10 to do
@@ -13,3 +13,5 @@ Completed
 - 3.2.4 BON Class Charts to do
 # Section 4
 - Mockups of the modules which are completed in development is completed
+# Section 9
+- added wbs
