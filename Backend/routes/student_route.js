@@ -13,6 +13,8 @@ router.get("/modules", student.getCurrentModule);
 router.get("/attendance", student.getAttendanceForm);
 router.get("/getDiaries/:id", student.getDiaries);
 
+router.get("/modules/getNearestClassTime", student.getNearestClassTimeForAModule);
+
 router.post("/setDiaries", [
     check("title").isLength({ min: 1 }),
     check("body").isLength({ min: 1 }),
