@@ -27,7 +27,7 @@ const Dashboard = (props) => {
         <SideNavBar />
         <Switch>
           <Route path="/modules">
-            <StudentModules />
+            {userType === 'student' ? <StudentModules /> : ''}
           </Route>
           <Route path="/attendance">
             {userType === 'student' ? <Attendance /> : <StaffAttendance />}
