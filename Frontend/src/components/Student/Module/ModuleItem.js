@@ -1,9 +1,37 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { useHttpClient } from '../../../hooks/http-hook';
+import { AuthContext } from '../../../contexts/AuthContext';
+
 export default function ModuleItem(props) {
-  const { heading, tutor, nextClass } = props;
+  const {
+    moduleId, heading, tutor, nextClass,
+  } = props;
+  const [stateNextClass, setStateNextClass] = useState(nextClass);
+
+  const { sendRequest } = useHttpClient();
+  const auth = useContext(AuthContext);
+
+  useEffect(() => (
+    getNextClassTime()
+  ), []);
+
+  async function getNextClassTime() {
+    const result = await sendRequest(`http://localhost:5000/student/modules/getNearestClassTime?module_id=${moduleId}`, 'GET', {
+      headers: {
+        Authorization: `Bearer ${auth.token}`,
+      },
+    }, null);
+
+    if (!result.data.start_time) {
+      return;
+    }
+
+    const time = `${result.data.day}, ${result.data.start_time.split(':')[0]} : ${result.data.start_time.split(':')[1]}`;
+    setStateNextClass(time);
+  }
 
   return (
     <div className="module-item">
@@ -19,7 +47,7 @@ export default function ModuleItem(props) {
           </div>
           <div className="data-label">
             Next Class On
-            <label className="data">{nextClass}</label>
+            <label className="data">{stateNextClass}</label>
           </div>
           <button className="action-btn" type="submit">View</button>
         </div>
@@ -29,6 +57,7 @@ export default function ModuleItem(props) {
 }
 
 ModuleItem.propTypes = {
+  moduleId: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
   tutor: PropTypes.string.isRequired,
   nextClass: PropTypes.string.isRequired,

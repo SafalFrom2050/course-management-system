@@ -19,49 +19,53 @@ import EditDairy from '../Diary/EditDiary';
 
 const Dashboard = (props) => {
   const { userType } = props;
-  return (
-    <>
-      <Alertbox />
-      <SideNavBar />
-      <Switch>
-        <Route path="/modules">
-          <StudentModules />
-        </Route>
-        <Route path="/attendance">
-          {userType === 'student' ? <Attendance /> : <StaffAttendance />}
-        </Route>
-        <Route exact path="/diary">
-          <DiaryList />
-        </Route>
-        <Route exact path="/diary/create">
-          <CreateDiary />
-        </Route>
-        <Route exact path="/diary/edit/:id">
-          <EditDairy />
-        </Route>
-        <Route path="/timetable" exact>
-          <Timetable />
-        </Route>
-        <Route path="/assignments" exact>
-          {userType === 'student' ? <StudentAssignments /> : <AssignmentSubmissions />}
-        </Route>
-        {userType === 'student' ? <Route path="/assignments/submit"><CreateAssignment /></Route> : null}
 
-        { userType === 'staff' ? (
-          <>
-            <Route path="/assignments/create" exact>
-              <CreateAssignment />
-            </Route>
-            <Route path="/assignments/view">
-              <ViewSubmissions />
-            </Route>
-          </>
-        ) : null}
-        <Redirect to="/modules" />
-      </Switch>
+  if (userType) {
+    return (
+      <>
+        <Alertbox />
+        <SideNavBar />
+        <Switch>
+          <Route path="/modules">
+            <StudentModules />
+          </Route>
+          <Route path="/attendance">
+            {userType === 'student' ? <Attendance /> : <StaffAttendance />}
+          </Route>
+          <Route exact path="/diary">
+            <DiaryList />
+          </Route>
+          <Route exact path="/diary/create">
+            <CreateDiary />
+          </Route>
+          <Route exact path="/diary/edit/:id">
+            <EditDairy />
+          </Route>
+          <Route path="/timetable" exact>
+            <Timetable />
+          </Route>
+          <Route path="/assignments" exact>
+            {userType === 'student' ? <StudentAssignments /> : <AssignmentSubmissions />}
+          </Route>
+          {userType === 'student' ? <Route path="/assignments/submit"><CreateAssignment /></Route> : null}
 
-    </>
-  );
+          { userType === 'staff' ? (
+            <>
+              <Route path="/assignments/create" exact>
+                <CreateAssignment />
+              </Route>
+              <Route path="/assignments/view">
+                <ViewSubmissions />
+              </Route>
+            </>
+          ) : null}
+          <Redirect to="/modules" />
+        </Switch>
+
+      </>
+    );
+  }
+  return null;
 };
 
 Dashboard.propTypes = {

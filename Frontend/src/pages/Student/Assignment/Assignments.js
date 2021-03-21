@@ -14,7 +14,7 @@ export default function Assignments() {
 
   useEffect(() => {
     getAssignmentList();
-  }, []);
+  }, [auth.token]);
 
   async function getAssignmentList() {
     const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${auth.student_id}`, 'GET', {

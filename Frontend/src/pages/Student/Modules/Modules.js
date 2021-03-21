@@ -37,8 +37,10 @@ export default function Modules() {
       {modulesList.map((module) => (
         <ModuleItem
           key={module.module_id}
+          moduleId={module.module_id}
           heading={module.module_name}
-          nextClass="Today (TODO)"
+          tutor={`${module.tutor_name} ${module.tutor_surname}`}
+          nextClass=""
         />
       ))}
     </div>
