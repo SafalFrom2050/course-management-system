@@ -15,3 +15,5 @@ Completed
 - Mockups of the modules which are completed in development is completed
 # Section 9
 - added wbs
+-added network diagram
+-added gantt chart
