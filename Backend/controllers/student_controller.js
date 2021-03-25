@@ -71,58 +71,6 @@ async function currentModule(student_id, next) {
     return queryResult;
 }
 
-const getNearestClassTimeForAModule = async (req, res, next) => {
-    const module_id = req.query.module_id;
-
-    const daysMap = {
-        0: "Sunday",
-        1: "Monday",
-        2: "Tuesday",
-        3: "Wednesday",
-        4: "Thursday",
-        5: "Friday",
-        6: "Saturday",
-    };
-    const date = new Date();
-    const today = date.getDay();
-    const time = {
-        hour: date.getHours(),
-        minute: date.getMinutes(),
-    };
-
-    const query = "SELECT modules.module_name , routinemodules.start_time, routines.day FROM modules "+
-        "JOIN routinemodules " +
-        "JOIN routines " +
-        "WHERE routinemodules.routine_id = routines.routine_id AND " +
-        "modules.module_id = routinemodules.module_id AND " +
-        "modules.module_id = ? " +
-        "ORDER BY routinemodules.start_time ASC";
-    
-    let queryResult;
-    const dbQuery = new Query();
-    try {
-        queryResult = await dbQuery.query(query, module_id);
-    } catch (error) {
-        return next(new HttpError(500, "Error while getting module nearest start time"));
-    }
-
-    for([key, value] of Object.entries(daysMap)){
-        queryResult.forEach(data => {
-            if(value === data.day){
-                if(today==key) data.day = "Today";
-
-                hr = parseInt(data.start_time.split(":")[0]);
-                min = parseInt(data.start_time.split(":")[1]);
-                console.log(hr+":"+min +"AND"+ time.hour+":"+time.minute);
-                if(today<=key && time.hour *60 + time.minute <= hr * 60 + min){
-                    res.json(data);
-                }
-            }
-        });
-    }
-    res.json(queryResult);
-}
-
 const getAttendanceForm = async (req, res, next) => {
     const dbQuery = new Query();
     const student_id = req.userData.user_id;
@@ -390,7 +338,6 @@ function getCurrentYear(inputDate) {
 exports.generatePass = generatePass;
 
 exports.getCurrentModule = getCurrentModule;
-exports.getNearestClassTimeForAModule = getNearestClassTimeForAModule;
 exports.getAttendanceForm = getAttendanceForm;
 exports.submitAttendance = submitAttendance;
 exports.getAttendanceStatus = getAttendanceStatus;

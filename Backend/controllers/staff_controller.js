@@ -43,6 +43,24 @@ const getAllAssignments =async (req,res,next)=>{
     res.json(result);
 }
 
+const getAllModules =async (req,res,next)=>{
+    const staff_id = req.userData.user_id;
+    
+    const dbQuery = new Query();
+    const query = "SELECT modules.* FROM modules "+
+    "JOIN staff "+
+    "WHERE modules.module_id = staff.module_id AND "+ 
+    "staff.staff_id = ? ";
+    let result;
+    try {
+       result = await dbQuery.query(query,[staff_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Server error while fetching submissions"));
+    }
+    res.json(result);
+}
+
 const getSubmissionCount = async (req,res,next)=>{
     const errors = validationResult(req.query);
     const assignment_id = req.query.assignment_id;
@@ -209,3 +227,4 @@ exports.getAllAssignments = getAllAssignments;
 exports.getSubmissions = getSubmissions;
 exports.getSubmissionCount = getSubmissionCount;
 exports.getRoutine = getRoutine;
+exports.getAllModules = getAllModules;

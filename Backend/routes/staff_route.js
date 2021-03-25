@@ -20,6 +20,7 @@ router.get("/getAllAssignments",[query("moudle_id").isNumeric()],staff.getAllAss
 router.get("/getSubmissions",[query("attendance_id").isNumeric()],staff.getSubmissions);
 
 router.get("/getSubmissionCount",[query("attendance_id").isNumeric()],staff.getSubmissionCount);
+router.get("/modules",staff.getAllModules);
 
 router.post("/activateAttendance", [
     check("module_id").isNumeric(),

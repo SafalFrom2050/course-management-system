@@ -15,6 +15,9 @@ router.use(authCheck);
 router.get("/getDiaries", common.getDiaries);
 router.get("/getDiaryById", common.getDiaryById);
 
+
+router.get("/modules/getNearestClassTime", common.getNearestClassTimeForAModule);
+
 router.post("/setDiaries", [
     check("title").isLength({ min: 1 }),
     check("body").isLength({ min: 1 }),
