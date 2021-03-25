@@ -9,6 +9,9 @@ import Timetable from '../../Student/Timetable/Timetable';
 import StaffAttendance from '../../Staff/Attendance/StaffAttendance';
 import DiaryList from '../Diary/DiaryList';
 import StudentModules from '../../Student/Modules/Modules';
+
+import StaffModules from '../../Staff/Modules/Modules';
+import StaffModuleMaterials from '../../Staff/Modules/ReadingMaterials';
 import StudentAssignments from '../../Student/Assignment/Assignments';
 import CreateAssignment from '../../Staff/Assignment/CreateAssignment';
 import AssignmentSubmissions from '../../Staff/Assignment/AssignmentSubmissions';
@@ -26,8 +29,11 @@ const Dashboard = (props) => {
         <Alertbox />
         <SideNavBar />
         <Switch>
-          <Route path="/modules">
-            {userType === 'student' ? <StudentModules /> : ''}
+          <Route exact path="/modules">
+            {userType === 'student' ? <StudentModules /> : <StaffModules />}
+          </Route>
+          <Route exact path="/modules/materials">
+            {userType === 'student' ? '' : <StaffModuleMaterials />}
           </Route>
           <Route path="/attendance">
             {userType === 'student' ? <Attendance /> : <StaffAttendance />}

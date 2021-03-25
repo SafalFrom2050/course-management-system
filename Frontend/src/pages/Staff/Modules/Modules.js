@@ -1,6 +1,6 @@
 import './modules.css';
 import React, { useState, useEffect, useContext } from 'react';
-import ModuleItem from '../../../components/Student/Module/ModuleItem';
+import ModuleItem from '../../../components/Staff/ModuleItem';
 
 import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
@@ -17,7 +17,7 @@ export default function Modules() {
   }, [auth.token]);
 
   async function getModulesList() {
-    const result = await sendRequest('http://localhost:5000/student/modules', 'GET', {
+    const result = await sendRequest('http://localhost:5000/staff/modules', 'GET', {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
@@ -29,7 +29,6 @@ export default function Modules() {
       return;
     }
 
-    console.log(result.data);
     setModulesList(result.data);
   }
 
@@ -40,7 +39,7 @@ export default function Modules() {
           key={module.module_id}
           moduleId={module.module_id}
           heading={module.module_name}
-          tutor={`${module.tutor_name} ${module.tutor_surname}`}
+          level={module.module_level}
           nextClass=""
         />
       ))}

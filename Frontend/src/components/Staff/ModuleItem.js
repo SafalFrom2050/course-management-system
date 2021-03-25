@@ -2,12 +2,12 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import { useHttpClient } from '../../../hooks/http-hook';
-import { AuthContext } from '../../../contexts/AuthContext';
+import { useHttpClient } from '../../hooks/http-hook';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function ModuleItem(props) {
   const {
-    moduleId, heading, tutor, nextClass,
+    moduleId, heading, level, nextClass,
   } = props;
   const [stateNextClass, setStateNextClass] = useState(nextClass);
 
@@ -37,7 +37,7 @@ export default function ModuleItem(props) {
   const history = useHistory();
   function onViewClick() {
     history.push({
-      pathname: 'materials/',
+      pathname: 'modules/materials/',
       search: `module_id=${moduleId}`,
     });
   }
@@ -51,8 +51,8 @@ export default function ModuleItem(props) {
         {/* <!-- Body information container --> */}
         <div className="body-container">
           <div className="data-label">
-            Tutor
-            <label className="data">{tutor}</label>
+            Level
+            <label className="data">{level}</label>
           </div>
           <div className="data-label">
             Next Class On
@@ -68,6 +68,6 @@ export default function ModuleItem(props) {
 ModuleItem.propTypes = {
   moduleId: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
-  tutor: PropTypes.string.isRequired,
+  level: PropTypes.string.isRequired,
   nextClass: PropTypes.string.isRequired,
 };

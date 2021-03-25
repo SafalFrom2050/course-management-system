@@ -56,23 +56,24 @@ export default function AssignmentSubmissions() {
       <h2>Assignments</h2>
       <div className="assignment-list">
         <button className="create-assignment-button" type="button" onClick={createAssignment}>Create New +</button>
+
+        {assignments.map((item) => (
+          <AssignmentList
+            key={item.deadline}
+            module_name={item.module_name}
+            title={item.title}
+            content={item.content}
+            deadline={item.deadline}
+            semester={item.semester}
+            view={() => {
+              viewSubmissions(item.assignment_id,
+                item.module_name,
+                item.semester,
+                item.title);
+            }}
+          />
+        ))}
       </div>
-      {assignments.map((item) => (
-        <AssignmentList
-          key={item.deadline}
-          module_name={item.module_name}
-          title={item.title}
-          content={item.content}
-          deadline={item.deadline}
-          semester={item.semester}
-          view={() => {
-            viewSubmissions(item.assignment_id,
-              item.module_name,
-              item.semester,
-              item.title);
-          }}
-        />
-      ))}
     </>
   );
 }

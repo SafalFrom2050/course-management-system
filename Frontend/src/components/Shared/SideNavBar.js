@@ -1,9 +1,14 @@
+import './SideNavBar.css';
 import {
   React, useState, useContext, useEffect,
 } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust,
+} from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../contexts/AuthContext';
-import './SideNavBar.css';
 
 function SideNavBar() {
   const [activeMenuItem, setActiveMenuItem] = useState('');
@@ -56,6 +61,7 @@ function SideNavBar() {
                 setActiveMenuItem('modules');
               }}
             >
+              <FontAwesomeIcon icon={faBookOpen} className="icons" />
               Modules
             </NavLink>
           </li>
@@ -68,6 +74,7 @@ function SideNavBar() {
                 setActiveMenuItem('assignments');
               }}
             >
+              <FontAwesomeIcon icon={faTasks} className="icons" />
               Assignments
             </NavLink>
           </li>
@@ -80,6 +87,7 @@ function SideNavBar() {
                 setActiveMenuItem('diary');
               }}
             >
+              <FontAwesomeIcon icon={faBook} className="icons" />
               Diary
             </NavLink>
           </li>
@@ -92,6 +100,7 @@ function SideNavBar() {
                 setActiveMenuItem('attendance');
               }}
             >
+              <FontAwesomeIcon icon={faCheckCircle} className="icons" />
               Attendance
             </NavLink>
           </li>
@@ -104,6 +113,7 @@ function SideNavBar() {
                 setActiveMenuItem('timetable');
               }}
             >
+              <FontAwesomeIcon icon={faCalendarWeek} className="icons" />
               Timetable
             </NavLink>
           </li>
@@ -116,13 +126,17 @@ function SideNavBar() {
                 setActiveMenuItem('personal-tutor');
               }}
             >
+              <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
               Personal Tutor
             </NavLink>
           </li>
 
           {/* <!-- Any last item in the list is sent to bottom and its color inverted --> */}
           <li className="dark-mode">
-            <NavLink to="#" onClick={() => setTitle('Setting Dark Mode')}><h4>Dark mode</h4></NavLink>
+            <NavLink to="#" onClick={() => setTitle('Setting Dark Mode')}>
+              <FontAwesomeIcon icon={faAdjust} className="icons" />
+              <h4>Dark mode</h4>
+            </NavLink>
           </li>
 
         </ul>
