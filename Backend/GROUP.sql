@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2021 at 04:17 PM
+-- Generation Time: Mar 25, 2021 at 11:00 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- PHP Version: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,15 +33,17 @@ CREATE TABLE `assignments` (
   `title` varchar(255) NOT NULL,
   `deadline` datetime NOT NULL,
   `content` longtext NOT NULL,
-  `semester` int(5) NOT NULL
+  `semester` int(5) NOT NULL,
+  `isActive` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `assignments`
 --
 
-INSERT INTO `assignments` (`assignment_id`, `module_id`, `title`, `deadline`, `content`, `semester`) VALUES
-(3, 2006, 'Swing GUI Vehicle rental', '2021-03-21 23:59:59', 'Go to this link google.com', 4);
+INSERT INTO `assignments` (`assignment_id`, `module_id`, `title`, `deadline`, `content`, `semester`, `isActive`) VALUES
+(3, 2006, 'Swing GUI Vehicle rental', '2021-03-27 23:59:59', 'Go to this link google.com', 4, 1),
+(4, 2005, 'Test Assignment', '2021-03-25 01:19:00', 'Body', 4, 0);
 
 -- --------------------------------------------------------
 
@@ -136,11 +138,9 @@ CREATE TABLE `diaries` (
 --
 
 INSERT INTO `diaries` (`diary_id`, `student_id`, `title`, `body`, `date_created`) VALUES
-(1, 1, 'My first diary', 'Node.js is an open-source, cross-platform, back-end, JavaScript runtime environment that executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user\'s web browser. Consequently, Node.js represents a \"JavaScript everywhere\" paradigm,[6] unifying web-application development around a single programming language, rather than different languages for server-side and client-side scripts.\r\n\r\nThough .js is the standard filename extension for JavaScript code, the name \"Node.js\" doesn\'t refer to a particular file in this context and is merely the name of the product. Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications (e.g., real-time communication programs and browser games).[7]\r\n\r\nThe Node.js distributed development project was previously governed by the Node.js Foundation,[8] and has now merged with the JS Foundation to form the OpenJS Foundation, which is facilitated by the Linux Foundation\'s Collaborative Projects program.[9]', '2020-12-19 00:00:00'),
-(2, 1, 'Second Diary', 'This is a built-in middleware function in Express. It parses incoming request payloads into a Buffer and is based on body-parser.\r\n\r\nReturns middleware that parses all bodies as a Buffer and only looks at requests where the Content-Type header matches the type option. This parser accepts any Unicode encoding of the body and supports automatic inflation of gzip and deflate encodings.\r\n\r\nA new body Buffer containing the parsed data is populated on the request object after the middleware (i.e. req.body), or an empty object ({}) if there was no body to parse, the Content-Type was not matched, or an error occurred.\r\n\r\nAs req.body’s shape is based on user-controlled input, all properties and values in this object are untrusted and should be validated before trusting. For example, req.body.toString() may fail in multiple ways, for example stacking multiple parsers req.body may be from a different parser. Testing that req.body is a Buffer before calling buffer methods is recommended.\r\n\r\nThe following table describes the properties of the optional options object.', '2020-12-18 00:00:00'),
-(3, 1, 'Third diary', 'The only method you must define in a React.Component subclass is called render(). All the other methods described on this page are optional.\r\n\r\nWe strongly recommend against creating your own base component classes. In React components, code reuse is primarily achieved through composition rather than inheritance.\r\n\r\nNote:\r\n\r\nReact doesn’t force you to use the ES6 class syntax. If you prefer to avoid it, you may use the create-react-class module or a similar custom abstraction instead. Take a look at Using React without ES6 to learn more.\r\n\r\nThe Component Lifecycle\r\nEach component has several “lifecycle methods” that you can override to run code at particular times in the process. You can use this lifecycle diagram as a cheat sheet. In the list below, commonly used lifecycle methods are marked as bold. The rest of them exist for relatively rare use cases.\r\n\r\nMounting\r\nThese methods are called in the following order when an instance of a component is being created and inserted into the DOM:\r\n\r\nconstructor()\r\nstatic getDerivedStateFromProps()\r\nrender()\r\ncomponentDidMount()\r\nNote:\r\n\r\nThese methods are considered legacy and you should avoid them in new code:\r\n\r\nUNSAFE_componentWillMount()\r\nUpdating\r\nAn update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:\r\n\r\nstatic getDerivedStateFromProps()\r\nshouldComponentUpdate()\r\nrender()\r\ngetSnapshotBeforeUpdate()\r\ncomponentDidUpdate()', '2020-12-17 00:00:00'),
-(10, 1, 'Hello', 'Body', '2021-03-12 18:24:44'),
-(11, 1, 'Ello', 'ELO ELO', '2021-03-12 18:26:30');
+(1, 1, 'My first diary [editted]', 'Node.js is an open-source, cross-platform, back-end, JavaScript runtime environment that executes JavaScript code outside a web browser. Node.js lets developers use JavaScript to write command line tools and for server-side scripting—running scripts server-side to produce dynamic web page content before the page is sent to the user\'s web browser. Consequently, Node.js represents a \"JavaScript everywhere\" paradigm,[6] unifying web-application development around a single programming language, rather than different languages for server-side and client-side scripts.\r\n\r\nThough .js is the standard filename extension for JavaScript code, the name \"Node.js\" doesn\'t refer to a particular file in this context and is merely the name of the product. Node.js has an event-driven architecture capable of asynchronous I/O. These design choices aim to optimize throughput and scalability in web applications with many input/output operations, as well as for real-time Web applications (e.g., real-time communication programs and browser games).[7]\r\n\r\nThe Node.js distributed development project was previously governed by the Node.js Foundation,[8] and has now merged with the JS Foundation to form the OpenJS Foundation, which is facilitated by the Linux Foundation\'s Collaborative Projects program.[9]', '2020-12-19 00:00:00'),
+(2, 1, 'Second Diary[editted]', 'This is a built-in middleware function in Express. It parses incoming request payloads into a Buffer and is based on body-parser.\r\n\r\nReturns middleware that parses all bodies as a Buffer and only looks at requests where the Content-Type header matches the type option. This parser accepts any Unicode encoding of the body and supports automatic inflation of gzip and deflate encodings.\r\n\r\nA new body Buffer containing the parsed data is populated on the request object after the middleware (i.e. req.body), or an empty object ({}) if there was no body to parse, the Content-Type was not matched, or an error occurred.\r\n\r\nAs req.body’s shape is based on user-controlled input, all properties and values in this object are untrusted and should be validated before trusting. For example, req.body.toString() may fail in multiple ways, for example stacking multiple parsers req.body may be from a different parser. Testing that req.body is a Buffer before calling buffer methods is recommended.\r\n\r\nThe following table describes the properties of the optional options object.', '2020-12-18 00:00:00'),
+(3, 1, 'Third diary', 'The only method you must define in a React.Component subclass is called render(). All the other methods described on this page are optional.\r\n\r\nWe strongly recommend against creating your own base component classes. In React components, code reuse is primarily achieved through composition rather than inheritance.\r\n\r\nNote:\r\n\r\nReact doesn’t force you to use the ES6 class syntax. If you prefer to avoid it, you may use the create-react-class module or a similar custom abstraction instead. Take a look at Using React without ES6 to learn more.\r\n\r\nThe Component Lifecycle\r\nEach component has several “lifecycle methods” that you can override to run code at particular times in the process. You can use this lifecycle diagram as a cheat sheet. In the list below, commonly used lifecycle methods are marked as bold. The rest of them exist for relatively rare use cases.\r\n\r\nMounting\r\nThese methods are called in the following order when an instance of a component is being created and inserted into the DOM:\r\n\r\nconstructor()\r\nstatic getDerivedStateFromProps()\r\nrender()\r\ncomponentDidMount()\r\nNote:\r\n\r\nThese methods are considered legacy and you should avoid them in new code:\r\n\r\nUNSAFE_componentWillMount()\r\nUpdating\r\nAn update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:\r\n\r\nstatic getDerivedStateFromProps()\r\nshouldComponentUpdate()\r\nrender()\r\ngetSnapshotBeforeUpdate()\r\ncomponentDidUpdate()', '2020-12-17 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -174,6 +174,20 @@ INSERT INTO `modules` (`module_id`, `course_id`, `module_name`, `module_credit`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `module_materials`
+--
+
+CREATE TABLE `module_materials` (
+  `module_materials_id` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `body` mediumtext NOT NULL,
+  `datetime_added` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `routinemodules`
 --
 
@@ -190,10 +204,10 @@ CREATE TABLE `routinemodules` (
 --
 
 INSERT INTO `routinemodules` (`routine_modules_id`, `routine_id`, `module_id`, `start_time`, `end_time`) VALUES
-(1, 1, 2004, '07:00:00', '09:30:00'),
-(2, 1, 2005, '11:00:00', '12:30:00'),
+(1, 1, 2004, '00:33:59', '09:30:00'),
+(2, 1, 2005, '23:00:00', '12:30:00'),
 (5, 2, 2005, '09:00:00', '11:00:00'),
-(6, 3, 2004, '11:00:00', '13:00:00');
+(6, 3, 2004, '23:00:00', '13:00:00');
 
 -- --------------------------------------------------------
 
@@ -214,9 +228,9 @@ CREATE TABLE `routines` (
 --
 
 INSERT INTO `routines` (`routine_id`, `day`, `course_id`, `class_type`, `semester`) VALUES
-(1, 'Sunday', 101, 'Lecture', 4),
+(1, 'Monday', 101, 'Lecture', 4),
 (2, 'Monday', 101, 'Tutorial', 4),
-(3, 'Sunday', 101, 'Tutorial', 4);
+(3, 'Monday', 101, 'Tutorial', 4);
 
 -- --------------------------------------------------------
 
@@ -244,8 +258,8 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
 (1, 'Thomas', 'Smith', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
-(2, 'Michael', 'Jackson', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
-(4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, 'Software Engineering Teacher', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
+(2, 'Michael', 'Jackson', 'staff', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui'),
+(4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, 'Software Engineering Teacher', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
 (5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
 (7, 'Sujal', 'Gautam', 'sgautam@gmail.com', 'Bhairahawa-Nepal', '2020-01-21 22:30:11', 102, 3001, 33423, 'Tutor', 'pass');
 
@@ -298,8 +312,8 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `course_id`, `name`, `email`, `password`, `surname`, `address`, `phone`, `gender`, `date_of_birth`, `registration_year`, `student_status`) VALUES
-(1, 101, 'Kushal', 'kupreti@email.com', '$2b$10$G2mR97nXqVTw6E3/kbJ6g./3VBgzJ.N0i5Luu/MiH4QUuuj3Jt0yu', 'Upreti', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live'),
-(2, 101, 'Safal', 'safal.sharma2woodland.edu.uk', '$2b$10$3EX.onBV7yGFndZRIww4dOotyDMPddBWa97w2SpZLzlW3TdsRbN02', 'Sharma', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2020-03-21', 'Live');
+(1, 101, 'Kushal', 'kushal', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui', 'Upreti', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-10-21', 'Live'),
+(2, 101, 'Safal', 'safal', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui', 'Sharma', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live');
 
 -- --------------------------------------------------------
 
@@ -369,6 +383,13 @@ ALTER TABLE `modules`
   ADD KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `module_materials`
+--
+ALTER TABLE `module_materials`
+  ADD PRIMARY KEY (`module_materials_id`),
+  ADD KEY `module_id` (`module_id`);
+
+--
 -- Indexes for table `routinemodules`
 --
 ALTER TABLE `routinemodules`
@@ -422,7 +443,7 @@ ALTER TABLE `submissions`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `assignment_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `attendancemodules`
@@ -440,7 +461,13 @@ ALTER TABLE `attendances`
 -- AUTO_INCREMENT for table `diaries`
 --
 ALTER TABLE `diaries`
-  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `module_materials`
+--
+ALTER TABLE `module_materials`
+  MODIFY `module_materials_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `routinemodules`
@@ -512,6 +539,12 @@ ALTER TABLE `diaries`
 --
 ALTER TABLE `modules`
   ADD CONSTRAINT `course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+
+--
+-- Constraints for table `module_materials`
+--
+ALTER TABLE `module_materials`
+  ADD CONSTRAINT `module_materials_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `routinemodules`
