@@ -90,13 +90,29 @@ const Attendance = () => {
           const minutes = date.getMinutes() + ''.length > 1 ? date.getMinutes() : `0${date.getMinutes()}`;
           const hours = date.getHours() + ''.length > 1 ? date.getHours() : `0${date.getHours()}`;
           const time = `${hours}:${minutes} ${post}`;
-          return <ActiveAttendance key={time} click={() => { submitAssignment(item.attendance_modules_id, item.module_name, item.week); }} time={time} module_name={item.module_name} week={item.week} />;
+          return (
+            <ActiveAttendance
+              key={time}
+              click={() => {
+                submitAssignment(item.attendance_modules_id,
+                  item.module_name, item.week);
+              }}
+              time={time}
+              module_name={item.module_name}
+              week={item.week}
+            />
+          );
         })}
 
         <div className="heading">Other Classes</div>
-        {attendance.map((item) => <AttendanceDetail key={item.module_name} module_name={item.module_name} attendance_status={item.attendance_status} />)}
+        {attendance.map((item) => (
+          <AttendanceDetail
+            key={item.module_name}
+            module_name={item.module_name}
+            attendance_status={item.attendance_status}
+          />
+        ))}
       </div>
-
     </>
   );
 };

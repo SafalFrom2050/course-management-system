@@ -118,7 +118,6 @@ const getModuleName = async (req, res, next) => {
 }
 
 const activateAttendance = async (req, res, next) => {
-    console.log("Activate");
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
@@ -137,7 +136,7 @@ const activateAttendance = async (req, res, next) => {
     try {
         resp = await dbQuery.query(query, [module_id, attendance_time, semester, 1, week, class_type]);
     } catch (error) {
-        throw new HttpError(500, "Service Error. Please try again.");
+        return next(new HttpError(500, "Service Error. Please try again."));
     }
     res.status(200).json({ message: "Attendance added", attendance_modules_id: resp.insertId });
 }
@@ -216,6 +215,27 @@ const getRoutine = async (req, res, next) => {
     res.json(result);
 }
 
+const getAllAssignedStudents =async (req,res,next)=>{
+    const staff_id = req.userData.user_id;
+    const dbQuery = new Query();
+    const query = "SELECT course_id, semester FROM personaltutor WHERE staff_id = ?";
+
+    let result;
+    try {
+        result = await dbQuery.query(query,staff_id);
+    } catch (error) {
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    const newQuery = "SELECT student_id, name, surname FROM students WHERE course_id = ?";
+    let newResult;
+    try {
+        newResult = await dbQuery.query(newQuery,result[0].course_id);
+    } catch (error) {
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    res.json(newResult);
+}
+
 
 exports.addAssignment = addAssignment;
 exports.activateAttendance = activateAttendance;
@@ -227,4 +247,5 @@ exports.getAllAssignments = getAllAssignments;
 exports.getSubmissions = getSubmissions;
 exports.getSubmissionCount = getSubmissionCount;
 exports.getRoutine = getRoutine;
+exports.getAllAssignedStudents = getAllAssignedStudents;
 exports.getAllModules = getAllModules;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import './Timetable.css';
 import {
   React, useState, useEffect, useContext,
@@ -20,7 +21,6 @@ function Timetable() {
   useEffect(() => {
     if (!auth.token) return;
     const day = new URLSearchParams(location).get('day');
-    console.log(auth.token);
     day ? downloadRoutine(day) : downloadRoutine('Sunday');
     day ? setActiveBtn(day) : setActiveBtn('Sunday');
   }, [auth.token]);
@@ -61,7 +61,7 @@ function Timetable() {
           <div className="heading">Classes</div>
 
           <div className="class-list">
-            {routine.map((item) => (
+            {routine.length > 0 ? routine.map((item) => (
               <RoutineList
                 module_name={item.module_name}
                 name={item.name}
@@ -71,7 +71,7 @@ function Timetable() {
                 class_type={item.class_type}
                 key={item.start_time + item.name}
               />
-            ))}
+            )) : <p>No routine for the day found.</p>}
           </div>
         </div>
 

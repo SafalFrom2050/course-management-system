@@ -17,14 +17,13 @@ export default function Assignments() {
   }, [auth.token]);
 
   async function getAssignmentList() {
-    const result = await sendRequest(`http://localhost:5000/student/assignment/?id=${auth.student_id}`, 'GET', {
+    const result = await sendRequest('http://localhost:5000/student/assignment', 'GET', {
       headers: {
         Authorization: `Bearer ${auth.token}`,
       },
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
-
     if (!result) {
       return;
     }

@@ -168,6 +168,7 @@ const getAttendanceStatus = async (req, res, next) => {
         }
         responseArray.push(obj);
     }
+
     const statusQuery = "SELECT attendancemodules.week, modules.module_name FROM attendances INNER JOIN attendancemodules ON" +
         " attendances.attendance_module_id = attendancemodules.attendance_modules_id INNER JOIN modules ON attendancemodules.module_id " +
         " = modules.module_id WHERE student_id = ? AND attendancemodules.semester = ? ORDER BY modules.module_name ASC";
@@ -180,10 +181,10 @@ const getAttendanceStatus = async (req, res, next) => {
 
     for (const key in statusResult) {
         const element = statusResult[key];
-
         let obj = responseArray.find((item) => {
             return item.module_name === element.module_name;
         })
+
         obj.attendance_status[element.week] = 1;
     }
     res.json(responseArray);
@@ -212,7 +213,7 @@ const setDiaries = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError(422, "Invalid input passed");
+        return next(new HttpError(422, "Invalid input passed"));
     }
 
     const query = "INSERT INTO diaries (student_id, title, body) VALUES(?,?,?)";
@@ -234,7 +235,7 @@ const editDiaries = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError(422, "Invalid input passed");
+        return next(new HttpError(422, "Invalid input passed"));
     }
 
     const query = "UPDATE diaries set title=?, body=? WHERE student_id=? AND diary_id = ?";
@@ -264,6 +265,7 @@ const getAssignment = async (req, res, next) => {
 
     const query = "SELECT * FROM assignments WHERE semester = ? AND isActive = 1";
     const result = await dbQuery.query(query, [currentSem, module_id]);
+
     if(result.length===0){
         res.status(200).json([]);
         return;
@@ -279,7 +281,7 @@ const submitAssignment =async (req, res, next) => {
     const dbQery = new Query();
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError(422, "Invalid input passed");
+        return next(new HttpError(422, "Invalid input passed"));
     }
 
     const assignment_id = req.body.assignment_id;

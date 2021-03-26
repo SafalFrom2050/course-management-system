@@ -1,6 +1,6 @@
 const express = require('express');
 const common = require('../controllers/common_controller');
-const { check } = require('express-validator');
+const { check,query } = require('express-validator');
 const authCheck = require('../middlewares/auth-check');
 const router = express.Router();
 
@@ -32,5 +32,11 @@ router.patch("/editDiaries", [
 router.delete("/deleteDiaries", [
     check("diary_id").not().isEmpty(),
 ], common.deleteDiaries);
+
+router.post("/sendMessage",[check("userType").isLength({min:4}),
+check("message").isLength({min:1}),check("recipient_id").isNumeric()],common.sendMessage);
+
+router.get("/getPersonalMessages",[query("userType").not().isEmpty(),
+query("recipient_id").isNumeric()],common.getPersonalMessages);
 
 module.exports = router;

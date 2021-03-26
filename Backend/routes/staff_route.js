@@ -42,4 +42,6 @@ router.get("/getAllPresentStudents/:attendance_modules_id", staff.getAllPresentS
 
 router.get("/routine", [query("day").not().isEmpty()], staff.getRoutine);
 
+router.get("/getAllAssignedStudents",staff.getAllAssignedStudents);
+
 module.exports = router;

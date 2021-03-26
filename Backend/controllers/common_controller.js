@@ -37,7 +37,6 @@ const login = async (req, res, next) => {
 
     bcrypt.compare(password, result[0].password)
         .then(ans => {
-            console.log(userType === "staff" ? result[0].staff_id : result[0].student_id);
             if (ans) {
                 const token = jwt.sign({ user_id: userType === "staff" ? result[0].staff_id : result[0].student_id, email: result[0].email }, "try_and_hack_me_noobs", { expiresIn: '12h' });
                 let resObj = { student_id: result[0].student_id, email: result[0].email, name: result[0].name, token: token, userType };
@@ -60,7 +59,7 @@ const setDiaries = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError(422, "Invalid input passed");
+        return next(new HttpError(422, "Invalid input passed"));
     }
 
     let query = "INSERT INTO diaries (student_id, title, body) VALUES(?,?,?)";
@@ -122,7 +121,7 @@ const editDiaries = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError(422, "Invalid input passed");
+        return next(new HttpError(422, "Invalid input passed"));
     }
 
 
@@ -147,7 +146,7 @@ const deleteDiaries = async (req, res, next) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        throw new HttpError(422, "Invalid input passed");
+        return next(new HttpError(422, "Invalid input passed"));
     }
 
 
@@ -207,7 +206,6 @@ const getNearestClassTimeForAModule = async (req, res, next) => {
 
                 hr = parseInt(data.start_time.split(":")[0]);
                 min = parseInt(data.start_time.split(":")[1]);
-                console.log(hr+":"+min +"AND"+ time.hour+":"+time.minute);
                 if(today<=key && time.hour *60 + time.minute <= hr * 60 + min){
                     res.json(data);
                 }
@@ -215,6 +213,63 @@ const getNearestClassTimeForAModule = async (req, res, next) => {
         });
     }
     res.json(queryResult);
+}
+
+const sendMessage = async (req,res,next)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(new HttpError(422, "Invalid input passed"));
+    }
+
+    const user_id = req.userData.user_id;
+    const userType = req.body.userType;
+    const message = req.body.message;
+    const dbQuery = new Query();
+
+    let recipient_id = req.body.recipient_id;
+    let array;
+    if(userType=="student"){
+        array=[user_id,recipient_id,message, user_id]
+    }else{
+        array=[recipient_id,user_id,message, user_id]
+    }
+    const query = "INSERT INTO messages(student_id,staff_id,message,sent_by) VALUES (?,?,?,?)";
+    try {
+        await dbQuery.query(query,array);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Error while saving messages"));
+    }
+    res.json({message:"Message sent"});
+}
+
+const getPersonalMessages = async (req,res,next)=>{
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return next(new HttpError(422, "Invalid input passed"));
+    }
+
+    const user_id = req.userData.user_id;
+    const userType = req.query.userType;
+    let recipient_id = req.query.recipient_id;
+
+    let array;
+    if(userType=="student"){
+        array=[recipient_id,user_id]
+    }else{
+        array=[user_id,recipient_id]
+    }
+
+    const dbQuery = new Query();
+    const query = "SELECT message, sent_date, sent_by FROM messages WHERE staff_id = ? AND student_id = ? ORDER BY sent_date ASC LIMIT 10";
+    let result;
+    try {
+        result = await dbQuery.query(query,array);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Error while getting messages"));
+    }
+    res.json(result);
 }
 
 
@@ -225,3 +280,5 @@ exports.setDiaries = setDiaries;
 exports.editDiaries = editDiaries;
 exports.deleteDiaries = deleteDiaries;
 exports.getNearestClassTimeForAModule = getNearestClassTimeForAModule;
+exports.sendMessage=sendMessage;
+exports.getPersonalMessages = getPersonalMessages;
