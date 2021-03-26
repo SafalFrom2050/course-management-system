@@ -92,6 +92,21 @@ const getDiaries = async (req, res, next) => {
     res.json(result);
 }
 
+const getReadingMaterials = async (req, res, next) => {
+    const dbQuery = new Query();
+    let user_id = req.userData.user_id;
+    const module_id = req.query.module_id;
+    let query = "SELECT * FROM module_materials WHERE module_id = ? ORDER BY datetime_added DESC";
+
+    let result = [];
+    try {
+        result = await dbQuery.query(query, [module_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Error while creating diaries"));
+    }
+    res.json(result);
+}
+
 const getDiaryById = async (req, res, next) => {
     const dbQuery = new Query();
     let user_id = req.userData.user_id;
@@ -275,6 +290,7 @@ const getPersonalMessages = async (req,res,next)=>{
 
 exports.login = login;
 exports.getDiaries = getDiaries;
+exports.getReadingMaterials = getReadingMaterials;
 exports.getDiaryById = getDiaryById;
 exports.setDiaries = setDiaries;
 exports.editDiaries = editDiaries;

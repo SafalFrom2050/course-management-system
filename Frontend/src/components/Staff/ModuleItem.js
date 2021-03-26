@@ -37,8 +37,7 @@ export default function ModuleItem(props) {
   const history = useHistory();
   function onViewClick() {
     history.push({
-      pathname: 'modules/materials/',
-      search: `module_id=${moduleId}`,
+      pathname: `modules/materials/${moduleId}`,
     });
   }
 
