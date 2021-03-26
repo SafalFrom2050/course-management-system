@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2021 at 11:46 AM
+-- Generation Time: Mar 26, 2021 at 08:32 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- PHP Version: 7.2.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -187,6 +187,30 @@ INSERT INTO `modules` (`module_id`, `course_id`, `module_name`, `module_credit`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `module_materials`
+--
+
+CREATE TABLE `module_materials` (
+  `module_materials_id` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `body` mediumtext NOT NULL,
+  `datetime_added` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `module_materials`
+--
+
+INSERT INTO `module_materials` (`module_materials_id`, `module_id`, `title`, `body`, `datetime_added`) VALUES
+(1, 2004, 'Chapter 1', 'In this chapter, we are going to learn how we can use mathematics to build complex software systems.\r\n\r\nIt is recommended that you go through following material before taking the class:\r\nhttps://www.unf.edu/~ncoulter/cen6070/handouts/specifications.pdf\r\n', '2021-03-27 00:07:23'),
+(2, 2004, 'Chapter 2', 'Chapter Two is a 1979 American Metrocolor romantic comedy film directed by Robert Moore, produced by Ray Stark, and based on Neil Simon\'s 1977 ... ( - Wikipedia)', '2021-03-27 01:08:41'),
+(3, 2005, 'Chapter 1', 'Database : is collection of data, typically describing the activities of one or more related organizations. DBMS : or database management system, is...', '2021-03-27 01:08:41'),
+(4, 2006, 'Chapter 1', 'Project Background, Objectives, and Research Approach: TRB\'s National Cooperative Highway Research Program (NCHRP) Report...', '2021-03-27 01:08:41');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `personaltutor`
 --
 
@@ -276,8 +300,8 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
 (1, 'Thomas', 'Smith', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
-(2, 'Michael', 'Jackson', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
-(4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, 'Software Engineering Teacher', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
+(2, 'Michael', 'Jackson', 'michael', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui'),
+(4, 'Helen ', 'W Bluhm', 'staff', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, 'Software Engineering Teacher', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui'),
 (5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
 (7, 'Sujal', 'Gautam', 'sgautam@gmail.com', 'Bhairahawa-Nepal', '2020-01-21 22:30:11', 102, 3001, 33423, 'Tutor', 'pass');
 
@@ -328,7 +352,7 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `course_id`, `name`, `email`, `password`, `surname`, `address`, `phone`, `gender`, `date_of_birth`, `registration_year`, `student_status`) VALUES
-(1, 101, 'Kushal', 'kupreti@email.com', '$2b$10$G2mR97nXqVTw6E3/kbJ6g./3VBgzJ.N0i5Luu/MiH4QUuuj3Jt0yu', 'Upreti', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live');
+(1, 101, 'Kushal', 'kushal', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui', 'Upreti', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live');
 
 -- --------------------------------------------------------
 
@@ -406,6 +430,13 @@ ALTER TABLE `modules`
   ADD KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `module_materials`
+--
+ALTER TABLE `module_materials`
+  ADD PRIMARY KEY (`module_materials_id`),
+  ADD KEY `module_id` (`module_id`);
+
+--
 -- Indexes for table `personaltutor`
 --
 ALTER TABLE `personaltutor`
@@ -455,7 +486,9 @@ ALTER TABLE `students`
 -- Indexes for table `submissions`
 --
 ALTER TABLE `submissions`
-  ADD PRIMARY KEY (`submission_id`);
+  ADD PRIMARY KEY (`submission_id`),
+  ADD KEY `fk_a_submissions` (`assignment_id`),
+  ADD KEY `fk_s_submissions` (`student_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -484,6 +517,12 @@ ALTER TABLE `attendances`
 --
 ALTER TABLE `diaries`
   MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `module_materials`
+--
+ALTER TABLE `module_materials`
+  MODIFY `module_materials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `personaltutor`
@@ -561,6 +600,12 @@ ALTER TABLE `diaries`
 --
 ALTER TABLE `modules`
   ADD CONSTRAINT `course_id` FOREIGN KEY (`course_id`) REFERENCES `courses` (`course_id`);
+
+--
+-- Constraints for table `module_materials`
+--
+ALTER TABLE `module_materials`
+  ADD CONSTRAINT `module_materials_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `personaltutor`
