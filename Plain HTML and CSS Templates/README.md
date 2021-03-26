@@ -4,7 +4,7 @@ These are plain HTML and CSS designs templates for the system.
 
 Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pTX-OiSuQ2QHIX-mxuv7qJxZ-YJTJcdglw/edit?usp=sharing
 
-## Latest: Assignment (Create New) (Module Leader App)
+## Latest: Personal Tutor (Students List) And My Personal Tutor Details
 
 ## Common Parts
 
@@ -22,11 +22,13 @@ Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pT
 ### Completed
 
     - Attendance
+    - Personal Tutor (My Personal Tutor Details)
 
 ## Tutor Account Specific Parts
 
 ### Completed
 
     - Attendance
+    - Personal Tutor (Students List)
 
 ### Partial
