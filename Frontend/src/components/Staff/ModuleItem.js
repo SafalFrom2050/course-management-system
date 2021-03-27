@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -25,7 +26,12 @@ export default function ModuleItem(props) {
       },
     }, null);
 
-    const row = result.data[0];
+    let row;
+    if (Array.isArray(result.data)) {
+      row = result.data[0];
+    } else {
+      row = result.data;
+    }
     if (!row || !row.start_time) {
       return;
     }
