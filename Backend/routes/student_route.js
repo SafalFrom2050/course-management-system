@@ -47,4 +47,6 @@ router.patch("/resetPassword", [
     check("newPassword").isLength(7)
 ], student.resetPassword);
 
+router.get("/getPersonalTutorDetails",student.getPersonalTutorDetails);
+
 module.exports = router;

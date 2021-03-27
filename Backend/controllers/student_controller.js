@@ -312,6 +312,38 @@ const submitAssignment =async (req, res, next) => {
         res.status(200).json({ message: "Assignment submitted" });
 }
 
+const getPersonalTutorDetails = async (req,res,next)=>{
+    const dbQery = new Query();
+    const student_id = req.userData.user_id;
+
+    const courseQuery = "SELECT course_id from students WHERE student_id = ?";
+    let result;
+    try {
+       result = await dbQery.query(courseQuery,[student_id]); 
+    } catch (error) {
+        return next(new HttpError(500, "Something went wrong while geting PAT details1"));
+    }
+    const semester = await getSemester(student_id);
+    const query = "SELECT s.staff_id, s.name, s.surname, s.email , s.role FROM staff s INNER JOIN personaltutor p ON p.staff_id = s.staff_id WHERE p.semester = ? AND p.course_id = ?";
+    let newResult;
+    try {
+        newResult = await dbQery.query(query,[semester,result[0].course_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Something went wrong while geting PAT details"));
+    }
+    const messageQuery = "SELECT message, sent_date FROM messages WHERE staff_id = ? AND student_id = ? ORDER BY sent_date DESC LIMIT 1";
+    let messageResult;
+    try {
+        messageResult = await dbQery.query(messageQuery,[newResult[0].staff_id,student_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Something went wrong while geting message details"));
+    }
+    const finalObj = {...newResult[0], ...messageResult[0]}
+    res.json([finalObj]);
+}
+
 const getSemester = async (student_id) => {
     const dbQuery = new Query();
     const date = "SELECT registration_year FROM students WHERE student_id = ?";
@@ -350,4 +382,5 @@ exports.getAssignment = getAssignment;
 exports.submitAssignment = submitAssignment;
 exports.resetPassword = resetPassword;
 exports.getRoutine = getRoutine;
+exports.getPersonalTutorDetails = getPersonalTutorDetails;
 

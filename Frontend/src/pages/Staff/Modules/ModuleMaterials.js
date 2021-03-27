@@ -1,7 +1,7 @@
 import './ModuleMaterials.css';
 import React, { useState, useEffect, useContext } from 'react';
 
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -40,7 +40,7 @@ export default function ModuleMaterials() {
   return (
     <div className="reading-materials-list">
       <h3>Reading Materials</h3>
-      <button className="action-btn">New +</button>
+      <button className="action-btn" type="button">New +</button>
       {
         readingMaterialsList.map((item) => (
           <div className="reading-material-item">

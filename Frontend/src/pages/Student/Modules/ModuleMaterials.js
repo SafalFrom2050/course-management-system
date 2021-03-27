@@ -1,7 +1,7 @@
 import './ModuleMaterials.css';
 import React, { useState, useEffect, useContext } from 'react';
 
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -32,9 +32,7 @@ export default function ModuleMaterials() {
     if (!result) {
       return;
     }
-
     setReadingMaterialsList(result.data);
-    console.log(result.data);
   }
 
   return (

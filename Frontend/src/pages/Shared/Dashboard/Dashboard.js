@@ -10,6 +10,7 @@ import StaffAttendance from '../../Staff/Attendance/StaffAttendance';
 import DiaryList from '../Diary/DiaryList';
 import StudentModules from '../../Student/Modules/Modules';
 import StudentModuleMaterials from '../../Student/Modules/ModuleMaterials';
+import StudentTutor from '../../Student/PersonalTutor/PersonalTutor';
 
 import StaffModules from '../../Staff/Modules/Modules';
 import StaffModuleMaterials from '../../Staff/Modules/ModuleMaterials';
@@ -20,6 +21,7 @@ import ViewSubmissions from '../../Staff/Assignment/ViewSubmissions';
 import CreateDiary from '../Diary/CreateDiary';
 import Alertbox from '../../../components/Shared/Alertbox';
 import EditDairy from '../Diary/EditDiary';
+import PersonalTutor from '../../Staff/PersonalTutor/PersonalTutor';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -51,13 +53,30 @@ const Dashboard = (props) => {
           <Route path="/timetable" exact>
             <Timetable />
           </Route>
-          <Route path="/assignments" exact>
-            {userType === 'student' ? <StudentAssignments /> : <AssignmentSubmissions />}
-          </Route>
-          {userType === 'student' ? <Route path="/assignments/submit"><CreateAssignment /></Route> : null}
+
+          {userType === 'student'
+            ? (
+              <>
+                <Route path="/personal-tutor">
+                  <StudentTutor />
+                </Route>
+                <Route path="/assignments" exact>
+                  <StudentAssignments />
+                </Route>
+                <Route path="/assignments/submit">
+                  <CreateAssignment />
+                </Route>
+              </>
+            ) : null}
 
           { userType === 'staff' ? (
             <>
+              <Route path="/personal-tutor">
+                <PersonalTutor />
+              </Route>
+              <Route path="/assignments" exact>
+                <AssignmentSubmissions />
+              </Route>
               <Route path="/assignments/create" exact>
                 <CreateAssignment />
               </Route>

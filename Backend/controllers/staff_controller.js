@@ -226,15 +226,35 @@ const getAllAssignedStudents =async (req,res,next)=>{
     } catch (error) {
         return next(new HttpError(500, "System error. Please try again."));
     }
-    const newQuery = "SELECT student_id, name, surname FROM students WHERE course_id = ?";
+    const newQuery = "SELECT student_id, name, surname,registration_year FROM students WHERE course_id = ?";
     let newResult;
     try {
         newResult = await dbQuery.query(newQuery,result[0].course_id);
     } catch (error) {
         return next(new HttpError(500, "System error. Please try again."));
     }
-    res.json(newResult);
+    const maxDateQuery = "SELECT sent_date,message FROM `messages` WHERE staff_id = ? AND student_id = ? ORDER BY sent_date DESC LIMIT 1; ";
+    const finalResult = await Promise.all( newResult.map( async item=>{
+        const date = await dbQuery.query(maxDateQuery,[staff_id,item.student_id]);
+        item.lastConvo = date[0].sent_date;
+        item.lastMessage = date[0].message
+        item.semester = await getCurrentYear(item.registration_year);
+        return item;
+    }))
+    res.json(finalResult);
 }
+
+function getCurrentYear(inputDate) {
+    let year = JSON.stringify(inputDate);
+    year = year.slice(1, 5);
+    const currentYear = new Date().getFullYear();
+    let currentSem = (currentYear - parseInt(year)) * 2;
+    const currentMonth = ((currentYear - parseInt(year)) * 12) + new Date().getMonth() + 1;
+    if (currentSem === 2) { currentSem = 1; }
+    if (currentMonth < 6) { --currentSem }
+    return currentSem;
+}
+
 
 
 exports.addAssignment = addAssignment;
