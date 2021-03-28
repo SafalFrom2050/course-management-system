@@ -3,6 +3,7 @@
 import './PersonalTutor.css';
 
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
@@ -12,6 +13,7 @@ export default function PersonalTutor() {
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
+  const history = useHistory();
 
   useEffect(() => {
     downloadTutorInfo();
@@ -27,6 +29,13 @@ export default function PersonalTutor() {
       showAlertBox('Network error! Please try again later...', 2000);
     });
     setTutor(result.data);
+  };
+
+  const redirectToMessages = () => {
+    history.push({
+      pathname: 'personal-tutor/messages',
+      search: `recipient_id=${tutor[0].staff_id}`,
+    });
   };
 
   return (
@@ -64,7 +73,7 @@ export default function PersonalTutor() {
             </div>
 
             <div className="actions">
-              <button className="action-btn" type="button">Message</button>
+              <button className="action-btn" type="button" onClick={redirectToMessages}>Message</button>
             </div>
           </div>
         ) : <h2>Personal Tutor not found.. Try again.</h2>}

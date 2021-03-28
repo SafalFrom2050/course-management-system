@@ -6,7 +6,7 @@ import {
 import { useHttpClient } from '../../../hooks/http-hook';
 import ClassAttendance from '../../../components/Staff/ClassAttendance';
 import PostAttendance from '../../../components/Staff/PostAttendance';
-import Modal from '../../../components/Shared/Modal';
+import Modal from '../../../components/Shared/Modal/Modal';
 import { AuthContext } from '../../../contexts/AuthContext';
 
 const StaffAttendance = () => {

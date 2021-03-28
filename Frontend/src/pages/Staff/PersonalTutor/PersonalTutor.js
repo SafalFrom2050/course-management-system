@@ -3,6 +3,7 @@
 import './PersonalTutor.css';
 
 import React, { useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import StudentItem from '../../../components/Staff/StudentItem';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
@@ -13,14 +14,11 @@ export default function PersonalTutor() {
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
+  const history = useHistory();
 
   useEffect(() => {
     downloadStudentList();
   }, []);
-
-  const messageHandler = (student_id) => {
-    console.log(student_id);
-  };
 
   const downloadStudentList = async () => {
     const result = await sendRequest('http://localhost:5000/staff/getAllAssignedStudents', 'GET', {
@@ -34,14 +32,21 @@ export default function PersonalTutor() {
     setStudents(result.data);
   };
 
+  const redirectToMessages = (id) => {
+    history.push({
+      pathname: '/personal-tutor/messages',
+      search: `recipient_id=${id}`,
+    });
+  };
+
   return (
     students.map((item) => (
       <StudentItem
         name={`${item.name} ${item.surname}`}
         lastConvo={new Date(item.lastConvo).toDateString()}
         lastMessage={item.lastMessage}
-        messageHandler={() => { messageHandler(item.student_id); }}
         semester={item.semester}
+        messageHandler={() => { redirectToMessages(item.student_id); }}
       />
     ))
   );

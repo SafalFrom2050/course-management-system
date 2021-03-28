@@ -239,10 +239,28 @@ const getAllAssignedStudents =async (req,res,next)=>{
         item.lastConvo = date[0].sent_date;
         item.lastMessage = date[0].message
         item.semester = await getCurrentYear(item.registration_year);
+        item.student_id
         return item;
     }))
     res.json(finalResult);
 }
+
+const getStudentInfo = async (req, res, next) => {
+    const staff_id = req.userData.user_id;
+    const student_id = req.query.student_id;
+    const dbQuery = new Query();
+
+    const query = "SELECT name, surname, email FROM students WHERE student_id = ?";
+    let result;
+    try {
+        result = await dbQuery.query(query,[student_id]);
+    } catch (error) {
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+     res.json(result);
+
+}
+
 
 function getCurrentYear(inputDate) {
     let year = JSON.stringify(inputDate);
@@ -269,3 +287,4 @@ exports.getSubmissionCount = getSubmissionCount;
 exports.getRoutine = getRoutine;
 exports.getAllAssignedStudents = getAllAssignedStudents;
 exports.getAllModules = getAllModules;
+exports.getStudentInfo = getStudentInfo;

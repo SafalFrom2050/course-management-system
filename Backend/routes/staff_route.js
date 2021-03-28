@@ -44,4 +44,6 @@ router.get("/routine", [query("day").not().isEmpty()], staff.getRoutine);
 
 router.get("/getAllAssignedStudents",staff.getAllAssignedStudents);
 
+router.get("/getStudentInfo",staff.getStudentInfo);
+
 module.exports = router;

@@ -1,8 +1,8 @@
 import './Modal.css';
 import React from 'react';
 import PropTypes from 'prop-types';
-import Backdrop from './Backdrop';
-import StudentTable from '../Staff/StudentTable';
+import Backdrop from '../Backdrop/Backdrop';
+import StudentTable from '../../Staff/StudentTable';
 
 const Modal = (props) => {
   const {

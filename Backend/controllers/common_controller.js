@@ -227,7 +227,7 @@ const getNearestClassTimeForAModule = async (req, res, next) => {
             }
         });
     }
-    res.json(queryResult);
+    // res.json(queryResult);
 }
 
 const sendMessage = async (req,res,next)=>{
@@ -239,16 +239,17 @@ const sendMessage = async (req,res,next)=>{
     const user_id = req.userData.user_id;
     const userType = req.body.userType;
     const message = req.body.message;
+    const title = req.body.title;
     const dbQuery = new Query();
 
     let recipient_id = req.body.recipient_id;
     let array;
     if(userType=="student"){
-        array=[user_id,recipient_id,message, user_id]
+        array=[user_id,recipient_id,message,title, user_id]
     }else{
-        array=[recipient_id,user_id,message, user_id]
+        array=[recipient_id,user_id,message,title, user_id]
     }
-    const query = "INSERT INTO messages(student_id,staff_id,message,sent_by) VALUES (?,?,?,?)";
+    const query = "INSERT INTO messages(student_id,staff_id,message,title, sent_by) VALUES (?,?,?,?,?)";
     try {
         await dbQuery.query(query,array);
     } catch (error) {
@@ -276,7 +277,7 @@ const getPersonalMessages = async (req,res,next)=>{
     }
 
     const dbQuery = new Query();
-    const query = "SELECT message, sent_date, sent_by FROM messages WHERE staff_id = ? AND student_id = ? ORDER BY sent_date ASC LIMIT 10";
+    const query = "SELECT message, sent_date, sent_by, title FROM messages WHERE staff_id = ? AND student_id = ? ORDER BY sent_date ASC LIMIT 10";
     let result;
     try {
         result = await dbQuery.query(query,array);

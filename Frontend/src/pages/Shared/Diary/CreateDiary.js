@@ -1,15 +1,17 @@
+/* eslint-disable react/prop-types */
 import './createDiary.css';
 
 import {
   React, useState, useContext,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 import { AuthContext } from '../../../contexts/AuthContext';
 
-export default function CreateDiary() {
+export default function CreateDiary(props) {
+  const { page } = props;
   const [diaryBody, setDiaryBody] = useState('');
   const [diaryHeading, setDiaryHeading] = useState('');
   // Date to set for future
@@ -17,7 +19,8 @@ export default function CreateDiary() {
 
   const { sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
-
+  const user = JSON.parse(localStorage.getItem('userData'));
+  const location = useLocation().recipient_id;
   const showAlertBox = useAlertBoxShowMsg();
   const history = useHistory();
 
@@ -25,10 +28,19 @@ export default function CreateDiary() {
   async function createDiary(e) {
     e.preventDefault();
 
-    const payload = {
+    let payload = {
       title: diaryHeading,
       body: diaryBody,
     };
+
+    if (page === 'message') {
+      payload = {
+        title: diaryHeading,
+        message: diaryBody,
+        userType: user.userType,
+        recipient_id: location,
+      };
+    }
 
     const config = {
       headers: {
@@ -36,8 +48,11 @@ export default function CreateDiary() {
         Authorization: `Bearer ${auth.token}`,
       },
     };
-
-    const result = await sendRequest(`http://localhost:5000/common/setDiaries?userType=${auth.userType}`, 'POST', payload, config).catch((error) => {
+    let endpoint = `http://localhost:5000/common/setDiaries?userType=${auth.userType}`;
+    if (page === 'message') {
+      endpoint = 'http://localhost:5000/common/sendMessage';
+    }
+    const result = await sendRequest(endpoint, 'POST', payload, config).catch((error) => {
       console.log(error);
       showAlertBox('Network error! Please try again later...', 2000);
     });
@@ -45,9 +60,13 @@ export default function CreateDiary() {
       return;
     }
 
-    showAlertBox('Diary Created!', 2000);
-
-    history.push('/diary');
+    if (page === 'diary') {
+      showAlertBox('Diary Created!', 2000);
+      history.push('/diary');
+      return;
+    }
+    showAlertBox('Message sent!', 2000);
+    history.push(`/personal-tutor/messages?recipient_id=${location}`);
   }
 
   return (
@@ -56,18 +75,7 @@ export default function CreateDiary() {
       <div className="diary-create-box">
         <div className="create-diary-label">Create New +</div>
 
-        {/* <!-- Diary Form -->
-
-                <!-- Diary Form
-                    > Diary Detail
-                        > diary Heading, Date Label, Body
-                            > Body, Data Label
-                                > Edit Diary Button -->
-
-                <!-- Diary Item Without Full Text--> */}
-
         <div className="diary-form">
-          {/* <!-- Diary Detail --> */}
           <div className="diary-detail">
             <form onSubmit={createDiary}>
               <input

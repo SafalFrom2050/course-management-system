@@ -1,6 +1,6 @@
 import React from 'react';
 import './Alertbox.css';
-import { useAlertBoxMsg } from '../../contexts/AlertBoxContext';
+import { useAlertBoxMsg } from '../../../contexts/AlertBoxContext';
 
 function Alertbox() {
   const alertMsg = useAlertBoxMsg();

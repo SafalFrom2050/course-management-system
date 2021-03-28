@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust,
 } from '@fortawesome/free-solid-svg-icons';
-import { AuthContext } from '../../contexts/AuthContext';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 function SideNavBar() {
   const [activeMenuItem, setActiveMenuItem] = useState('');

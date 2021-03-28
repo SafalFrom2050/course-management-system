@@ -49,4 +49,5 @@ router.patch("/resetPassword", [
 
 router.get("/getPersonalTutorDetails",student.getPersonalTutorDetails);
 
+
 module.exports = router;

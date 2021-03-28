@@ -1,9 +1,9 @@
-import '../../../components/Shared/SideNavBar.css';
+import '../../../components/Shared/SideNavBar/SideNavBar.css';
 
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import SideNavBar from '../../../components/Shared/SideNavBar';
+import SideNavBar from '../../../components/Shared/SideNavBar/SideNavBar';
 import Attendance from '../../Student/Attendance/Attendance';
 import Timetable from '../../Student/Timetable/Timetable';
 import StaffAttendance from '../../Staff/Attendance/StaffAttendance';
@@ -19,9 +19,11 @@ import CreateAssignment from '../../Staff/Assignment/CreateAssignment';
 import AssignmentSubmissions from '../../Staff/Assignment/AssignmentSubmissions';
 import ViewSubmissions from '../../Staff/Assignment/ViewSubmissions';
 import CreateDiary from '../Diary/CreateDiary';
-import Alertbox from '../../../components/Shared/Alertbox';
+import Alertbox from '../../../components/Shared/AlertBox/Alertbox';
 import EditDairy from '../Diary/EditDiary';
 import PersonalTutor from '../../Staff/PersonalTutor/PersonalTutor';
+
+import Messages from '../PerosnalMessages/Messages';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -45,7 +47,7 @@ const Dashboard = (props) => {
             <DiaryList />
           </Route>
           <Route exact path="/diary/create">
-            <CreateDiary />
+            <CreateDiary page="diary" />
           </Route>
           <Route exact path="/diary/edit/:id">
             <EditDairy />
@@ -53,11 +55,16 @@ const Dashboard = (props) => {
           <Route path="/timetable" exact>
             <Timetable />
           </Route>
-
+          <Route path="/personal-tutor/messages" exact>
+            <Messages />
+          </Route>
+          <Route path="/personal-tutor/send">
+            <CreateDiary page="message" />
+          </Route>
           {userType === 'student'
             ? (
               <>
-                <Route path="/personal-tutor">
+                <Route path="/personal-tutor" exact>
                   <StudentTutor />
                 </Route>
                 <Route path="/assignments" exact>
@@ -71,7 +78,7 @@ const Dashboard = (props) => {
 
           { userType === 'staff' ? (
             <>
-              <Route path="/personal-tutor">
+              <Route path="/personal-tutor" exact>
                 <PersonalTutor />
               </Route>
               <Route path="/assignments" exact>
@@ -85,6 +92,7 @@ const Dashboard = (props) => {
               </Route>
             </>
           ) : null}
+
           <Redirect to="/modules" />
         </Switch>
 
