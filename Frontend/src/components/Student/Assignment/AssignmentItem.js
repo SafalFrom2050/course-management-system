@@ -30,7 +30,7 @@ export default function AssignmentItem(props) {
             </div>
             <div className="data-label">
               Assignment Due
-              <label className="data">{props.deadline.split('T')[0]}</label>
+              <label className="data">{props.deadline}</label>
             </div>
           </div>
 

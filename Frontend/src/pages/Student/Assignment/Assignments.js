@@ -39,7 +39,7 @@ export default function Assignments() {
             assignment_id={assignment.assignment_id}
             heading={`${assignment.title} /Module ID: ${assignment.module_id}`}
             body={assignment.content}
-            deadline={assignment.deadline}
+            deadline={new Date(assignment.deadline).toUTCString()}
           />
         )) : <p>No active assignments found.</p>}
       </div>

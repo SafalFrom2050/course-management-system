@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const sqlObj = require('../server');
+const Query = require('../Classes/Query');
 const { validationResult } = require('express-validator');
 const HttpError = require('../models/http_error');
 const generator = require('generate-password');
@@ -7,6 +7,7 @@ const generator = require('generate-password');
 
 const createStudent = async (req, res, next) => {
     const errors = validationResult(req);
+    const dbQuery = new Query();
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
     }
@@ -29,29 +30,32 @@ const createStudent = async (req, res, next) => {
     try {
         pass = await bcrypt.hash(password, 10);
     } catch (error) {
-        //ERROR
+        return next(new HttpError(500, "Service Error. Please try again."));
     }
 
     const query = "SELECT MAX(student_id) FROM students WHERE course_id = ?";
-    sqlObj.con.query(query, [course_id], (err, result) => {
-        if (err) {
-            return next(new HttpError(500, "Service Error. Please try again."));
-        }
-        let num;
-        for (const key in result[0]) {
-            num = result[0][key];
-        }
-        ++num;
-        const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+    let result;
+    try {
+        result = await dbQuery.query(query,[course_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
 
-        const insertQuery = "INSERT INTO students VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-        sqlObj.con.query(insertQuery, [num, course_id, name, email, pass, surname, address, phone, gender, date_of_birth, registration_year, "Live"], (err, result) => {
-            if (err) {
-                return next(new HttpError(500, "Service Error. Please try again."));
-            }
-            res.status(200).json({ email, password });
-        })
-    })
+    let num;
+    for (const key in result[0]) {
+        num = result[0][key];
+    }
+    ++num;
+    const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+
+    const insertQuery = "INSERT INTO students VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+        
+    try {
+        await dbQuery.query(insertQuery,[num, course_id, name, email, pass, surname, address, phone, gender, date_of_birth, registration_year, "Live"]);
+    } catch (error) {
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.status(200).json({ email, password });
 }
 
 const editStudentInfo = (req, res, next) => {

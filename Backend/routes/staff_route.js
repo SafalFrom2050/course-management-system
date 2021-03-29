@@ -46,4 +46,9 @@ router.get("/getAllAssignedStudents",staff.getAllAssignedStudents);
 
 router.get("/getStudentInfo",staff.getStudentInfo);
 
+router.post("/addMaterial",[
+    check("module_id").isNumeric(),
+    check("title").not().isEmpty(),
+    check("content").not().isEmpty()],staff.addMaterial);
+
 module.exports = router;

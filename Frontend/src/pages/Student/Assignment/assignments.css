@@ -70,9 +70,7 @@
   margin-top: 22px;
   margin-right: auto;
 }
-.assignment-item > .assignment-detail > .body-container > .data-label {
-  width: 70%;
-}
+
 
 .assignment-item > .assignment-detail > .body-container > .data-label > .data {
   border-radius: 8px;

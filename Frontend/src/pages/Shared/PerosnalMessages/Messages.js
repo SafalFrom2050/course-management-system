@@ -99,6 +99,11 @@ export default function Messages() {
               Messages
             </div>
           </div>
+          {messages.length === 0 ? (
+            <div className="actions">
+              <button className="action-btn" type="button" onClick={redirectToSendMessage}>Message</button>
+            </div>
+          ) : null}
         </div>
       ) : null}
 

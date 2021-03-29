@@ -233,7 +233,7 @@ const getAllAssignedStudents =async (req,res,next)=>{
     } catch (error) {
         return next(new HttpError(500, "System error. Please try again."));
     }
-    const maxDateQuery = "SELECT sent_date,message FROM `messages` WHERE staff_id = ? AND student_id = ? ORDER BY sent_date DESC LIMIT 1; ";
+    const maxDateQuery = "SELECT sent_date, message FROM `messages` WHERE staff_id = ? AND student_id = ? ORDER BY sent_date DESC LIMIT 1; ";
     const finalResult = await Promise.all( newResult.map( async item=>{
         const date = await dbQuery.query(maxDateQuery,[staff_id,item.student_id]);
         item.lastConvo = date[0].sent_date;
@@ -246,7 +246,6 @@ const getAllAssignedStudents =async (req,res,next)=>{
 }
 
 const getStudentInfo = async (req, res, next) => {
-    const staff_id = req.userData.user_id;
     const student_id = req.query.student_id;
     const dbQuery = new Query();
 
@@ -259,6 +258,22 @@ const getStudentInfo = async (req, res, next) => {
     }
      res.json(result);
 
+}
+
+const addMaterial =async (req,res,next)=>{
+    const dbQuery = new Query();
+    const module_id = req.body.module_id;
+    const title = req.body.title;
+    const content = req.body.content;
+
+    const query = "INSERT INTO module_materials (module_id,title,body,datetime_added) VALUES  (?,?,?,?)";
+    try {
+        await dbQuery.query(query,[module_id,title,content,new Date()]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    res.json({message:"Material added"});
 }
 
 
@@ -288,3 +303,4 @@ exports.getRoutine = getRoutine;
 exports.getAllAssignedStudents = getAllAssignedStudents;
 exports.getAllModules = getAllModules;
 exports.getStudentInfo = getStudentInfo;
+exports.addMaterial = addMaterial;

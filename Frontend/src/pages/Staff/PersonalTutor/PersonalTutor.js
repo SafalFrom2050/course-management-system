@@ -44,7 +44,7 @@ export default function PersonalTutor() {
       <StudentItem
         name={`${item.name} ${item.surname}`}
         lastConvo={new Date(item.lastConvo).toDateString()}
-        lastMessage={item.lastMessage}
+        lastMessage={item.lastMessage.slice(0, 50)}
         semester={item.semester}
         messageHandler={() => { redirectToMessages(item.student_id); }}
       />

@@ -78,6 +78,9 @@ const Dashboard = (props) => {
 
           { userType === 'staff' ? (
             <>
+              <Route exact path="/modules/create">
+                <CreateAssignment materials />
+              </Route>
               <Route path="/personal-tutor" exact>
                 <PersonalTutor />
               </Route>
@@ -85,7 +88,7 @@ const Dashboard = (props) => {
                 <AssignmentSubmissions />
               </Route>
               <Route path="/assignments/create" exact>
-                <CreateAssignment />
+                <CreateAssignment assignment />
               </Route>
               <Route path="/assignments/view">
                 <ViewSubmissions />

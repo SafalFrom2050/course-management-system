@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2021 at 08:32 PM
+-- Generation Time: Mar 29, 2021 at 02:20 PM
 -- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.33
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -42,9 +42,9 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`assignment_id`, `module_id`, `title`, `deadline`, `content`, `semester`, `isActive`) VALUES
-(3, 2006, 'Swing GUI Vehicle rental', '2021-04-22 23:59:59', 'Go to this link google.com', 4, 1),
-(11, 2004, 'Second term ', '2021-04-09 14:26:00', 'You are a back end developer for a web development agency. A local newspaper wants you to build a\r\nwebsite which they can post news articles to. The front end developer has supplied an HTML layout with\r\nthe relevant CSS and Images. This has been signed off by the client and should be used for the look of\r\nthe website.', 4, 1),
-(12, 2004, 'Test assignment', '2021-05-06 20:27:00', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus vulputate sapien, nec fringilla turpis. Vestibulum maximus porttitor porta. Quisque consequat elementum venenatis. Quisque vestibulum ornare ullamcorper. Aliquam purus orci, molestie ut dapibus quis, vulputate a est. Interdum et malesuada fames ac ante ipsum primis in faucibus. In ut lacus a nisi porttitor interdum quis id quam.', 4, 1);
+(3, 2006, 'Swing GUI Vehicle rental', '2021-04-22 23:59:59', 'A vehicle tracking system combines the use of automatic vehicle location in individual vehicles with software that collects these fleet data for a comprehensive picture of vehicle locations. Modern vehicle tracking systems commonly use GPS or GLONASS technology for locating the vehicle, but other types of automatic vehicle location technology can also be used. Vehicle information can be viewed on electronic maps via the Internet or specialized software. Urban public transit authorities are an increasingly common user of vehicle tracking systems, particularly in large cities.', 4, 1),
+(12, 2004, 'FSSS Relations', '2021-05-06 20:27:00', 'If the system specification was to be extended to include a freetype \r\nRESPONSE, to cater for system output messages, extend the system specification \r\nyou produced for “place_an_order” to include suitable system output messages \r\nand precondition violations. (You do not need to include an English translation \r\nfor the mathematical statements in your specification). The new specification \r\nshould be called “place_an_order_with_error_conisderations”', 4, 1),
+(17, 2002, 'Data structures implementation', '2021-03-25 15:31:06', 'An array is the most fundamental data structure, which stores elements at a contiguous memory location. It is also one of the darling topics of\r\ninterviewers and you will hear a lot of questions about an array in any coding interview, e.g. reversing an array, sorting the array, or searching elements on the array.', 4, 1);
 
 -- --------------------------------------------------------
 
@@ -67,9 +67,7 @@ CREATE TABLE `attendancemodules` (
 --
 
 INSERT INTO `attendancemodules` (`attendance_modules_id`, `module_id`, `attendance_time`, `semester`, `attendance_status`, `week`, `class_type`) VALUES
-(1, 2002, '2021-02-09 07:00:46', 4, 0, 1, 'Lecture'),
 (5, 2004, '2020-03-02 07:00:46', 4, 0, 1, 'Lecture'),
-(8, 2002, '2020-03-02 07:00:46', 4, 0, 2, 'Lecture'),
 (9, 2005, '2020-03-02 07:00:46', 4, 0, 2, 'Lecture'),
 (15, 2004, '2021-03-07 10:19:00', 4, 0, 3, 'Lecture'),
 (21, 2004, '2021-03-19 13:35:00', 4, 0, 6, 'Lecture'),
@@ -97,7 +95,13 @@ INSERT INTO `attendances` (`attendance_id`, `attendance_module_id`, `student_id`
 (12, 9, 1, '2021-03-01 21:03:57'),
 (22, 15, 1, '2021-03-07 09:19:39'),
 (23, 21, 1, '2021-03-19 13:36:01'),
-(24, 24, 1, '2021-03-26 10:29:56');
+(24, 24, 1, '2021-03-26 10:29:56'),
+(25, 5, 2, '2021-03-01 21:03:45'),
+(26, 5, 3, '2021-03-01 21:27:45'),
+(27, 21, 2, '2021-03-19 13:36:01'),
+(28, 5, 5, '2021-03-01 21:03:45'),
+(29, 21, 5, '2021-03-19 13:36:01'),
+(30, 15, 5, '2021-03-07 09:19:39');
 
 -- --------------------------------------------------------
 
@@ -151,9 +155,23 @@ CREATE TABLE `messages` (
   `message_id` int(10) NOT NULL,
   `student_id` int(10) NOT NULL,
   `staff_id` int(10) NOT NULL,
-  `sent_by` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `message` mediumtext NOT NULL,
+  `sent_by` int(11) NOT NULL,
   `sent_date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `messages`
+--
+
+INSERT INTO `messages` (`message_id`, `student_id`, `staff_id`, `title`, `message`, `sent_by`, `sent_date`) VALUES
+(9, 1, 4, 'Happy Birthday Teacher!', 'Happy Birthday, Teacher. Thanks for guiding my life and giving it purpose. May God bless you. Happy Birthday world’s best teacher. I hope you get showered with many blessings like you did for us. Wholeheartedly grateful for all your sacrifice and guidance, dear teacher. Many happy returns of the day.', 1, '2021-03-27 18:33:19'),
+(10, 1, 4, 'Re: Happy Birthday Teacher!', 'Thank you so much!', 4, '2021-03-27 18:35:28'),
+(16, 2, 4, 'About the report', 'Who are the readers?\r\nWhat is the purpose of the report?\r\nWhy is this report needed?\r\nWhat information should be included in the report?', 2, '2021-03-29 14:36:55'),
+(17, 3, 4, 'Plagiarism check', 'You’re working on a paper and you’ve just written a line that seems kind of familiar. Did you read it somewhere while you were researching the topic? If you did, does that count as plagiarism? Is it still plagiarism if you’re using less than a paragraph?', 3, '2021-03-29 14:38:04'),
+(20, 5, 4, 'About last week topic', 'Can you inform me about the importance of formal specification in software as I missed the last class.', 5, '2021-03-29 14:50:26'),
+(21, 5, 4, 'About Formal specification', 'A formal software specification is a statement expressed in a language whose vocabulary, syntax, and semantics are formally defined. The need for a formal semantic definition means that the specification languages cannot be based on natural language; it must be based on mathematics.', 4, '2021-03-29 15:12:25');
 
 -- --------------------------------------------------------
 
@@ -204,9 +222,11 @@ CREATE TABLE `module_materials` (
 
 INSERT INTO `module_materials` (`module_materials_id`, `module_id`, `title`, `body`, `datetime_added`) VALUES
 (1, 2004, 'Chapter 1', 'In this chapter, we are going to learn how we can use mathematics to build complex software systems.\r\n\r\nIt is recommended that you go through following material before taking the class:\r\nhttps://www.unf.edu/~ncoulter/cen6070/handouts/specifications.pdf\r\n', '2021-03-27 00:07:23'),
-(2, 2004, 'Chapter 2', 'Chapter Two is a 1979 American Metrocolor romantic comedy film directed by Robert Moore, produced by Ray Stark, and based on Neil Simon\'s 1977 ... ( - Wikipedia)', '2021-03-27 01:08:41'),
+(2, 2004, 'Chapter 2', 'This module introduces methods for the formal specification of programs and large software systems, and reviews the domains of application of these methods. It does not deal with the specification of programming languages, the specification of user-computer interfaces, or the verification of programs. https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=10187', '2021-03-27 01:08:41'),
 (3, 2005, 'Chapter 1', 'Database : is collection of data, typically describing the activities of one or more related organizations. DBMS : or database management system, is...', '2021-03-27 01:08:41'),
-(4, 2006, 'Chapter 1', 'Project Background, Objectives, and Research Approach: TRB\'s National Cooperative Highway Research Program (NCHRP) Report...', '2021-03-27 01:08:41');
+(4, 2006, 'Chapter 1', 'Project Background, Objectives, and Research Approach: TRB\'s National Cooperative Highway Research Program (NCHRP) Report...', '2021-03-27 01:08:41'),
+(5, 2004, 'Functions', 'It is usual for there to be a\r\nrule that, for a Library, any\r\nbook may only be on-loan\r\nto one person at a time The lent_to function illustrated would be declared by:\r\nlent_to : BOOK ß PERSON\r\nwhich denotes the set of all functions from the set BOOK to the set PERSON\r\n! The type of lent_to is: P (BOOK × PERSON)\r\n\r\nhttps://www.unf.edu/~ncoulter/cen6070/handouts/specifications.pdf\r\n', '2021-03-29 16:33:31'),
+(6, 2004, 'Chapter 4: Total Functions', ' If the domain of a function is the whole of the source (or from-set), the function is said to be total The symbol for a total function is similar to that\r\nfor a partial function but without the transverse bar.\r\n\r\nhttps://www.sciencedirect.com/topics/computer-science/formal-specification', '2021-03-29 16:35:43');
 
 -- --------------------------------------------------------
 
@@ -300,8 +320,8 @@ CREATE TABLE `staff` (
 
 INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
 (1, 'Thomas', 'Smith', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
-(2, 'Michael', 'Jackson', 'michael', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui'),
-(4, 'Helen ', 'W Bluhm', 'staff', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, 'Software Engineering Teacher', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui'),
+(2, 'Michael', 'Jackson', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
+(4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, '	\r\nFormal Specification of Software Systems 1\r\n', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
 (5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
 (7, 'Sujal', 'Gautam', 'sgautam@gmail.com', 'Bhairahawa-Nepal', '2020-01-21 22:30:11', 102, 3001, 33423, 'Tutor', 'pass');
 
@@ -352,7 +372,10 @@ CREATE TABLE `students` (
 --
 
 INSERT INTO `students` (`student_id`, `course_id`, `name`, `email`, `password`, `surname`, `address`, `phone`, `gender`, `date_of_birth`, `registration_year`, `student_status`) VALUES
-(1, 101, 'Kushal', 'kushal', '$2b$12$ksCMs0OUGbGy/pGHkXYcmujYKDEzH1S2/9S7pVLw6RiNhTPL6n7ui', 'Upreti', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live');
+(1, 101, 'Kushal', 'kupreti@email.com', '$2b$10$G2mR97nXqVTw6E3/kbJ6g./3VBgzJ.N0i5Luu/MiH4QUuuj3Jt0yu', 'Upreti', 'Jorpati', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live'),
+(2, 101, 'Salina', 'salina.khadka2woodland.edu.uk', '$2b$10$GbgIrYiEa1QTcVCmWAIcAeAJH4WXPzO4diDXRf9R9mf6RKpnKvGYq', 'Khadka', 'Kapan', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live'),
+(3, 101, 'Prawesh', 'prawesh.gautam3woodland.edu.uk', '$2b$10$u8.ZlRzmxwUN.QBJcWNpluaOEflksbgP2qQA2GOpcOIaLpevgWJHq', 'Gautam', 'Kapan', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live'),
+(5, 101, 'Safal', 'safal.sharma5woodland.edu.uk', '$2b$10$6M5B5GljtE4c3mGoCqjsjuT0x3AFmWOQy5svl3P0G/AxuVMR33YAa', 'Sharma', 'Bhaktapur', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live');
 
 -- --------------------------------------------------------
 
@@ -374,8 +397,7 @@ CREATE TABLE `submissions` (
 --
 
 INSERT INTO `submissions` (`submission_id`, `student_id`, `assignment_id`, `submission_date`, `title`, `content`) VALUES
-(2, 1, 3, '2021-03-18 20:55:37', 'Assignment 1', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus vulputate sapien, nec fringilla turpis. Vestibulum maximus porttitor porta. Quisque consequat elementum venenatis. Quisque vestibulum ornare ullamcorper. Aliquam purus orci, molestie ut dapibus quis, vulputate a est. Interdum et malesuada fames ac ante ipsum primis in faucibus. In ut lacus a nisi porttitor interdum quis id quam.'),
-(8, 1, 12, '2021-03-20 20:34:58', 'Assignment 2', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque dapibus vulputate sapien, nec fringilla turpis. Vestibulum maximus porttitor porta. Quisque consequat elementum venenatis. Quisque vestibulum ornare ullamcorper. Aliquam purus orci, molestie ut dapibus quis, vulputate a est. Interdum et malesuada fames ac ante ipsum primis in faucibus. In ut lacus a nisi porttitor interdum quis id quam.');
+(1, 5, 12, '2021-03-29 16:43:24', 'FSSS Assignment submission', 'Since a function is a set, we may use both set enumeration (provided there are not many maplet-pairs) and set comprehension to define a function explicitly');
 
 --
 -- Indexes for dumped tables
@@ -420,7 +442,9 @@ ALTER TABLE `diaries`
 -- Indexes for table `messages`
 --
 ALTER TABLE `messages`
-  ADD PRIMARY KEY (`message_id`);
+  ADD PRIMARY KEY (`message_id`),
+  ADD KEY `fk_s_messages` (`student_id`),
+  ADD KEY `fk_st_messages` (`staff_id`);
 
 --
 -- Indexes for table `modules`
@@ -487,8 +511,7 @@ ALTER TABLE `students`
 --
 ALTER TABLE `submissions`
   ADD PRIMARY KEY (`submission_id`),
-  ADD KEY `fk_a_submissions` (`assignment_id`),
-  ADD KEY `fk_s_submissions` (`student_id`);
+  ADD KEY `fk_a_submissions` (`assignment_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -498,7 +521,7 @@ ALTER TABLE `submissions`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `assignment_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `assignment_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `attendancemodules`
@@ -510,19 +533,25 @@ ALTER TABLE `attendancemodules`
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `attendance_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `attendance_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `diaries`
 --
 ALTER TABLE `diaries`
-  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `messages`
+--
+ALTER TABLE `messages`
+  MODIFY `message_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `module_materials`
 --
 ALTER TABLE `module_materials`
-  MODIFY `module_materials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `module_materials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `personaltutor`
@@ -552,19 +581,19 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `staffdiaries`
 --
 ALTER TABLE `staffdiaries`
-  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `submissions`
 --
 ALTER TABLE `submissions`
-  MODIFY `submission_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `submission_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -596,6 +625,13 @@ ALTER TABLE `diaries`
   ADD CONSTRAINT `fk_s_student_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
 
 --
+-- Constraints for table `messages`
+--
+ALTER TABLE `messages`
+  ADD CONSTRAINT `fk_s_messages` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`),
+  ADD CONSTRAINT `fk_st_messages` FOREIGN KEY (`staff_id`) REFERENCES `staff` (`staff_id`);
+
+--
 -- Constraints for table `modules`
 --
 ALTER TABLE `modules`
@@ -605,7 +641,7 @@ ALTER TABLE `modules`
 -- Constraints for table `module_materials`
 --
 ALTER TABLE `module_materials`
-  ADD CONSTRAINT `module_materials_ibfk_1` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_m_modulematerials` FOREIGN KEY (`module_id`) REFERENCES `modules` (`module_id`);
 
 --
 -- Constraints for table `personaltutor`
@@ -650,8 +686,7 @@ ALTER TABLE `students`
 -- Constraints for table `submissions`
 --
 ALTER TABLE `submissions`
-  ADD CONSTRAINT `fk_a_submissions` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`),
-  ADD CONSTRAINT `fk_s_submissions` FOREIGN KEY (`student_id`) REFERENCES `students` (`student_id`);
+  ADD CONSTRAINT `fk_a_submissions` FOREIGN KEY (`assignment_id`) REFERENCES `assignments` (`assignment_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

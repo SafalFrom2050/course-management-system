@@ -6,7 +6,6 @@ const admin = require('../controllers/admin_controller');
 
 //Student endpoints
 router.post("/createStudent", [
-    check("student_id").not().isEmpty(),
     check("course_id").isNumeric(),
     check("name").isLength({ min: 1 }),
     check("surname").isLength({ min: 1 }),

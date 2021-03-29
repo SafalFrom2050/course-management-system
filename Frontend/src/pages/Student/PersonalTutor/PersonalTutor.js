@@ -60,13 +60,14 @@ export default function PersonalTutor() {
                 </h4>
                 <p>
                 &nbsp;  &nbsp;
-                  {tutor[0].message}
+                  {`${tutor[0].message.slice(0, 150)}...`}
                 </p>
               </div>
               <div className="row">
                 <h4>Email</h4>
                 <div className="data">{tutor[0].email}</div>
-
+              </div>
+              <div className="row">
                 <h4>Last Communication</h4>
                 <div className="data">{new Date(tutor[0].sent_date).toDateString()}</div>
               </div>

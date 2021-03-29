@@ -8,7 +8,7 @@ import { AuthContext } from '../../../contexts/AuthContext';
 import { useHttpClient } from '../../../hooks/http-hook';
 import './CreateAssignment.css';
 
-export default function CreateAssignment() {
+export default function CreateAssignment(props) {
   const [formData, setFormData] = useState({
     title: '',
     content: '',
@@ -55,7 +55,7 @@ export default function CreateAssignment() {
   const addAssignment = async () => {
     const obj = { ...formData };
     let endPoint = 'http://localhost:5000/staff/addAssignment';
-    if (user.userType === 'staff') {
+    if (user.userType === 'staff' && !props.materials) {
       if (formData.title === '' || formData.content === '' || formData.deadline === '' || formData.semester === '') {
         return;
       }
@@ -63,6 +63,11 @@ export default function CreateAssignment() {
       endPoint = 'http://localhost:5000/student/submitAssignment';
       obj.assignment_id = location.assignment_id;
       obj.student_id = user.student_id;
+      if (formData.title === '' || formData.content === '') {
+        return;
+      }
+    } else if (user.userType === 'staff' && props.materials) {
+      endPoint = 'http://localhost:5000/staff/addMaterial';
       if (formData.title === '' || formData.content === '') {
         return;
       }
@@ -144,7 +149,7 @@ export default function CreateAssignment() {
 
               <button type="button" onClick={linkHandler}>{linkActive ? 'Post Link' : 'Add new'}</button>
 
-              {user.userType === 'staff' ? (
+              {user.userType === 'staff' && props.assignment ? (
                 <div className="date-level-selector">
                   <label>Due Date</label>
                   <input type="datetime-local" id="end-date" value={formData.deadline} onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} />
