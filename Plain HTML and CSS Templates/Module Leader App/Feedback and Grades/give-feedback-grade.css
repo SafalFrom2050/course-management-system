@@ -1,0 +1,125 @@
+.heading {
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.heading > h3 {
+  width: max-content;
+  border-bottom: #a5a5a5 4px solid;
+  padding: 1rem;
+}
+
+.details {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.details > ul {
+  width: max-content;
+  text-align: start;
+}
+.details > ul > li {
+  margin-bottom: 1.2rem;
+}
+.data {
+  border-radius: 8px;
+  padding: 4px;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-left: 4px;
+  margin-right: 2rem;
+  border: #dddddd solid 1px;
+}
+
+.feedback-create-box {
+  margin-bottom: 26px;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.feedback-create-box {
+  text-align: center;
+}
+.create-feedback-label {
+  padding: 12px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  font-size: larger;
+  font-weight: bold;
+}
+
+.feedback-detail > form {
+  display: flex;
+  flex-direction: column;
+}
+.feedback-date {
+  font-size: small;
+  white-space: nowrap;
+
+  margin: 12px;
+  margin-right: 100%;
+  margin-left: 2rem;
+}
+#grade,
+.feedback-detail > form > .feedback-heading,
+.feedback-detail > form > .feedback-body {
+  padding: 12px;
+  margin: 8px;
+  padding-left: 22px;
+  padding-right: 22px;
+  border: #ddd solid 1px;
+}
+
+.feedback-detail > form > .feedback-heading:focus,
+.feedback-detail > form > .feedback-body:focus {
+  outline: none;
+  border: #999 solid 2px;
+}
+
+.feedback-detail > form > .feedback-heading {
+  border-radius: 6px;
+  font-size: medium;
+  font-weight: normal;
+}
+
+#grade,
+.feedback-detail > form > .feedback-body {
+  border-radius: 8px;
+  font-weight: lighter;
+}
+
+#grade-label {
+  width: max-content;
+}
+#grade {
+  width: 4rem;
+}
+#grade-label {
+  font-size: small;
+  margin: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-detail > form > .save-feedback-btn {
+  padding: 12px;
+  margin: 1rem;
+  margin-left: auto;
+
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  font-size: medium;
+  font-weight: bold;
+  background-color: yellow;
+  box-shadow: 0px 0px 2px rgba(128, 128, 0, 0.493);
+
+  cursor: pointer;
+}
+
+.feedback-detail > form > .save-feedback-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(128, 128, 0, 0.493);
+}

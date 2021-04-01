@@ -4,7 +4,7 @@ These are plain HTML and CSS designs templates for the system.
 
 Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pTX-OiSuQ2QHIX-mxuv7qJxZ-YJTJcdglw/edit?usp=sharing
 
-## Latest: Personal Tutor (Students List) And My Personal Tutor Details
+## Latest: Feedback And Grades
 
 ## Common Parts
 
@@ -21,14 +21,19 @@ Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pT
 
 ### Completed
 
-    - Attendance
+    - Modules (List)
+    - Assignments (List)
+    - Attendance (List, Mark Self)
     - Personal Tutor (My Personal Tutor Details)
+    - Feedback and Grades (List and individual grade page)
 
 ## Tutor Account Specific Parts
 
 ### Completed
 
-    - Attendance
+    - Assignments (List, Create New)
+    - Attendance (Record New, List)
     - Personal Tutor (Students List)
+    - Feedback and Grades (Grade Student)
 
 ### Partial

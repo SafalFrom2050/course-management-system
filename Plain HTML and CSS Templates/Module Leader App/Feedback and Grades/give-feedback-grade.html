@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../nav.css" />
+    <link rel="stylesheet" href="../../typography.css" />
+    <link rel="stylesheet" href="../../style.css" />
+
+    <link rel="stylesheet" href="give-feedback-grade.css" />
+    <title>Create Feedback And Grade</title>
+  </head>
+  <body>
+    <!-- Title Page (Same on all pages) -->
+    <nav>
+      <div class="page-title">
+        <h2>Feedback And Grade</h2>
+      </div>
+    </nav>
+
+    <div class="feedback-create-box">
+      <div class="heading">
+        <h3>Group Project | Term 1 module</h3>
+        
+      </div>
+      <div class="details">
+        <ul>
+            <li>Module: <label class="data">Group Project</label></li>
+
+            <li>Semester: <label class="data">4</label></li>
+
+            <li>Student Name: <label class="data">Safal Sharma</label></li>
+        </ul>
+    </div>
+
+      <!-- item -->
+
+      <!-- Item 
+        > Detail
+            > Heading, Body Container
+                > Body, Data Label 
+                    > Edit Button -->
+
+      <!-- Item Without Full Text-->
+      <div class="feedback-form">
+        <!-- Detail, Active Item! -->
+        <div class="feedback-detail">
+          <form action="" method="post">
+        
+            <label class="feedback-date" for="feedback-body">12 - 08 - 2001</label>
+            <textarea class="feedback-body" name="feedback-body" placeholder="Write feedback" id="" cols="30" rows="10"></textarea>
+            <label id="grade-label" for="grade">Grade (Leave empty if not graded)</label>
+            <input type="text" name="grade" id="grade" placeholder=".........">
+            <!-- Save feedback -->
+            <button class="save-feedback-btn" type="submit">Confirm</button>
+          </form>
+          
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
