@@ -51,4 +51,6 @@ router.post("/addMaterial",[
     check("title").not().isEmpty(),
     check("content").not().isEmpty()],staff.addMaterial);
 
+router.post("/gradeAssignment",staff.gradeAssignment);
+
 module.exports = router;

@@ -90,7 +90,7 @@ const getSubmissions = async (req,res,next)=>{
         return next(new HttpError(422, "Invalid input passed"));
     }
     const dbQuery = new Query();
-    const query = "SELECT su.title, su.content, su.submission_date, s.name, s.surname FROM submissions su INNER JOIN students s ON su.student_id = s.student_id WHERE su.assignment_id = ?";
+    const query = "SELECT su.title, su.content, s.semester, su.submission_date, s.name, s.surname FROM submissions su INNER JOIN students s ON su.student_id = s.student_id WHERE su.assignment_id = ?";
     try {
         result = await dbQuery.query(query,[assignment_id]);
      } catch (error) {
@@ -276,6 +276,40 @@ const addMaterial =async (req,res,next)=>{
     res.json({message:"Material added"});
 }
 
+const gradeAssignment = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const module_id = req.body.module_id;
+    const student_id = req.body.student_id;
+    const semester = req.body.semester;
+    const feedback = req.body.feedback;
+    const rank = req.body.rank;
+
+    const checkQuery = 'SELECT COUNT(*) FROM grades WHERE student_id = ? AND module_id = ? AND semester = ?';
+    let result;
+    try {
+        result =await dbQuery.query(checkQuery,[student_id,module_id,semester]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    let query;
+    let params = [];
+    if(Object.values(result[0])[0]===0){
+        query = "INSERT INTO grades (student_id,module_id,semester,feedback,rank,isPublished) VALUES (?,?,?,?,?,?)";
+        params = [student_id,module_id,semester,feedback,rank === null?"Z":rank,rank === null?0:1];
+    }else{
+        query = "UPDATE grades SET feedback = ?, rank=?, isPublished = ? WHERE student_id = ? AND module_id = ? AND semester = ?";
+        params = [feedback,rank === null?"Z":rank,rank === null?0:1,student_id,module_id,semester];
+    }
+    try {
+        await dbQuery.query(query,params);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "System error. Please try again."));
+    }
+    res.json({message:"Grades added"});
+}
+
 
 function getCurrentYear(inputDate) {
     let year = JSON.stringify(inputDate);
@@ -304,3 +338,4 @@ exports.getAllAssignedStudents = getAllAssignedStudents;
 exports.getAllModules = getAllModules;
 exports.getStudentInfo = getStudentInfo;
 exports.addMaterial = addMaterial;
+exports.gradeAssignment = gradeAssignment;

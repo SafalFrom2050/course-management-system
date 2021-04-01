@@ -344,6 +344,29 @@ const getPersonalTutorDetails = async (req,res,next)=>{
     res.json([finalObj]);
 }
 
+const getGrades =async (req,res,next)=>{
+    const dbQuery = new Query();
+    const student_id = req.userData.user_id;
+    console.log(student_id);
+    const semester = await getSemester(student_id);
+    const query = "SELECT m.module_name,g.module_id, g.feedback, g.rank FROM grades g JOIN modules m ON m.module_id =g.module_id WHERE g.student_id = ? AND g.semester = ? AND g.isPublished = 1";
+    let result;
+    try {
+        result = await dbQuery.query(query,[student_id,semester]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Something went wrong"));
+    }
+    console.log(result);
+    const finalResult = await Promise.all( result.map( async item=>{
+        const query = "SELECT name, surname FROM staff WHERE module_id = ?";
+        const staffResult = await dbQuery.query(query,[item.module_id]);
+        item.staff = staffResult[0].name + " " + staffResult[0].surname;
+        return item;
+    }))
+    res.json(finalResult)
+}
+
 const getSemester = async (student_id) => {
     const dbQuery = new Query();
     const date = "SELECT registration_year FROM students WHERE student_id = ?";
@@ -383,4 +406,5 @@ exports.submitAssignment = submitAssignment;
 exports.resetPassword = resetPassword;
 exports.getRoutine = getRoutine;
 exports.getPersonalTutorDetails = getPersonalTutorDetails;
+exports.getGrades = getGrades;
 
