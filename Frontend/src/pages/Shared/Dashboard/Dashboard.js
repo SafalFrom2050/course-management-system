@@ -11,6 +11,7 @@ import DiaryList from '../Diary/DiaryList';
 import StudentModules from '../../Student/Modules/Modules';
 import StudentModuleMaterials from '../../Student/Modules/ModuleMaterials';
 import StudentTutor from '../../Student/PersonalTutor/PersonalTutor';
+import Grades from '../../Student/Grades/Grades';
 
 import StaffModules from '../../Staff/Modules/Modules';
 import StaffModuleMaterials from '../../Staff/Modules/ModuleMaterials';
@@ -72,6 +73,9 @@ const Dashboard = (props) => {
                 </Route>
                 <Route path="/assignments/submit">
                   <CreateAssignment />
+                </Route>
+                <Route path="/grades">
+                  <Grades />
                 </Route>
               </>
             ) : null}

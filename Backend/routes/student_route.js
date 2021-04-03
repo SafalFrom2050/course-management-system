@@ -51,5 +51,7 @@ router.get("/getPersonalTutorDetails",student.getPersonalTutorDetails);
 
 router.get("/getGrades",student.getGrades);
 
+router.get("/getFeedbacks",student.getFeedbacks);
+
 
 module.exports = router;

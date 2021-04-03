@@ -347,7 +347,6 @@ const getPersonalTutorDetails = async (req,res,next)=>{
 const getGrades =async (req,res,next)=>{
     const dbQuery = new Query();
     const student_id = req.userData.user_id;
-    console.log(student_id);
     const semester = await getSemester(student_id);
     const query = "SELECT m.module_name,g.module_id, g.feedback, g.rank FROM grades g JOIN modules m ON m.module_id =g.module_id WHERE g.student_id = ? AND g.semester = ? AND g.isPublished = 1";
     let result;
@@ -357,13 +356,35 @@ const getGrades =async (req,res,next)=>{
         console.log(error);
         return next(new HttpError(500, "Something went wrong"));
     }
-    console.log(result);
     const finalResult = await Promise.all( result.map( async item=>{
         const query = "SELECT name, surname FROM staff WHERE module_id = ?";
         const staffResult = await dbQuery.query(query,[item.module_id]);
         item.staff = staffResult[0].name + " " + staffResult[0].surname;
         return item;
     }))
+    finalResult[0].semester = semester; 
+    res.json(finalResult)
+}
+
+const getFeedbacks = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const student_id = req.userData.user_id;
+    const semester = await getSemester(student_id);
+    const query = "SELECT m.module_name, g.module_id, g.feedback FROM grades g JOIN modules m ON m.module_id = g.module_id WHERE g.student_id = ? AND g.semester = ? AND g.isPublished = 0";
+    let result;
+    try {
+        result = await dbQuery.query(query,[student_id,semester]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Something went wrong"));
+    }
+    const finalResult = await Promise.all( result.map( async item=>{
+        const query = "SELECT name, surname FROM staff WHERE module_id = ?";
+        const staffResult = await dbQuery.query(query,[item.module_id]);
+        item.staff = staffResult[0].name + " " + staffResult[0].surname;
+        return item;
+    }))
+    finalResult[0].semester = semester; 
     res.json(finalResult)
 }
 
@@ -407,4 +428,5 @@ exports.resetPassword = resetPassword;
 exports.getRoutine = getRoutine;
 exports.getPersonalTutorDetails = getPersonalTutorDetails;
 exports.getGrades = getGrades;
+exports.getFeedbacks = getFeedbacks;    
 

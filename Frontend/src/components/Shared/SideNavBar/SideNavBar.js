@@ -6,7 +6,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust,
+  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust, faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../../contexts/AuthContext';
 
@@ -128,6 +128,19 @@ function SideNavBar() {
             >
               <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
               Personal Tutor
+            </NavLink>
+          </li>
+
+          <li className={`personal-tutor ${activeMenuItem === 'grades' ? 'active' : ''}`}>
+            <NavLink
+              to="/grades"
+              onClick={() => {
+                setTitle('Grades');
+                setActiveMenuItem('grades');
+              }}
+            >
+              <FontAwesomeIcon icon={faGraduationCap} className="icons" />
+              Grades
             </NavLink>
           </li>
 
