@@ -12,6 +12,7 @@ import StudentModules from '../../Student/Modules/Modules';
 import StudentModuleMaterials from '../../Student/Modules/ModuleMaterials';
 import StudentTutor from '../../Student/PersonalTutor/PersonalTutor';
 import Grades from '../../Student/Grades/Grades';
+import GradePage from '../../Student/Grades/GradePage';
 
 import StaffModules from '../../Staff/Modules/Modules';
 import StaffModuleMaterials from '../../Staff/Modules/ModuleMaterials';
@@ -23,8 +24,8 @@ import CreateDiary from '../Diary/CreateDiary';
 import Alertbox from '../../../components/Shared/AlertBox/Alertbox';
 import EditDairy from '../Diary/EditDiary';
 import PersonalTutor from '../../Staff/PersonalTutor/PersonalTutor';
-
 import Messages from '../PerosnalMessages/Messages';
+import AssignGrades from '../../Staff/Grades/AssignGrades';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -74,8 +75,12 @@ const Dashboard = (props) => {
                 <Route path="/assignments/submit">
                   <CreateAssignment />
                 </Route>
-                <Route path="/grades">
+                <Route path="/grades" exact>
                   <Grades />
+                </Route>
+
+                <Route path="/grades/view">
+                  <GradePage />
                 </Route>
               </>
             ) : null}
@@ -96,6 +101,9 @@ const Dashboard = (props) => {
               </Route>
               <Route path="/assignments/view">
                 <ViewSubmissions />
+              </Route>
+              <Route path="/grades/assign">
+                <AssignGrades />
               </Route>
             </>
           ) : null}

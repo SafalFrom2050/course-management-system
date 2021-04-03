@@ -17,7 +17,6 @@ const login = async (req, res, next) => {
     let result;
     try {
         result = await dbQuery.query(query, [email]);
-
     } catch (error) {
         return next(new HttpError(500, "Service Error. Please try again."));
     }
@@ -39,7 +38,7 @@ const login = async (req, res, next) => {
         .then(ans => {
             if (ans) {
                 const token = jwt.sign({ user_id: userType === "staff" ? result[0].staff_id : result[0].student_id, email: result[0].email }, "try_and_hack_me_noobs", { expiresIn: '12h' });
-                let resObj = { student_id: result[0].student_id, email: result[0].email, name: result[0].name, token: token, userType };
+                let resObj = { student_id: result[0].student_id, email: result[0].email, name: result[0].name + " " + result[0].surname, gender:result[0].gender, token: token, userType };
                 if (userType === "staff") {
                     resObj = { staff_id: result[0].staff_id, email: result[0].email, name: result[0].name, module_id: result[0].module_id, token: token, userType };
                 }

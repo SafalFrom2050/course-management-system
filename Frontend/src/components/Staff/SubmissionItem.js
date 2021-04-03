@@ -4,7 +4,7 @@ import React from 'react';
 
 export default function SybmissionItem(props) {
   const {
-    name, surname, content, submission_date, title,
+    name, surname, content, submission_date, title, redirect,
   } = props;
   return (
     <div className="assignment-item">
@@ -26,7 +26,7 @@ export default function SybmissionItem(props) {
           Submission date:
           <label className="data">{new Date(submission_date).toUTCString()}</label>
         </div>
-        <button className="action-btn" type="submit">Mark</button>
+        <button className="action-btn" type="submit" onClick={redirect}>Mark</button>
       </div>
     </div>
   );

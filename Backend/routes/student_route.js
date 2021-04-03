@@ -21,7 +21,7 @@ router.post("/setDiaries", [
 
 router.patch("/editDiaries", [
     check("diary_id").not().isEmpty(),
-    check("title").isLength({ min: 1 }),
+    check("title").isLength({ min: 1 }),    
     check("body").isLength({ min: 1 }),
 ], student.setDiaries);
 

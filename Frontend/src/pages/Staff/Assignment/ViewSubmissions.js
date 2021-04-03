@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 import { useHttpClient } from '../../../hooks/http-hook';
@@ -17,6 +17,7 @@ export default function ViewSubmissions() {
   const location = useLocation().search;
   const { module_name, semester, title } = useLocation().data;
   const id = new URLSearchParams(location).get('assignment_id');
+  const history = useHistory();
 
   useEffect(() => {
     downloadSubmissions(id);
@@ -55,6 +56,18 @@ export default function ViewSubmissions() {
     setSubmissions(result.data);
   };
 
+  const redirectToGradePage = (student_id, name, surname) => {
+    history.push({
+      pathname: '/grades/assign',
+      studentInfo: {
+        student_id,
+        semester,
+        name: `${name} ${surname}`,
+        module_name,
+      },
+    });
+  };
+
   return (
     <>
       <div className="assignment-list">
@@ -90,6 +103,8 @@ export default function ViewSubmissions() {
           content={item.content}
           submission_date={item.submission_date}
           title={item.title}
+          semester={item.semester}
+          redirect={() => { redirectToGradePage(item.student_id, item.name, item.surname); }}
         />
       ))}
     </>

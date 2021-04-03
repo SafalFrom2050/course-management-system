@@ -3,6 +3,7 @@ import './Grades.css';
 import {
   React, useContext, useEffect, useState,
 } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useHttpClient } from '../../../hooks/http-hook';
@@ -15,6 +16,7 @@ export default function Grades() {
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
   const showAlertBox = useAlertBoxShowMsg();
+  const history = useHistory();
 
   useEffect(() => {
     downloadGrades();
@@ -53,6 +55,14 @@ export default function Grades() {
     setFeedbacks(result.data);
   };
 
+  const redirectToGradePage = (id) => {
+    const grade = grades[id];
+    history.push({
+      pathname: '/grades/view',
+      gradeInfo: grade,
+    });
+  };
+
   return (
     <>
       <div className="grades-list">
@@ -60,13 +70,14 @@ export default function Grades() {
           <h3>Grades</h3>
         </div>
 
-        {grades.map((item) => (
+        {grades.map((item, index) => (
           <GradeItem
             module_name={item.module_name}
             semester={item.semester}
             rank={item.rank}
             tutor_name={item.staff}
             module_id={item.module_id}
+            redirect={() => { redirectToGradePage(index); }}
           />
         ))}
       </div>

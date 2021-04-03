@@ -90,14 +90,19 @@ const getSubmissions = async (req,res,next)=>{
         return next(new HttpError(422, "Invalid input passed"));
     }
     const dbQuery = new Query();
-    const query = "SELECT su.title, su.content, s.semester, su.submission_date, s.name, s.surname FROM submissions su INNER JOIN students s ON su.student_id = s.student_id WHERE su.assignment_id = ?";
+    const query = "SELECT su.title, su.content, su.submission_date, s.name, s.surname, s.student_id FROM submissions su INNER JOIN students s ON su.student_id = s.student_id WHERE su.assignment_id = ?";
     try {
         result = await dbQuery.query(query,[assignment_id]);
      } catch (error) {
-         console.log(error);
+         console.log(error);    
          return next(new HttpError(500, "Server error while fetching submissions"));
      }
-     res.json(result);
+     const finalResult = await Promise.all( result.map( async item=>{
+        const semester = await getSemester(result[0].student_id);
+        item.semester = semester;
+        return item;
+    }))
+     res.json(finalResult);
 }
 
 
@@ -296,7 +301,7 @@ const gradeAssignment = async (req,res,next)=>{
     let params = [];
     if(Object.values(result[0])[0]===0){
         query = "INSERT INTO grades (student_id,module_id,semester,feedback,rank,isPublished) VALUES (?,?,?,?,?,?)";
-        params = [student_id,module_id,semester,feedback,rank === null?"Z":rank,rank === null?0:1];
+        params = [student_id,module_id,semester,feedback,rank === null?"N/A":rank,rank === null?0:1];
     }else{
         query = "UPDATE grades SET feedback = ?, rank=?, isPublished = ? WHERE student_id = ? AND module_id = ? AND semester = ?";
         params = [feedback,rank === null?"Z":rank,rank === null?0:1,student_id,module_id,semester];
@@ -308,6 +313,19 @@ const gradeAssignment = async (req,res,next)=>{
         return next(new HttpError(500, "System error. Please try again."));
     }
     res.json({message:"Grades added"});
+}
+
+const getSemester = async (student_id) => {
+    const dbQuery = new Query();
+    const date = "SELECT registration_year FROM students WHERE student_id = ?";
+    let dateResult;
+    try {
+        dateResult = await dbQuery.query(date, [student_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Invalid user"));
+    }
+    const sem = getCurrentYear(dateResult[0].registration_year);
+    return Promise.resolve(sem);
 }
 
 

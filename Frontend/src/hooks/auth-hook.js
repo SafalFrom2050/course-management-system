@@ -23,6 +23,7 @@ export const useAuth = () => {
     } else {
       obj.student_id = recievedData.student_id;
       obj.userType = 'student';
+      obj.gender = recievedData.gender;
       setUserType('student');
     }
     obj = JSON.stringify(obj);
@@ -50,6 +51,7 @@ export const useAuth = () => {
       } else {
         recievedData.student_id = storedData.student_id;
         recievedData.userType = 'student';
+        recievedData.gender = storedData.gender;
       }
       login(recievedData);
     }

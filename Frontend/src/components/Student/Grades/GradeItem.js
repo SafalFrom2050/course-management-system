@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
@@ -5,11 +7,11 @@ import React from 'react';
 
 export default function GradeItem(props) {
   const {
-    module_name, rank, tutor_name, semester, module_id,
+    module_name, rank, tutor_name, semester, module_id, redirect,
   } = props;
   return (
 
-    <div className="module-item">
+    <div className="module-item" onClick={redirect} role="navigation">
       <div className="module-detail">
         <div className="module-heading">
           {module_name}

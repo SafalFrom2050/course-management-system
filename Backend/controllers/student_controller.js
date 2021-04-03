@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
-const sqlObj = require('../server');
 const { validationResult } = require('express-validator');
 const HttpError = require('../models/http_error');
 const Query = require('../Classes/Query');
 
 
 const resetPassword = async (req, res, next) => {
+    const dbQery = new Query();
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
@@ -16,26 +16,28 @@ const resetPassword = async (req, res, next) => {
     const newPassword = req.body.newPassword;
 
     const query = "SELECT password FROM students WHERE email = ?";
-    sqlObj.con.query(query, [email], async (err, result) => {
-
-        if (err || result.length === 0) {
+    let result;
+    try {
+        result = await dbQery.query(query, [email]);
+    } catch (error) {
+        if (result.length === 0) {
             return next(new HttpError(500, "No such user found"));
         }
-        try {
-            await bcrypt.compare(password, result[0].password);
-        } catch (error) {
-            return next(new HttpError(401, "Password didn't match"));
-        }
+    }
+    try {
+        await bcrypt.compare(password, result[0].password);
+    } catch (error) {
+        return next(new HttpError(401, "Password didn't match"));
+    }
 
-        const hashedPassword = await bcrypt.hash(newPassword, 10);
-        const updateQuery = "UPDATE students SET password = ? WHERE email = ?";
-        sqlObj.con.query(updateQuery, [hashedPassword, email], (err, result) => {
-            if (err) {
-                return next(new HttpError(500, "Internal error"));
-            }
-            res.status(200).json({ message: "Password changed" });
-        });
-    });
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updateQuery = "UPDATE students SET password = ? WHERE email = ?";
+    try {
+        await dbQery.query(updateQuery, [hashedPassword, email]);
+    } catch (error) {
+        return next(new HttpError(500, "Internal error"));
+    }
+    res.status(200).json({ message: "Password changed" });
 }
 
 const getCurrentModule = async (req, res, next) => {
@@ -119,12 +121,13 @@ const submitAttendance = async (req, res, next) => {
     }
 
     const query2 = "INSERT INTO attendances (attendance_module_id, student_id, attendance_time) VALUES (?,?,?)";
-    sqlObj.con.query(query2, [attendance_module_id, student_id, attendance_time], (err, result) => {
-        if (err) {
-            return next(new HttpError(500, err.code));
-        }
-        res.status(200).json({ message: "Attendance added" })
-    });
+    try {
+        await dbQuery.query(query2,[attendance_module_id, student_id, attendance_time]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Error while submitting attendance"));
+    }
+    res.status(200).json({ message: "Attendance added" })
 }
 
 const getRoutine = async (req, res, next) => {
@@ -191,18 +194,17 @@ const getAttendanceStatus = async (req, res, next) => {
 }
 
 
-const getDiaries = (req, res, next) => {
+const getDiaries =async (req, res, next) => {
+    const dbQery = new Query();
     const student_id = req.userData.user_id;
     const query = "SELECT * FROM diaries WHERE student_id = ? ORDER BY date_created DESC";
-    sqlObj.con.query(query, [student_id], (err, result) => {
-        if (err) {
-            return next(new HttpError(500, "Error while creating diaries"));
-        }
-        if (result.length === 0) {
-            return next(new HttpError(404, "No diaries created"));
-        }
-        res.json(result);
-    })
+    let result;
+    try {
+        result =await dbQery.query(query, [student_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Error while creating diaries"));
+    }
+    res.json(result);
 }
 
 const setDiaries = async (req, res, next) => {
@@ -360,9 +362,9 @@ const getGrades =async (req,res,next)=>{
         const query = "SELECT name, surname FROM staff WHERE module_id = ?";
         const staffResult = await dbQuery.query(query,[item.module_id]);
         item.staff = staffResult[0].name + " " + staffResult[0].surname;
+        item.semester=semester;
         return item;
     }))
-    finalResult[0].semester = semester; 
     res.json(finalResult)
 }
 
