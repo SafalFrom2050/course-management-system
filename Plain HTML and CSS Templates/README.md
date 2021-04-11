@@ -4,7 +4,7 @@ These are plain HTML and CSS designs templates for the system.
 
 Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pTX-OiSuQ2QHIX-mxuv7qJxZ-YJTJcdglw/edit?usp=sharing
 
-## Latest: Modules Manager (Admin App)
+## Latest: Tutor Manager (Only List) (Admin App)
 
 ## Common Parts
 
@@ -41,3 +41,4 @@ Design Mockups are updated here: https://docs.google.com/document/d/1QKUtEXrf2pT
 ### Completed
 
     - Modules Manager (CRUD)
+    - Tutor Manager (List)
