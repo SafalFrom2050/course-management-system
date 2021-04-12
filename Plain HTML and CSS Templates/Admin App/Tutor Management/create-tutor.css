@@ -1,0 +1,189 @@
+.tutor-submit-box {
+  margin-bottom: 26px;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.tutor-submit-box {
+  text-align: center;
+}
+.submit-tutor-label {
+  padding: 12px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  font-size: larger;
+  font-weight: bold;
+}
+
+.tutor-detail > form {
+  display: flex;
+  flex-direction: column;
+}
+.tutor-date {
+  font-size: small;
+  white-space: nowrap;
+
+  margin: 12px;
+  margin-right: 100%;
+  margin-left: 2rem;
+}
+.tutor-detail > form .name-input,
+.tutor-detail > form > .tutor-body {
+  padding: 12px;
+  margin: 8px;
+  padding-left: 22px;
+  padding-right: 22px;
+  border: #ddd solid 1px;
+}
+
+.tutor-detail > form .name-input:focus,
+.tutor-detail > form > .tutor-body:focus {
+  outline: none;
+  border: #999 solid 2px;
+}
+
+.tutor-detail > form .name-input {
+  width: max-content;
+  border-radius: 6px;
+  font-size: medium;
+  font-weight: normal;
+}
+
+.tutor-detail > form > .tutor-body {
+  border-radius: 8px;
+
+  font-weight: lighter;
+}
+
+.options-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border: solid 1px #ddd;
+  border-radius: 12px;
+
+  margin: 8px;
+  margin-top: 2rem;
+  padding: 2rem;
+  padding-left: 3rem;
+}
+
+.options-box .heading {
+  margin-bottom: 1rem;
+}
+
+.options-box a {
+  font-size: small;
+  font-style: italic;
+  margin-left: 2rem;
+  margin-right: 1rem;
+}
+
+.options-box .link {
+  display: flex;
+  align-items: center;
+  margin: 4px;
+  width: 100%;
+  text-align: start;
+}
+.options-box .link button {
+  font-size: small;
+  font-weight: normal;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: auto;
+  padding: 8px;
+  background-color: white;
+}
+
+.options-box .date-level-selector,
+.options-box .selector {
+  margin-top: 2rem;
+}
+
+#tutors-selector {
+  background-color: yellow;
+  border: unset;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 8px;
+}
+
+form #start-date,
+form #end-date,
+form #level {
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  border: unset;
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  background-color: yellow;
+}
+
+form #start-date:focus,
+form #end-date:focus,
+form #level:focus {
+  background-color: white;
+}
+
+.options-box .date-level-selector,
+.options-box .selector {
+  margin-top: 2rem;
+}
+
+#modules-selector,
+#courses-selector {
+  background-color: yellow;
+  border: unset;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 8px;
+}
+
+form #level {
+  width: 3rem;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+form button {
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+
+  background-color: yellow;
+  box-shadow: 0px 0px 2px rgba(128, 128, 0, 0.493);
+
+  cursor: pointer;
+}
+
+.tutor-detail > form .save-tutor-btn {
+  font-size: medium;
+  margin: 1rem;
+  background-color: yellow;
+  font-weight: bold;
+
+  margin-left: auto;
+}
+
+form button:hover,
+.tutor-detail > form .save-tutor-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(128, 128, 0, 0.493);
+}
+
+.compound-row-inputs {
+  width: 50%;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

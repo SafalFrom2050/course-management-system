@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="create-tutor.css" />
+    <link rel="stylesheet" href="../../nav.css" />
+    <link rel="stylesheet" href="../../typography.css" />
+    <link rel="stylesheet" href="../../style.css" />
+  </head>
+  <body>
+    <!-- Title Page (Same on all pages) -->
+    <nav>
+      <div class="page-title">
+        <h2>Tutors</h2>
+      </div>
+    </nav>
+
+    <!-- Main Container -->
+
+    <div class="tutor-submit-box">
+      <div class="submit-tutor-label">Add Tutor</div>
+
+      <!-- .tutor Form > .tutor Detail > Form -->
+      <div class="tutor-form">
+        <div class="tutor-detail">
+          <!-- WHOLE CONTENTS -->
+          <form>
+            <div class="compound-row-inputs">
+                <label for="first-name">First Name</label>
+                <input
+                class="name-input"
+                type="text"
+                name=""
+                id="first-name"
+                placeholder="First Name"
+                required
+                />
+            </div>
+            <div class="compound-row-inputs">
+                <label for="last-name">Last Name</label>
+                <input
+                class="name-input"
+                type="text"
+                name=""
+                id="last-name"
+                placeholder="Last Name"
+                required
+                />
+            </div>
+
+            <div class="compound-row-inputs">
+                <label for="email">Email</label>
+                <input
+                class="name-input"
+                type="email"
+                name=""
+                id="email"
+                placeholder="Email"
+                required
+                /> 
+            </div>
+            <div class="compound-row-inputs">
+                <label for="password">Password</label>
+                <input
+                class="name-input"
+                type="password"
+                name=""
+                id="password"
+                placeholder="Password"
+                required
+                /> 
+            </div>
+
+            <div class="compound-row-inputs">
+                <label for="address">Address</label>
+                <input
+                class="name-input"
+                type="address"
+                name=""
+                id="address"
+                placeholder="Address"
+                required
+                /> 
+            </div>
+
+            <div class="compound-row-inputs">
+                <label for="salary">Salary</label>
+                <input
+                class="name-input"
+                type="number"
+                name=""
+                id="salary"
+                placeholder="Salary"
+                required
+                /> 
+            </div>
+
+            <div class="compound-row-inputs">
+                <label for="role">Role</label>
+                <input
+                class="name-input"
+                type="text"
+                name=""
+                id="role"
+                placeholder="Role"
+                required
+                /> 
+            </div>
+
+            <!-- Other Options -->
+            <div class="options-box">
+                <h4 class="heading">Other Details</h4>
+
+                <!-- Selector -->
+                <div class="selector">
+                    <label for="modules">Select Module</label>
+    
+                    <select name="modules" id="modules-selector">
+                      <option value="module-1">Software Engineering 1</option>
+                      <option value="module-2">Database 1</option>
+                      <option value="module-3">Problem Solving And Programming</option>
+                    </select>
+                </div>
+
+                <!-- Course Selector -->
+                <div class="selector">
+                    <label for="courses">Select Course</label>
+    
+                    <select name="courses" id="courses-selector">
+                      <option value="1">BSc. Computing</option>
+                      <option value="2">BBA</option>
+                      <option value="3">BSc. Astronomy</option>
+                    </select>
+                </div>
+
+            <!-- Save tutor -->
+            <button class="save-tutor-btn" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
