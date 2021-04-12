@@ -28,6 +28,7 @@ import Messages from '../PerosnalMessages/Messages';
 import AssignGrades from '../../Staff/Grades/AssignGrades';
 
 import AddModule from '../../Admin/Module/AddModule';
+import AllModules from '../../Admin/Module/AllModules';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -72,6 +73,9 @@ const Dashboard = (props) => {
             <>
               <Route exact path="/modules">
                 <AddModule />
+              </Route>
+              <Route exact path="/modules/view">
+                <AllModules />
               </Route>
             </>
           )}

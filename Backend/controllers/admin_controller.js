@@ -237,7 +237,18 @@ const createModule =async (req, res, next) => {
     }
     
     res.status(200).json({ message: "Success" });
+}
 
+const getAllModules = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const query = "SELECT * FROM modules";
+    let result;
+    try {
+        result = await dbQuery.query(query,[]);
+    } catch (error) {
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json(result);
 }
 
 const deleteModule = (req, res, next) => {
@@ -253,4 +264,5 @@ exports.editStaffInfo = editStaffInfo;
 exports.createCourse = createCourse;
 exports.deleteCourse = deleteCourse;
 exports.createModule = createModule;
+exports.getAllModules = getAllModules;
 exports.deleteModule = deleteModule;

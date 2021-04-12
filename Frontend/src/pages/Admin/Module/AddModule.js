@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import './AddModule.css';
 import { React, useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -21,6 +22,7 @@ export default function AddMoudle() {
   const showAlertBox = useAlertBoxShowMsg();
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
+  const history = useHistory();
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
@@ -63,7 +65,7 @@ export default function AddMoudle() {
       showAlertBox('Error while adding module. Try again with new dataset.', 2000);
       return;
     }
-    showAlertBox('Module added', 2000);
+    history.push('/modules/view');
   };
 
   return (

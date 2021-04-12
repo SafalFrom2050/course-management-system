@@ -70,6 +70,8 @@ router.post("/createModule", [
     check("module_credit").isNumeric(),
 ], admin.createModule);
 
+router.get("/getAllModules",admin.getAllModules);
+
 router.post("/deleteModule", [
     check("module_id").isNumeric(),
 ], admin.deleteModule);
