@@ -1,8 +1,12 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import './AddModule.css';
-import { React, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import {
+  React, useState, useContext, useEffect,
+} from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
 
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -19,17 +23,55 @@ export default function AddMoudle() {
     ass_2: '',
     exam: '',
   });
+  const [courses, setCourses] = useState([]);
+
   const showAlertBox = useAlertBoxShowMsg();
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
   const history = useHistory();
+  const { mode, moduleObj } = useLocation();
+
+  useEffect(() => {
+    if (window.location.pathname === '/modules/edit' && !mode) {
+      history.push('/modules/view');
+      return;
+    }
+    if (mode) {
+      loadData();
+    }
+    loadCourses();
+  }, []);
+
+  const loadData = () => {
+    // eslint-disable-next-line guard-for-in
+    for (const key in moduleObj) {
+      moduleObj[key] = `${moduleObj[key]}`;
+    }
+    setModule({ ...moduleObj });
+  };
+
+  const loadCourses = async () => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/admin/getAllCourses', 'GET', config).catch((err) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      showAlertBox('Error while adding module. Try again with new dataset.', 2000);
+    }
+    setCourses(result.data);
+  };
 
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     let sum = 0;
     let error = false;
     const array = Object.values(module);
-
     array.forEach((element, index) => {
       if (element.trim().length === 0 && index < 5) {
         showAlertBox('Do not leave any fields empty', 2000);
@@ -58,7 +100,7 @@ export default function AddMoudle() {
       },
     };
 
-    const result = await sendRequest('http://localhost:5000/admin/createModule', 'POST', module, config).catch((err) => {
+    const result = await sendRequest('http://localhost:5000/admin/createModule', 'POST', { ...module, mode }, config).catch((err) => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
     if (!result) {
@@ -71,7 +113,7 @@ export default function AddMoudle() {
   return (
     <>
       <div className="module-submit-box">
-        <div className="submit-module-label">Add Module</div>
+        <div className="submit-module-label">{mode ? 'Edit Module' : 'Add Module'}</div>
         <div className="module-form">
           <div className="module-detail">
             <form onSubmit={formSubmitHandler}>
@@ -107,9 +149,7 @@ export default function AddMoudle() {
                       setModule({ ...module, course_id: e.target.value });
                     }}
                   >
-                    <option value="module-1">101</option>
-                    <option value="module-2">102</option>
-                    <option value="module-3">103</option>
+                    {courses.map((item) => <option value={item.course_id}>{`${item.course_name} - ${item.course_id}`}</option>)}
 
                   </select>
                 </div>

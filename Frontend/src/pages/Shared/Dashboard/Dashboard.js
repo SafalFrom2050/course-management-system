@@ -74,6 +74,9 @@ const Dashboard = (props) => {
               <Route exact path="/modules">
                 <AddModule />
               </Route>
+              <Route exact path="/modules/edit">
+                <AddModule />
+              </Route>
               <Route exact path="/modules/view">
                 <AllModules />
               </Route>

@@ -38,13 +38,21 @@ export default function AllModules() {
     setModules(result.data);
   };
 
+  const redirectToEdit = (index) => {
+    history.push({
+      pathname: '/modules/edit',
+      moduleObj: modules[index],
+      mode: 'edit',
+    });
+  };
+
   return (
     <div>
       <div className="action-btn-container">
         <button className="create-module-btn" type="button" onClick={() => { history.push('/modules'); }}>Add New +</button>
       </div>
       <div className="module-list">
-        {modules.map((item) => (
+        {modules.map((item, index) => (
           <ModuleItem
             module_id={item.module_id}
             module_name={item.module_name}
@@ -52,6 +60,7 @@ export default function AllModules() {
             module_level={item.module_level}
             course_id={item.course_id}
             key={item.module_id}
+            edit={() => { redirectToEdit(index); }}
           />
         ))}
       </div>

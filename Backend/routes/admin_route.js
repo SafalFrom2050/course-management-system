@@ -72,6 +72,8 @@ router.post("/createModule", [
 
 router.get("/getAllModules",admin.getAllModules);
 
+router.get("/getAllCourses",admin.getAllCourses);
+
 router.post("/deleteModule", [
     check("module_id").isNumeric(),
 ], admin.deleteModule);
