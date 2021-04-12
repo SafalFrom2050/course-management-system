@@ -31,6 +31,16 @@ const login = async (req, res, next) => {
         }
     }
     if (result.length === 0) {
+        query = "SELECT * FROM admins WHERE email = ?";
+        try {
+            result = await dbQuery.query(query, [email]);
+            userType = "admin";
+        } catch (error) {
+            return next(new HttpError(500, "Service Error. Please try again."));
+        }
+    }
+    
+    if (result.length === 0) {
         return next(new HttpError(404, "Error. User not found"));
     }
 
@@ -41,6 +51,8 @@ const login = async (req, res, next) => {
                 let resObj = { student_id: result[0].student_id, email: result[0].email, name: result[0].name + " " + result[0].surname, gender:result[0].gender, token: token, userType };
                 if (userType === "staff") {
                     resObj = { staff_id: result[0].staff_id, email: result[0].email, name: result[0].name, module_id: result[0].module_id, token: token, userType };
+                }else if(userType ==="admin"){
+                    resObj = { admin_id: result[0].admin_id, email: result[0].email, name: result[0].name, token: token, userType };
                 }
                 res.json(resObj);
             } else {

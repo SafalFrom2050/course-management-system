@@ -65,7 +65,6 @@ router.post("/deleteCourse", [
 router.post("/createModule", [
     check("module_id").isNumeric(),
     check("course_id").isNumeric(),
-    check("staff_id").isNumeric(),
     check("module_level").isNumeric(),
     check("module_name").isLength({ min: 1 }),
     check("module_credit").isNumeric(),

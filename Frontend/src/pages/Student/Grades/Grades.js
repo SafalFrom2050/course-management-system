@@ -70,7 +70,7 @@ export default function Grades() {
           <h3>Grades</h3>
         </div>
 
-        {grades.map((item, index) => (
+        {grades.length > 0 ? grades.map((item, index) => (
           <GradeItem
             module_name={item.module_name}
             semester={item.semester}
@@ -79,7 +79,7 @@ export default function Grades() {
             module_id={item.module_id}
             redirect={() => { redirectToGradePage(index); }}
           />
-        ))}
+        )) : <p style={{ margin: '25px 0' }}>No grades assigned so far..</p>}
       </div>
       <div className="feedbacks-list">
         <div className="level-seperator">

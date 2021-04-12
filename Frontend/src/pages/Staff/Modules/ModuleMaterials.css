@@ -45,7 +45,7 @@
   margin-top: unset;
 }
 
-.action-btn {
+.action-btn1 {
   padding: 12px;
 
   border: unset;
@@ -57,7 +57,7 @@
   box-shadow: 0px 0px 6px #95e1d3aa;
   cursor: pointer;
 }
-.action-btn:hover {
+.action-btn1:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 12px #95e1d3aa;
 }

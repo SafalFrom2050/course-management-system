@@ -46,7 +46,7 @@ export default function ModuleMaterials() {
   return (
     <div className="reading-materials-list">
       <h3>Reading Materials</h3>
-      <button className="action-btn" type="button" onClick={redirectToAddMaterials}>New +</button>
+      <button className="action-btn1" type="button" onClick={redirectToAddMaterials}>New +</button>
       {
         readingMaterialsList.map((item) => (
           <div className="reading-material-item">

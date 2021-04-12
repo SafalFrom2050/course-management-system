@@ -53,96 +53,115 @@ function SideNavBar() {
             </div>
           </li>
 
-          <li className={`modules ${activeMenuItem === 'modules' ? 'active' : ''}`}>
-            <NavLink
-              to="/modules"
-              onClick={() => {
-                setTitle('Modules');
-                setActiveMenuItem('modules');
-              }}
-            >
-              <FontAwesomeIcon icon={faBookOpen} className="icons" />
-              Modules
-            </NavLink>
-          </li>
+          {auth.userType !== 'admin' ? (
+            <>
+              <li className={`modules ${activeMenuItem === 'modules' ? 'active' : ''}`}>
+                <NavLink
+                  to="/modules"
+                  onClick={() => {
+                    setTitle('Modules');
+                    setActiveMenuItem('modules');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faBookOpen} className="icons" />
+                  Modules
+                </NavLink>
+              </li>
 
-          <li className={`assignments ${activeMenuItem === 'assignments' ? 'active' : ''}`}>
-            <NavLink
-              to="/assignments"
-              onClick={() => {
-                setTitle('Assignments');
-                setActiveMenuItem('assignments');
-              }}
-            >
-              <FontAwesomeIcon icon={faTasks} className="icons" />
-              Assignments
-            </NavLink>
-          </li>
+              <li className={`assignments ${activeMenuItem === 'assignments' ? 'active' : ''}`}>
+                <NavLink
+                  to="/assignments"
+                  onClick={() => {
+                    setTitle('Assignments');
+                    setActiveMenuItem('assignments');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faTasks} className="icons" />
+                  Assignments
+                </NavLink>
+              </li>
 
-          <li className={`diary ${activeMenuItem === 'diary' ? 'active' : ''}`}>
-            <NavLink
-              to="/diary"
-              onClick={() => {
-                setTitle('Diary');
-                setActiveMenuItem('diary');
-              }}
-            >
-              <FontAwesomeIcon icon={faBook} className="icons" />
-              Diary
-            </NavLink>
-          </li>
+              <li className={`diary ${activeMenuItem === 'diary' ? 'active' : ''}`}>
+                <NavLink
+                  to="/diary"
+                  onClick={() => {
+                    setTitle('Diary');
+                    setActiveMenuItem('diary');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faBook} className="icons" />
+                  Diary
+                </NavLink>
+              </li>
 
-          <li className={`attendance ${activeMenuItem === 'attendance' ? 'active' : ''}`}>
-            <NavLink
-              to="/attendance"
-              onClick={() => {
-                setTitle('Attendance');
-                setActiveMenuItem('attendance');
-              }}
-            >
-              <FontAwesomeIcon icon={faCheckCircle} className="icons" />
-              Attendance
-            </NavLink>
-          </li>
+              <li className={`attendance ${activeMenuItem === 'attendance' ? 'active' : ''}`}>
+                <NavLink
+                  to="/attendance"
+                  onClick={() => {
+                    setTitle('Attendance');
+                    setActiveMenuItem('attendance');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCheckCircle} className="icons" />
+                  Attendance
+                </NavLink>
+              </li>
 
-          <li className={`timetable ${activeMenuItem === 'timetable' ? 'active' : ''}`}>
-            <NavLink
-              to="/timetable"
-              onClick={() => {
-                setTitle('Timetable');
-                setActiveMenuItem('timetable');
-              }}
-            >
-              <FontAwesomeIcon icon={faCalendarWeek} className="icons" />
-              Timetable
-            </NavLink>
-          </li>
+              <li className={`timetable ${activeMenuItem === 'timetable' ? 'active' : ''}`}>
+                <NavLink
+                  to="/timetable"
+                  onClick={() => {
+                    setTitle('Timetable');
+                    setActiveMenuItem('timetable');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faCalendarWeek} className="icons" />
+                  Timetable
+                </NavLink>
+              </li>
 
-          <li className={`personal-tutor ${activeMenuItem === 'personal-tutor' ? 'active' : ''}`}>
-            <NavLink
-              to="/personal-tutor"
-              onClick={() => {
-                setTitle('Personal Tutor');
-                setActiveMenuItem('personal-tutor');
-              }}
-            >
-              <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
-              Personal Tutor
-            </NavLink>
-          </li>
+              <li className={`personal-tutor ${activeMenuItem === 'personal-tutor' ? 'active' : ''}`}>
+                <NavLink
+                  to="/personal-tutor"
+                  onClick={() => {
+                    setTitle('Personal Tutor');
+                    setActiveMenuItem('personal-tutor');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
+                  Personal Tutor
+                </NavLink>
+              </li>
 
-          <li className={`personal-tutor ${activeMenuItem === 'grades' ? 'active' : ''}`}>
-            <NavLink
-              to="/grades"
-              onClick={() => {
-                setTitle('Grades');
-                setActiveMenuItem('grades');
-              }}
-            >
-              <FontAwesomeIcon icon={faGraduationCap} className="icons" />
-              Grades
-            </NavLink>
-          </li>
+              <li className={`personal-tutor ${activeMenuItem === 'grades' ? 'active' : ''}`}>
+                <NavLink
+                  to="/grades"
+                  onClick={() => {
+                    setTitle('Grades');
+                    setActiveMenuItem('grades');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faGraduationCap} className="icons" />
+                  Grades
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li className={`modules ${activeMenuItem === 'modules' ? 'active' : ''}`}>
+                <NavLink
+                  to="/modules"
+                  onClick={() => {
+                    setTitle('Modules');
+                    setActiveMenuItem('modules');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faBookOpen} className="icons" />
+                  Modules
+                </NavLink>
+              </li>
+            </>
+          )}
 
           {/* <!-- Any last item in the list is sent to bottom and its color inverted --> */}
           <li className="dark-mode">
