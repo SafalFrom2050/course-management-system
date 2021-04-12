@@ -20,11 +20,15 @@ export const useAuth = () => {
       obj.module_id = recievedData.module_id;
       obj.userType = 'staff';
       setUserType('staff');
-    } else {
+    } else if (recievedData.userType === 'student') {
       obj.student_id = recievedData.student_id;
       obj.userType = 'student';
       obj.gender = recievedData.gender;
       setUserType('student');
+    } else {
+      obj.admin_id = recievedData.admin_id;
+      obj.userType = 'admin';
+      setUserType('admin');
     }
     obj = JSON.stringify(obj);
     localStorage.setItem('userData', obj);
@@ -48,10 +52,13 @@ export const useAuth = () => {
         recievedData.staff_id = storedData.staff_id;
         recievedData.module_id = storedData.module_id;
         recievedData.userType = 'staff';
-      } else {
+      } else if (recievedData.userType === 'student') {
         recievedData.student_id = storedData.student_id;
         recievedData.userType = 'student';
         recievedData.gender = storedData.gender;
+      } else {
+        recievedData.admin_id = storedData.admin_id;
+        recievedData.userType = 'admin';
       }
       login(recievedData);
     }

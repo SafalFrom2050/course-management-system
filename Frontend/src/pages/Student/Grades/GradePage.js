@@ -38,7 +38,7 @@ export default function GradePage() {
             </strong>
             {' '}
             has given
-            the exam acheiving an
+            the exam acheiving a
             {' '}
             <strong>{gradeInfo.rank}</strong>
             {' '}

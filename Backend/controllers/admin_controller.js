@@ -197,31 +197,78 @@ const deleteCourse = (req, res, next) => {
     })
 }
 
-const createModule = (req, res, next) => {
+const createModule =async (req, res, next) => {
+    const dbQuery = new Query();
     const errors = validationResult(req);
-    console.log(errors);
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
     }
 
     const module_id = req.body.module_id;
     const course_id = req.body.course_id;
-    const staff_id = req.body.staff_id;
     const module_level = req.body.module_level;
     const module_name = req.body.module_name;
     const module_credit = req.body.module_credit;
-    const ass_1 = req.body.ass_1;
-    const ass_2 = req.body.ass_2;
-    const exam = req.body.exam;
+    const mode = req.body.mode;
+    let ass_1 = req.body.ass_1;
+    if(ass_1 ===''){ass_1 = 0};
+    let ass_2 = req.body.ass_2;
+    if(ass_2 ===''){ass_2 = 0};
+    let exam = req.body.exam;
+    if(exam ===''){exam = 0};
 
-    const query = "INSERT INTO modules values(?,?,?,?,?,?,?,?,?)";
-    sqlObj.con.query(query, [module_id, course_id, staff_id, module_name, module_credit, module_level, ass_1, ass_2, exam], (err, result) => {
-        if (err) {
-            console.log(err);
+    let query = "UPDATE modules SET course_id = ?, module_name = ?, module_credit = ?, module_level = ?, ass_1 = ?, ass_2 = ?, exam = ? WHERE module_id = ?";
+    let array = [course_id,module_name,module_credit,module_level,ass_1,ass_2,exam,module_id]
+
+    if(!mode){
+        query = "INSERT INTO modules values(?,?,?,?,?,?,?,?)";
+        array = [module_id, course_id, module_name, module_credit, module_level, ass_1, ass_2, exam];
+
+        const checkQuery = "SELECT module_name FROM modules WHERE module_id = ?";
+        let checkResult;
+        try {
+            checkResult = await dbQuery.query(checkQuery,[module_id]);
+        } catch (error) {
+            console.log(error);
             return next(new HttpError(500, "Service Error. Please try again."));
         }
-        res.status(200).json({ message: "Success" });
-    })
+        if(checkResult.length>0){
+            console.log("Error");
+            return next(new HttpError(409, "Course already exists. Try another module id"));
+        }
+    }
+    try {
+        await dbQuery.query(query, array);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    
+    res.status(200).json({ message: "Success" });
+}
+
+const getAllModules = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const query = "SELECT * FROM modules";
+    let result;
+    try {
+        result = await dbQuery.query(query,[]);
+    } catch (error) {
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json(result);
+}
+
+const getAllCourses = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const query = "SELECT course_id, course_name FROM courses";
+    let result;
+    try {
+        result = await dbQuery.query(query,[]);
+    } catch (error) {
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json(result);
 }
 
 const deleteModule = (req, res, next) => {
@@ -237,4 +284,6 @@ exports.editStaffInfo = editStaffInfo;
 exports.createCourse = createCourse;
 exports.deleteCourse = deleteCourse;
 exports.createModule = createModule;
+exports.getAllModules = getAllModules;
+exports.getAllCourses = getAllCourses;
 exports.deleteModule = deleteModule;
