@@ -29,6 +29,7 @@ import AssignGrades from '../../Staff/Grades/AssignGrades';
 
 import AddModule from '../../Admin/Module/AddModule';
 import AllModules from '../../Admin/Module/AllModules';
+import AddTutor from '../../Admin/Tutor/AddTutor';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -79,6 +80,9 @@ const Dashboard = (props) => {
               </Route>
               <Route exact path="/modules/view">
                 <AllModules />
+              </Route>
+              <Route exact path="/tutor">
+                <AddTutor />
               </Route>
             </>
           )}

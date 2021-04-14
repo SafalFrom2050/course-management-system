@@ -9,6 +9,7 @@ import {
   faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust, faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../../contexts/AuthContext';
+import icon from '../../../assets/favicon.ico';
 
 function SideNavBar() {
   const [activeMenuItem, setActiveMenuItem] = useState('');
@@ -46,7 +47,7 @@ function SideNavBar() {
                         <!-- Any 1st item in the list is not highlighted on hover --> */}
           <li className="profile-preview">
             <div className="account-preview-container">
-              <img className="profile-img-circular" src="favicon.ico" alt="profile" />
+              <img className="profile-img-circular" src={icon} alt="profile" />
               <h4>{auth.userName}</h4>
               <h5 className="account-type" style={{ textTransform: 'capitalize' }}>{auth.userType}</h5>
               <input type="button" value="Logout" onClick={logoutSession} />
@@ -158,6 +159,19 @@ function SideNavBar() {
                 >
                   <FontAwesomeIcon icon={faBookOpen} className="icons" />
                   Modules
+                </NavLink>
+              </li>
+
+              <li className={`personal-tutor ${activeMenuItem === 'personal-tutor' ? 'active' : ''}`}>
+                <NavLink
+                  to="/tutor"
+                  onClick={() => {
+                    setTitle('Tutor');
+                    setActiveMenuItem('personal-tutor');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
+                  Tutor
                 </NavLink>
               </li>
             </>

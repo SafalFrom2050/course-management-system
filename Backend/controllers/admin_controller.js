@@ -86,6 +86,7 @@ const editStudentInfo = (req, res, next) => {
 }
 
 const createStaff = async (req, res, next) => {
+    const dbQuery = new Query();
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
@@ -94,10 +95,10 @@ const createStaff = async (req, res, next) => {
     const name = req.body.name;
     const surname = req.body.surname;
     const address = req.body.address;
-    const department = req.body.department;
     const role = req.body.role;
-    const date_of_join = req.body.date_of_join;
     const salary = req.body.salary;
+    const course_id = req.body.course_id;
+    const module_id = req.body.module_id;
 
     let password = generator.generate({
         length: 10,
@@ -108,29 +109,32 @@ const createStaff = async (req, res, next) => {
     try {
         pass = await bcrypt.hash(password, 10);
     } catch (error) {
-        //ERROR
+        return next(new HttpError(500, "Error while generating password. Try again."));
     }
 
     const query = "SELECT MAX(staff_id) FROM staff";
-    sqlObj.con.query(query, (err, result) => {
-        if (err) {
-            return next(new HttpError(500, "Service Error. Please try again."));
-        }
-        let num;
-        for (const key in result[0]) {
-            num = result[0][key];
-        }
-        ++num;
-        const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+    let maxResult;
+    try {
+        maxResult = await dbQuery.query(query,[]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    let num;
+    for (const key in maxResult[0]) {
+        num = maxResult[0][key];
+    }
+    ++num;
+    const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+    const insertQuery = "INSERT INTO staff (staff_id, name, surname, email, address,course_id,module_id,salary,role, password) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-        const insertQuery = "INSERT INTO staff VALUES (?,?,?,?,?,?,?,?,?,?)";
-        sqlObj.con.query(insertQuery, [num, name, surname, email, address, date_of_join, department, salary, role, pass], (err, result) => {
-            if (err) {
-                return next(new HttpError(500, "Service Error. Please try again."));
-            }
-            res.status(200).json({ email, password });
-        })
-    })
+    try {
+        await dbQuery.query(insertQuery,[num, name, surname, email, address,course_id,module_id, salary, role, pass]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.status(200).json({ email, password });
 }
 
 const editStaffInfo = (req, res, next) => {
@@ -249,10 +253,11 @@ const createModule =async (req, res, next) => {
 
 const getAllModules = async (req,res,next)=>{
     const dbQuery = new Query();
-    const query = "SELECT * FROM modules";
+    const course_id = req.query.course_id;
+    const query = "SELECT * FROM modules wHERE course_id = ?";
     let result;
     try {
-        result = await dbQuery.query(query,[]);
+        result = await dbQuery.query(query,[course_id]);
     } catch (error) {
         return next(new HttpError(500, "Service Error. Please try again."));
     }
@@ -261,7 +266,7 @@ const getAllModules = async (req,res,next)=>{
 
 const getAllCourses = async (req,res,next)=>{
     const dbQuery = new Query();
-    const query = "SELECT course_id, course_name FROM courses";
+    const query = "SELECT course_id, course_name FROM courses ";
     let result;
     try {
         result = await dbQuery.query(query,[]);

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2021 at 08:58 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.4.10
+-- Generation Time: Apr 14, 2021 at 08:17 AM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -243,8 +243,8 @@ INSERT INTO `modules` (`module_id`, `course_id`, `module_name`, `module_credit`,
 (2004, 101, 'Formal Specification of Software Systems 1', 20, 2, 40, 0, 60),
 (2005, 101, 'Database Technology ', 20, 2, 40, 0, 60),
 (2006, 101, 'Group Project and Project Management', 20, 2, 100, 0, 0),
-(2332, 101, 'New Module', 25, 2, 50, 0, 50),
-(2335, 101, 'New Module', 12, 2, 50, 0, 50),
+(2332, 102, 'New Module', 25, 2, 50, 0, 50),
+(2335, 102, 'New Module', 12, 2, 50, 0, 50),
 (3001, 102, 'Economics', 120, 2, 100, 0, 0);
 
 -- --------------------------------------------------------
@@ -351,7 +351,7 @@ CREATE TABLE `staff` (
   `surname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `address` varchar(50) NOT NULL,
-  `date_of_join` datetime NOT NULL,
+  `date_of_join` datetime NOT NULL DEFAULT current_timestamp(),
   `course_id` int(10) NOT NULL,
   `module_id` int(10) NOT NULL,
   `salary` int(10) NOT NULL,
@@ -368,7 +368,7 @@ INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `address`, `date_of
 (2, 'Michael', 'Jackson', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
 (4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, '	\r\nFormal Specification of Software Systems 1\r\n', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
 (5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
-(7, 'Sujal', 'Gautam', 'sgautam@gmail.com', 'Bhairahawa-Nepal', '2020-01-21 22:30:11', 102, 3001, 33423, 'Tutor', 'pass');
+(6, 'Kushal', 'Upreti', 'kushal.upreti6woodland.edu.uk', 'Kapan-Kathmandu', '2021-04-14 12:01:40', 101, 2002, 4, 'No role. ', '$2b$10$U0kLEmqln4vwnnS7T0xvZuSLHwhcAOgedhUMRXKLeN33KUSz/u.ku');
 
 -- --------------------------------------------------------
 

@@ -33,9 +33,7 @@ router.post("/createStaff", [
     check("name").isLength({ min: 1 }),
     check("surname").isLength({ min: 1 }),
     check("address").isLength({ min: 1 }),
-    check("department").isLength({ min: 1 }),
     check("role").isLength({ min: 5 }),
-    check("date_of_join").not().isEmpty(),
     check("salary").isNumeric()
 ], admin.createStaff);
 
