@@ -1,0 +1,128 @@
+.module-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 26px;
+  margin-right: 12px;
+  margin-left: 12px;
+  cursor: pointer;
+}
+.action-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.module-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.module-item > .module-detail {
+  width: 100%;
+  height: fit-content;
+  min-height: 150px;
+
+  margin-top: 16px;
+  padding: 22px;
+  padding-right: 28px;
+  padding-left: 28px;
+
+  border-radius: 16px 16px 16px 16px;
+  border: #dddddd solid 2px;
+  text-align: start;
+
+  transition: background-color 0.2s;
+}
+
+.module-item > .module-detail > .module-heading {
+  font-size: large;
+  font-weight: bold;
+}
+
+.module-item > .module-detail > .body-container {
+  height: max-content;
+  padding: 12px;
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.module-item > .module-detail > .body-container .data-label {
+  height: min-content;
+  margin: 12px;
+  margin-top: 22px;
+  margin-right: 2rem;
+}
+
+.module-item > .module-detail > .body-container .data-label > .data {
+  border-radius: 8px;
+  padding: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  margin-left: 4px;
+  border: #dddddd solid 1px;
+}
+
+.module-item:hover .module-detail {
+  border: none;
+  background-color: yellow;
+}
+
+.expanded:hover .module-detail {
+  background-color: #fff;
+  box-shadow: #dddddd 0 0 12px;
+}
+
+.module-item > .module-detail:hover > .body-container .data-label > .data {
+  background-color: #fff;
+}
+
+.create-module-btn,
+.module-item button {
+  width: fit-content;
+  margin-left: 1rem;
+  padding: 12px;
+
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  font-size: medium;
+  font-weight: bold;
+  background-color: white;
+  box-shadow: 0px 0px 2px rgba(36, 36, 36, 0.3);
+  cursor: pointer;
+}
+.module-item .btns-container {
+  width: 100%;
+  margin-top: 1.5rem;
+  text-align: end;
+}
+.module-item button {
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.create-module-btn:hover,
+.module-item button:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(36, 36, 36, 0.3);
+}
+
+.hidden-data {
+  height: 0;
+  visibility: hidden;
+
+  margin-top: 1rem;
+  border-top: #dddddd 1px solid;
+}
+
+.expanded .hidden-data {
+  height: fit-content;
+  visibility: visible;
+}
