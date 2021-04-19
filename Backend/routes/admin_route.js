@@ -37,17 +37,6 @@ router.post("/createStaff", [
     check("salary").isNumeric()
 ], admin.createStaff);
 
-router.patch("/editStaffInfo", [
-    check("staff_id").not().isEmpty(),
-    check("name").isLength({ min: 1 }),
-    check("surname").isLength({ min: 1 }),
-    check("address").isLength({ min: 1 }),
-    check("email").isEmail(),
-    check("course_id").isLength({ min: 1 }),
-    check("role").isLength({ min: 5 }),
-    check("date_of_join").not().isEmpty(),
-    check("salary").isNumeric()
-], admin.editStaffInfo);
 
 router.post("/createCourse", [
     check("course_id").isNumeric(),
@@ -75,5 +64,7 @@ router.get("/getAllCourses",admin.getAllCourses);
 router.post("/deleteModule", [
     check("module_id").isNumeric(),
 ], admin.deleteModule);
+
+router.get("/getAllTutors",admin.getAllTutors);
 
 module.exports = router;

@@ -33,7 +33,7 @@ export default function AddMoudle() {
 
   useEffect(() => {
     if (window.location.pathname === '/modules/edit' && !mode) {
-      history.push('/modules/view');
+      history.push('/modules');
       return;
     }
     if (mode) {

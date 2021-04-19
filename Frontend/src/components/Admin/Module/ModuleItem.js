@@ -7,7 +7,7 @@ export default function ModuleItem(props) {
     module_name, module_level, module_id, module_credit, course_id, edit,
   } = props;
   return (
-    <div className="module-item">
+    <div className="tutor-item">
       <div className="module-detail">
         <div className="module-heading">
           {module_name}

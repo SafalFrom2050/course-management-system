@@ -97,72 +97,71 @@ const createStaff = async (req, res, next) => {
     const address = req.body.address;
     const role = req.body.role;
     const salary = req.body.salary;
+    const personalEmail = req.body.personalEmail;
     const course_id = req.body.course_id;
     const module_id = req.body.module_id;
+    const staff_id = req.body.staff_id;
+    const mode = req.body.mode;
 
     let password = generator.generate({
         length: 10,
         numbers: true
     });
+    let query = "UPDATE staff SET name= ?, surname = ?, personalEmail = ?, course_id = ?, module_id = ?, salary = ?, role = ? WHERE staff_id=?";
+    let array = [name,surname,personalEmail,course_id,module_id,salary,role,staff_id];
+    let email;
+    if(!mode){
+        let pass;
+        try {
+            pass = await bcrypt.hash(password, 10);
+        } catch (error) {
+            return next(new HttpError(500, "Error while generating password. Try again."));
+        }
 
-    let pass;
-    try {
-        pass = await bcrypt.hash(password, 10);
-    } catch (error) {
-        return next(new HttpError(500, "Error while generating password. Try again."));
+        const checkQuery = "SELECT COUNT(staff_id) FROM staff WHERE personalEmail = ?";
+        let emailResult;
+        try {
+            emailResult = await dbQuery.query(checkQuery,[personalEmail]);
+        } catch (error) {
+            return next(new HttpError(500, "Service Error. Please try again."));
+        }
+        let nums;
+        for (const key in emailResult[0]) {
+            nums = emailResult[0][key];
+        }
+        if(nums>0){
+            return next(new HttpError(409, "Email already exists. Try another email"));
+        }
+        const maxquery = "SELECT MAX(staff_id) FROM staff";
+        let maxResult;
+        try {
+            maxResult = await dbQuery.query(maxquery,[]);
+        } catch (error) {
+            console.log(error);
+            return next(new HttpError(500, "Service Error. Please try again."));
+        }
+        let num;
+        for (const key in maxResult[0]) {
+            num = maxResult[0][key];
+        }
+        ++num;
+        email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+        query = "INSERT INTO staff (staff_id, name, surname, email,personalEmail, address,course_id,module_id,salary,role, password) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+        array = [num, name, surname, email,personalEmail, address,course_id,module_id, salary, role, pass]
     }
-
-    const query = "SELECT MAX(staff_id) FROM staff";
-    let maxResult;
     try {
-        maxResult = await dbQuery.query(query,[]);
+        await dbQuery.query(query,array);
     } catch (error) {
         console.log(error);
         return next(new HttpError(500, "Service Error. Please try again."));
     }
-    let num;
-    for (const key in maxResult[0]) {
-        num = maxResult[0][key];
-    }
-    ++num;
-    const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
-    const insertQuery = "INSERT INTO staff (staff_id, name, surname, email, address,course_id,module_id,salary,role, password) VALUES (?,?,?,?,?,?,?,?,?,?)";
-
-    try {
-        await dbQuery.query(insertQuery,[num, name, surname, email, address,course_id,module_id, salary, role, pass]);
-    } catch (error) {
-        console.log(error);
-        return next(new HttpError(500, "Service Error. Please try again."));
+    if(mode){
+        res.json({message:"Tutor info edited"});
+        return;
     }
     res.status(200).json({ email, password });
 }
 
-const editStaffInfo = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        console.log(errors);
-        return next(new HttpError(422, "Invalid input passed"));
-    }
-    const staff_id = req.body.staff_id;
-    const name = req.body.name;
-    const surname = req.body.surname;
-    const email = req.body.email;
-    const address = req.body.address;
-    const course_id = req.body.course_id;
-    const role = req.body.role;
-    const date_of_join = req.body.date_of_join;
-    const salary = req.body.salary;
-
-    const query = "UPDATE staff SET  name = ?, surname = ?,email=?, address=?, course_id=?, role = ?, date_of_join = ?, salary = ? WHERE staff_id = ?";
-
-    sqlObj.con.query(query, [name, surname, email, address, course_id, role, date_of_join, salary, staff_id], (err, result) => {
-        if (err) {
-            console.log(err);
-            return next(new HttpError(500, "Service Error. Please try again."));
-        }
-        res.status(200).json({ message: "Record updated" });
-    })
-}
 
 const createCourse = (req, res, next) => {
     const errors = validationResult(req);
@@ -264,6 +263,20 @@ const getAllModules = async (req,res,next)=>{
     res.json(result);
 }
 
+const getAllTutors = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const course_id = req.query.course_id;
+    const query = "SELECT * FROM staff WHERE course_id = ?";
+    let result;
+    try {
+        result = await dbQuery.query(query,[course_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json(result);
+}
+
 const getAllCourses = async (req,res,next)=>{
     const dbQuery = new Query();
     const query = "SELECT course_id, course_name FROM courses ";
@@ -285,7 +298,7 @@ const deleteModule = (req, res, next) => {
 exports.createStudent = createStudent;
 exports.editStudentInfo = editStudentInfo;
 exports.createStaff = createStaff;
-exports.editStaffInfo = editStaffInfo;
+exports.getAllTutors = getAllTutors;
 exports.createCourse = createCourse;
 exports.deleteCourse = deleteCourse;
 exports.createModule = createModule;

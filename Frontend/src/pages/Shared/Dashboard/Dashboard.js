@@ -28,6 +28,7 @@ import Messages from '../PerosnalMessages/Messages';
 import AssignGrades from '../../Staff/Grades/AssignGrades';
 
 import AddModule from '../../Admin/Module/AddModule';
+import AllTutors from '../../Admin/Tutor/AllTutors';
 import AllModules from '../../Admin/Module/AllModules';
 import AddTutor from '../../Admin/Tutor/AddTutor';
 
@@ -73,15 +74,21 @@ const Dashboard = (props) => {
           ) : (
             <>
               <Route exact path="/modules">
-                <AddModule />
+                <AllModules />
               </Route>
               <Route exact path="/modules/edit">
                 <AddModule />
               </Route>
-              <Route exact path="/modules/view">
-                <AllModules />
+              <Route exact path="/modules/add">
+                <AddModule />
               </Route>
               <Route exact path="/tutor">
+                <AllTutors />
+              </Route>
+              <Route exact path="/tutor/add">
+                <AddTutor />
+              </Route>
+              <Route exact path="/tutor/edit">
                 <AddTutor />
               </Route>
             </>

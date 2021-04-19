@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 import './AddTutor.css';
@@ -14,13 +15,13 @@ export default function AddTutor() {
   const [courses, setCourses] = useState([]);
   const [modules, setModules] = useState([]);
   const [selected, setSelected] = useState({
-    course: null,
+    course: '101',
     module: '1001',
   });
   const [info, setInfo] = useState({
     name: '',
     surname: '',
-    email: '',
+    personalEmail: '',
     address: '',
     salary: 0,
     role: '',
@@ -29,12 +30,30 @@ export default function AddTutor() {
   const showAlertBox = useAlertBoxShowMsg();
   const auth = useContext(AuthContext);
   const { sendRequest } = useHttpClient();
+  const { mode, tutorObj } = useLocation();
   const history = useHistory();
 
   useEffect(() => {
-    downloadModules('101');
+    if (window.location.pathname === '/tutor/edit' && !mode) {
+      history.push('/tutor');
+      return;
+    }
+    if (mode) {
+      downloadModules(tutorObj.course_id);
+      loadData();
+    } else {
+      downloadModules('101');
+    }
     loadCourses();
   }, []);
+
+  const loadData = () => {
+    // eslint-disable-next-line guard-for-in
+    for (const key in tutorObj) {
+      tutorObj[key] = `${tutorObj[key]}`;
+    }
+    setInfo({ ...tutorObj });
+  };
 
   const downloadModules = async (course_id) => {
     const config = {
@@ -47,10 +66,7 @@ export default function AddTutor() {
     const result = await sendRequest(`http://localhost:5000/admin/getAllModules?course_id=${course_id}`, 'GET', config).catch((err) => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
-    if (!result) {
-      showAlertBox('Error while getting module. Try again..', 2000);
-      return;
-    }
+
     setSelected({ ...selected, module: result.data[0].module_id });
     setModules(result.data);
   };
@@ -70,7 +86,11 @@ export default function AddTutor() {
       showAlertBox('Error fetching courses. Try again', 2000);
     }
     setCourses(result.data);
-    setSelected({ ...selected, course: result.data[0].course_id });
+    if (tutorObj) {
+      setSelected({ ...selected, course: tutorObj.course_id });
+      return;
+    }
+    setSelected({ ...selected, course: tutorObj ? tutorObj.course_id : result.data[0].course_id });
   };
 
   const formSubmitHandler = async (e) => {
@@ -86,11 +106,12 @@ export default function AddTutor() {
       ...info,
       course_id: selected.course,
       module_id: selected.module,
+      mode,
     }, config).catch((err) => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
     if (!result) {
-      showAlertBox('Error fetching courses. Try again', 2000);
+      showAlertBox('Error adding/editing tutor. Try again with some changes.', 2000);
       return;
     }
     showAlertBox('Tutor added. Temporary password sent to the email address.', 2000);
@@ -114,6 +135,7 @@ export default function AddTutor() {
                 id="first-name"
                 placeholder="First Name"
                 required
+                value={info.name}
               />
             </div>
             <div className="compound-row-inputs">
@@ -126,19 +148,21 @@ export default function AddTutor() {
                 id="last-name"
                 placeholder="Last Name"
                 required
+                value={info.surname}
               />
             </div>
 
             <div className="compound-row-inputs">
               <label htmlFor="email">Email</label>
               <input
-                onChange={(e) => { setInfo({ ...info, email: e.target.value }); }}
+                onChange={(e) => { setInfo({ ...info, personalEmail: e.target.value }); }}
                 className="name-input"
                 type="email"
                 name=""
                 id="email"
                 placeholder="Email"
                 required
+                value={info.personalEmail}
               />
             </div>
 
@@ -152,6 +176,7 @@ export default function AddTutor() {
                 id="address"
                 placeholder="Address"
                 required
+                value={info.address}
               />
             </div>
 
@@ -165,6 +190,7 @@ export default function AddTutor() {
                 id="salary"
                 placeholder="Salary"
                 required
+                value={info.salary}
               />
             </div>
 
@@ -178,6 +204,7 @@ export default function AddTutor() {
                 id="role"
                 placeholder="Role"
                 required
+                value={info.role}
               />
             </div>
 
