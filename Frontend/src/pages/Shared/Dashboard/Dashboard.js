@@ -34,44 +34,13 @@ import AddTutor from '../../Admin/Tutor/AddTutor';
 
 const Dashboard = (props) => {
   const { userType } = props;
-
   if (userType) {
     return (
       <>
         <Alertbox />
         <SideNavBar />
         <Switch>
-          {userType !== 'admin' ? (
-            <>
-              <Route exact path="/modules">
-                {userType === 'student' ? <StudentModules /> : <StaffModules />}
-              </Route>
-              <Route exact path="/modules/materials/:module_id">
-                {userType === 'student' ? <StudentModuleMaterials /> : <StaffModuleMaterials />}
-              </Route>
-              <Route path="/attendance">
-                {userType === 'student' ? <Attendance /> : <StaffAttendance />}
-              </Route>
-              <Route exact path="/diary">
-                <DiaryList />
-              </Route>
-              <Route exact path="/diary/create">
-                <CreateDiary page="diary" />
-              </Route>
-              <Route exact path="/diary/edit/:id">
-                <EditDairy />
-              </Route>
-              <Route path="/timetable" exact>
-                <Timetable />
-              </Route>
-              <Route path="/personal-tutor/messages" exact>
-                <Messages />
-              </Route>
-              <Route path="/personal-tutor/send">
-                <CreateDiary page="message" />
-              </Route>
-            </>
-          ) : (
+          {userType === 'admin' ? (
             <>
               <Route exact path="/modules">
                 <AllModules />
@@ -92,11 +61,39 @@ const Dashboard = (props) => {
                 <AddTutor />
               </Route>
             </>
-          )}
+          ) : null}
+
+          <Route exact path="/diary">
+            <DiaryList />
+          </Route>
+          <Route exact path="/diary/create">
+            <CreateDiary page="diary" />
+          </Route>
+          <Route exact path="/diary/edit/:id">
+            <EditDairy />
+          </Route>
+          <Route path="/timetable" exact>
+            <Timetable />
+          </Route>
+          <Route path="/personal-tutor/messages" exact>
+            <Messages />
+          </Route>
+          <Route path="/personal-tutor/send">
+            <CreateDiary page="message" />
+          </Route>
 
           {userType === 'student'
             ? (
               <>
+                <Route path="/attendance">
+                  <Attendance />
+                </Route>
+                <Route exact path="/modules/materials/:module_id">
+                  <StudentModuleMaterials />
+                </Route>
+                <Route exact path="/modules">
+                  <StudentModules />
+                </Route>
                 <Route path="/personal-tutor" exact>
                   <StudentTutor />
                 </Route>
@@ -115,9 +112,17 @@ const Dashboard = (props) => {
                 </Route>
               </>
             ) : null}
-
           { userType === 'staff' ? (
             <>
+              <Route path="/attendance">
+                <StaffAttendance />
+              </Route>
+              <Route exact path="/modules">
+                <StaffModules />
+              </Route>
+              <Route exact path="/modules/materials/:module_id">
+                <StaffModuleMaterials />
+              </Route>
               <Route exact path="/modules/create">
                 <CreateAssignment materials />
               </Route>

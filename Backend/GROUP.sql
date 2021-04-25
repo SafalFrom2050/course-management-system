@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2021 at 08:17 AM
+-- Generation Time: Apr 19, 2021 at 03:28 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -350,6 +350,7 @@ CREATE TABLE `staff` (
   `name` varchar(50) NOT NULL,
   `surname` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `personalEmail` varchar(255) NOT NULL,
   `address` varchar(50) NOT NULL,
   `date_of_join` datetime NOT NULL DEFAULT current_timestamp(),
   `course_id` int(10) NOT NULL,
@@ -363,12 +364,12 @@ CREATE TABLE `staff` (
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
-(1, 'Thomas', 'Smith', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
-(2, 'Michael', 'Jackson', 'prajita@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
-(4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, '	\r\nFormal Specification of Software Systems 1\r\n', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
-(5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
-(6, 'Kushal', 'Upreti', 'kushal.upreti6woodland.edu.uk', 'Kapan-Kathmandu', '2021-04-14 12:01:40', 101, 2002, 4, 'No role. ', '$2b$10$U0kLEmqln4vwnnS7T0xvZuSLHwhcAOgedhUMRXKLeN33KUSz/u.ku');
+INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `personalEmail`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
+(1, 'Thomas', 'Smith edit', 'tomsmith@gmail.com', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
+(2, 'Michael', 'Jackson', 'jacksonmichael@email.com', '', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
+(4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, '	\r\nFormal Specification of Software Systems 1\r\n', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
+(5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', '', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
+(6, 'Kushal', 'Upreti', 'kushal.upreti6woodland.edu.uk', 'kushalupreti101@gmail.com', 'Kapan-Kathmandu', '2021-04-19 19:10:51', 101, 1001, 5, 'No role. ', '$2b$10$bRGEcWXaORRjo7jbYJYnE.231ZV8sNMUjATektls4MEmAmIZlpoIq');
 
 -- --------------------------------------------------------
 
@@ -641,7 +642,7 @@ ALTER TABLE `routines`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `staff_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `staff_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `staffdiaries`
