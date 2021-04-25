@@ -17,3 +17,6 @@ Completed
 - added wbs
 -added network diagram
 -added gantt chart
+
+# added table of contents and compiled document
+# section 5 and 6 left
