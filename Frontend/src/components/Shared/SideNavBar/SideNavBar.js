@@ -6,7 +6,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust, faGraduationCap,
+  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust,
+  faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../../contexts/AuthContext';
 import icon from '../../../assets/favicon.ico';
