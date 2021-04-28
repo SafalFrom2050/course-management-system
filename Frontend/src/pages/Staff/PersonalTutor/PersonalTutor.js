@@ -40,14 +40,16 @@ export default function PersonalTutor() {
   };
 
   return (
-    students.map((item) => (
-      <StudentItem
-        name={`${item.name} ${item.surname}`}
-        lastConvo={new Date(item.lastConvo).toDateString()}
-        lastMessage={item.lastMessage.slice(0, 50)}
-        semester={item.semester}
-        messageHandler={() => { redirectToMessages(item.student_id); }}
-      />
-    ))
+    <div className="student-list">
+      {students.map((item) => (
+        <StudentItem
+          name={`${item.name} ${item.surname}`}
+          lastConvo={new Date(item.lastConvo).toDateString()}
+          lastMessage={item.lastMessage.slice(0, 50)}
+          semester={item.semester}
+          messageHandler={() => { redirectToMessages(item.student_id); }}
+        />
+      ))}
+    </div>
   );
 }

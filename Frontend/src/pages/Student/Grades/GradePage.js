@@ -14,8 +14,25 @@ export default function GradePage() {
     return 0;
   }
 
+  function printGrade() {
+    const content1 = document.getElementsByClassName('heading')[0];
+    const content2 = document.getElementsByClassName('gradeDetails')[0];
+    const content3 = document.getElementsByClassName('foo')[0];
+    const printSpace = document.getElementById('print-space').contentWindow;
+
+    printSpace.document.open();
+
+    // Don't print anything other than the document (initially excluding print button)
+    printSpace.document.write(content1.innerHTML);
+    printSpace.document.write(content2.innerHTML);
+    printSpace.document.write(content3.innerHTML);
+
+    printSpace.document.close();
+    printSpace.print();
+  }
+
   return (
-    <div className="grade-detail">
+    <div className="grade-detail" id="grade-detail">
       <div className="heading">
         <h3>
           {gradeInfo.module_name}
@@ -29,7 +46,7 @@ export default function GradePage() {
       <div className="gradeDetails">
         <div className="body1">
           <p>
-            This is to certify that
+            &emsp; This is to certify that
             {' '}
             <strong>
               {user.gender === 'M' ? 'Mr.' : 'Ms.'}
@@ -65,8 +82,19 @@ export default function GradePage() {
         , 2020 ©
       </div>
       <div className="actions">
-        <button className="action-btn" type="button">Print</button>
+        <button className="action-btn" onClick={printGrade} type="button">Print</button>
       </div>
+
+      {/* Temporary fix for 'print grade' */}
+      <iframe
+        title="temp"
+        id="print-space"
+        style={{
+          height: '0px',
+          width: '0px',
+          position: 'absolute',
+        }}
+      />
     </div>
   );
 }

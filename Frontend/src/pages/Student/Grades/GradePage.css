@@ -1,89 +1,86 @@
-
 .grade-detail {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
-  }
-  
-  .grade-detail > .profile-img-circular {
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    background-color: white;
-    object-fit: contain;
-  
-    border: #aaa solid 1px;
-  
-    margin-bottom: 28px;
-  }
-  
-  .grade-detail > * {
-    width: 50%;
-  }
-  
-  .grade-detail > .heading {
-    text-align: center;
-    width: max-content;
-    border-bottom: #a5a5a5 4px solid;
-    padding: 1rem;
-  }
-  .grade-detail > .foo {
-    margin-top: 3rem;
-    font-size: xx-small;
-  }
-  
-  .grade-detail > .gradeDetails {
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .grade-detail > .gradeDetails > .body1 {
-    padding: 2rem;
-    margin-bottom: 1rem;
-    padding-bottom: 2rem;
-    border-bottom: #aaa solid 2px;
-  }
-  
-  .grade-detail > .gradeDetails > .row {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
-  .grade-detail > .gradeDetails > .row > .data {
-    border: #aaa solid 1px;
-    border-radius: 12px;
-    margin: 6px;
-    margin-left: 1rem;
-    margin-right: 2rem;
-    padding: 4px;
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  
-  .grade-detail > .actions {
-    margin-top: 2rem;
-    text-align: end;
-  }
-  
-  .action-btn {
-    width: max-content;
-    padding: 12px;
-    margin-left: auto;
-  
-    border-radius: 10px 10px 10px 10px;
-    border: unset;
-    font-size: medium;
-    font-weight: bold;
-    background-color: #95e1d3;
-    box-shadow: 0px 0px 2px rgba(128, 128, 0, 0.493);
-    cursor: pointer;
-  }
-  
-  .action-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 0px 6px rgba(128, 128, 0, 0.493);
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  margin-left: 26rem;
+  margin-right: 13rem;
+}
+
+.grade-detail > .profile-img-circular {
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  background-color: white;
+  object-fit: contain;
+
+  border: #aaa solid 1px;
+
+  margin-bottom: 28px;
+}
+
+.grade-detail > .heading {
+  text-align: center;
+  width: max-content;
+  border-bottom: #a5a5a5 4px solid;
+  padding: 1rem;
+}
+.grade-detail > .foo {
+  margin-top: 3rem;
+  font-size: xx-small;
+}
+
+.grade-detail > .gradeDetails {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.grade-detail > .gradeDetails > .body1 {
+  padding: 2rem;
+  margin-bottom: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: #aaa solid 2px;
+}
+
+.grade-detail > .gradeDetails > .row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.grade-detail > .gradeDetails > .row > .data {
+  border: #aaa solid 1px;
+  border-radius: 12px;
+  margin: 6px;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  padding: 4px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.grade-detail > .actions {
+  margin-top: 2rem;
+  text-align: end;
+}
+
+.action-btn {
+  width: max-content;
+  padding: 12px;
+  margin-left: auto;
+
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  font-size: medium;
+  font-weight: bold;
+  background-color: #95e1d3;
+  box-shadow: 0px 0px 2px rgba(128, 128, 0, 0.493);
+  cursor: pointer;
+}
+
+.action-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(128, 128, 0, 0.493);
+}

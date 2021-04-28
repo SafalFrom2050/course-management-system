@@ -1,14 +1,16 @@
 .timetable-container {
   display: flex;
-  margin-left: 13rem;
+
   justify-content: space-between;
-  padding-left: 4rem;
-  padding-right: 13rem;
+  margin-left: 26rem;
+  margin-right: 13rem;
 }
 
 .timetable-container .heading {
   font-size: larger;
   font-weight: bolder;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .timetable-container

@@ -68,12 +68,16 @@ export default function AllTutors() {
   };
 
   return (
-    <div className="module-list">
-      <div className="module-selector">
-        <label htmlFor="modules">Select Course</label>
+    <div className="AllTutors">
+      <div className="action-btn-container">
+        <button className="create-module-btn" type="button" onClick={() => { history.push('/tutor/add'); }}>Add New +</button>
+      </div>
+
+      <div className="course-selector">
+        <label htmlFor="course">Select Course</label>
 
         <select
-          name="modules"
+          name="course"
           id="modules-selector"
           onChange={(e) => {
             downloadTutors(e.target.value);
@@ -83,10 +87,8 @@ export default function AllTutors() {
 
         </select>
       </div>
-      <div className="action-btn-container">
-        <button className="create-module-btn" type="button" onClick={() => { history.push('/tutor/add'); }}>Add New +</button>
-      </div>
-      <div className="module-list">
+
+      <div className="tutor-list">
         {tutors.map((item, index) => (
           <TutorItem
             staff_id={item.staff_id}

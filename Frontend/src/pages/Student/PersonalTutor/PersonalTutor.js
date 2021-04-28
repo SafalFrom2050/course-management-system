@@ -4,6 +4,8 @@ import './PersonalTutor.css';
 
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChalkboardTeacher } from '@fortawesome/free-solid-svg-icons';
 import { useHttpClient } from '../../../hooks/http-hook';
 import { AuthContext } from '../../../contexts/AuthContext';
 import { useAlertBoxShowMsg } from '../../../contexts/AlertBoxContext';
@@ -43,11 +45,8 @@ export default function PersonalTutor() {
       {tutor.length > 0
         ? (
           <div className="tutor-detail">
-            <img
-              className="profile-img-circular"
-              src="images/profile.jpg"
-              alt="user pic"
-            />
+            <FontAwesomeIcon icon={faChalkboardTeacher} className="profile-img-circular" />
+
             <div className="heading">
               <h3>{`${tutor[0].name} ${tutor[0].surname}`}</h3>
             </div>

@@ -132,6 +132,7 @@ export default function AddMoudle() {
               <div className="options-box">
 
                 <input
+                  type="text"
                   placeholder="Module Id"
                   onChange={(e) => {
                     setModule({ ...module, module_id: e.target.value });
@@ -171,6 +172,7 @@ export default function AddMoudle() {
                 </div>
 
                 <input
+                  type="text"
                   placeholder="module credit (%)"
                   onChange={(e) => {
                     setModule({ ...module, module_credit: e.target.value });
@@ -179,6 +181,7 @@ export default function AddMoudle() {
                 />
 
                 <input
+                  type="text"
                   placeholder="assignment 1 weightage(%)"
                   onChange={(e) => {
                     setModule({ ...module, ass_1: e.target.value });
@@ -187,6 +190,7 @@ export default function AddMoudle() {
                 />
 
                 <input
+                  type="text"
                   placeholder="assignment 2 weightage(%)"
                   onChange={(e) => {
                     setModule({ ...module, ass_2: e.target.value });
@@ -195,6 +199,7 @@ export default function AddMoudle() {
                 />
 
                 <input
+                  type="text"
                   placeholder="exam weightage(%)"
                   onChange={(e) => {
                     setModule({ ...module, exam: e.target.value });

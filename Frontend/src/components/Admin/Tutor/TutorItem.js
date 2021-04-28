@@ -45,7 +45,7 @@ export default function TutorItem(props) {
 
             <div className="data-label">
               Date Joined
-              <label className="data">{date_of_join}</label>
+              <label className="data">{date_of_join.split('T')[0].replace('-', ' - ')}</label>
             </div>
           </div>
 

@@ -69,6 +69,11 @@ export default function AllModules() {
 
   return (
     <div className="containAllModules">
+
+      <div className="action-btn-container">
+        <button className="create-module-btn" type="button" onClick={() => { history.push('/modules/add'); }}>Add New +</button>
+      </div>
+
       <div className="module-selector">
         <label htmlFor="modules">Select Course</label>
 
@@ -82,9 +87,6 @@ export default function AllModules() {
           {courses.map((item) => <option value={item.course_id}>{`${item.course_name} - ${item.course_id}`}</option>)}
 
         </select>
-      </div>
-      <div className="action-btn-container">
-        <button className="create-module-btn" type="button" onClick={() => { history.push('/modules/add'); }}>Add New +</button>
       </div>
       <div className="module-list">
         {modules.map((item, index) => (

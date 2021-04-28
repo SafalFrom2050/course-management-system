@@ -1,7 +1,8 @@
-
 .feedbacks-list,
 .grades-list {
   text-align: center;
+  margin-left: 26rem;
+  margin-right: 13rem;
 }
 
 .level-seperator {
@@ -26,8 +27,10 @@
   margin-right: 20%;
   margin-left: 20%;
 }
+.feedbacks-list .module-item,
 .grades-list .module-item {
   cursor: pointer;
+  width: 100%;
 }
 
 .module-item > .module-detail {
