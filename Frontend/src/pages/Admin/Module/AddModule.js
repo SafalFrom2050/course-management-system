@@ -172,7 +172,8 @@ export default function AddMoudle() {
                 </div>
 
                 <input
-                  type="text"
+                  type="number"
+                  max="100"
                   placeholder="module credit (%)"
                   onChange={(e) => {
                     setModule({ ...module, module_credit: e.target.value });
@@ -181,7 +182,8 @@ export default function AddMoudle() {
                 />
 
                 <input
-                  type="text"
+                  type="number"
+                  max="100"
                   placeholder="assignment 1 weightage(%)"
                   onChange={(e) => {
                     setModule({ ...module, ass_1: e.target.value });
@@ -190,7 +192,8 @@ export default function AddMoudle() {
                 />
 
                 <input
-                  type="text"
+                  type="number"
+                  max="100"
                   placeholder="assignment 2 weightage(%)"
                   onChange={(e) => {
                     setModule({ ...module, ass_2: e.target.value });
@@ -199,7 +202,8 @@ export default function AddMoudle() {
                 />
 
                 <input
-                  type="text"
+                  type="number"
+                  max="100"
                   placeholder="exam weightage(%)"
                   onChange={(e) => {
                     setModule({ ...module, exam: e.target.value });

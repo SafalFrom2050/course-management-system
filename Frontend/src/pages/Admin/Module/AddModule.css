@@ -28,7 +28,7 @@
   margin-right: 100%;
   margin-left: 2rem;
 }
-.module-detail > form input[type="text"] {
+.module-detail > form input[type="number"], .module-detail > form input[type="text"]{
   padding: 12px;
   margin: 8px;
   padding-left: 22px;
