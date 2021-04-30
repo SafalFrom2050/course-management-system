@@ -264,19 +264,27 @@ const getAssignment = async (req, res, next) => {
     const dbQuery = new Query();
 
     const currentSem = await getSemester(student_id);
-
     const query = "SELECT * FROM assignments WHERE semester = ? AND isActive = 1";
     const result = await dbQuery.query(query, [currentSem, module_id]);
 
+    
     if(result.length===0){
         res.status(200).json([]);
         return;
     }
-    if (result[0].deadline < new Date()) {
-        res.status(200).json([]);
-        return;
-    }
-    res.status(200).json(result);
+
+    // Only return valid assignments (check deadline)
+
+    let validAssignments = [];
+    
+    result.forEach(r => {
+         if(r.deadline >= new Date()){
+            validAssignments.push(r);
+         }
+    });
+
+    
+    res.status(200).json(validAssignments);
 }
 
 const submitAssignment =async (req, res, next) => {
