@@ -289,6 +289,19 @@ const getAllCourses = async (req,res,next)=>{
     res.json(result);
 }
 
+const getAllStudents = async (req,res,next)=>{
+    const dbQuery = new Query();
+    const course_id = req.query.course_id;
+    const query = "SELECT * FROM students WHERE course_id = ?";
+    let result;
+    try {
+        result = await dbQuery.query(query,[course_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json(result);
+}
+
 const deleteModule = (req, res, next) => {
 
 }
@@ -304,4 +317,5 @@ exports.deleteCourse = deleteCourse;
 exports.createModule = createModule;
 exports.getAllModules = getAllModules;
 exports.getAllCourses = getAllCourses;
+exports.getAllStudents = getAllStudents;
 exports.deleteModule = deleteModule;

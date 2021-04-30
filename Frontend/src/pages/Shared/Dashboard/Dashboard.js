@@ -29,6 +29,7 @@ import AssignGrades from '../../Staff/Grades/AssignGrades';
 
 import AddModule from '../../Admin/Module/AddModule';
 import AllTutors from '../../Admin/Tutor/AllTutors';
+import AllStudents from '../../Admin/Students/AllStudents';
 import AllModules from '../../Admin/Module/AllModules';
 import AddTutor from '../../Admin/Tutor/AddTutor';
 
@@ -60,6 +61,11 @@ const Dashboard = (props) => {
               <Route exact path="/tutor/edit">
                 <AddTutor />
               </Route>
+
+              <Route exact path="/students">
+                <AllStudents />
+              </Route>
+
             </>
           ) : null}
 

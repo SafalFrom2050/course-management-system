@@ -163,16 +163,29 @@ function SideNavBar() {
                 </NavLink>
               </li>
 
-              <li className={`personal-tutor ${activeMenuItem === 'personal-tutor' ? 'active' : ''}`}>
+              <li className={`tutor ${activeMenuItem === 'tutor' ? 'active' : ''}`}>
                 <NavLink
                   to="/tutor"
                   onClick={() => {
                     setTitle('Tutor');
-                    setActiveMenuItem('personal-tutor');
+                    setActiveMenuItem('tutor');
                   }}
                 >
                   <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
                   Tutor
+                </NavLink>
+              </li>
+
+              <li className={`students ${activeMenuItem === 'students' ? 'active' : ''}`}>
+                <NavLink
+                  to="/students"
+                  onClick={() => {
+                    setTitle('Students');
+                    setActiveMenuItem('students');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
+                  Students
                 </NavLink>
               </li>
             </>

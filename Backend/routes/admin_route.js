@@ -60,6 +60,8 @@ router.post("/createModule", [
 router.get("/getAllModules",admin.getAllModules);
 
 router.get("/getAllCourses",admin.getAllCourses);
+router.get("/getAllStudents", [check("course_id").isNumeric()
+], admin.getAllStudents);
 
 router.post("/deleteModule", [
     check("module_id").isNumeric(),
