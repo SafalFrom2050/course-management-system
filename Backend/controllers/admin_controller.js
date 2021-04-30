@@ -10,6 +10,7 @@ const createStudent = async (req, res, next) => {
     const dbQuery = new Query();
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
+        
     }
 
     const course_id = req.body.course_id;
@@ -63,9 +64,11 @@ const editStudentInfo = (req, res, next) => {
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
     }
+    console.log(req.body)
     const student_id = req.body.student_id;
     const course_id = req.body.course_id;
     const name = req.body.name;
+    const email = req.body.email;
     const surname = req.body.surname;
     const address = req.body.address;
     const phone = req.body.phone;
@@ -74,11 +77,12 @@ const editStudentInfo = (req, res, next) => {
     const registration_year = req.body.registration_year;
     const student_status = req.body.student_status;
 
-    const query = "UPDATE students SET course_id = ?, name = ?, surname = ?, address=?, phone = ?, gender = ?, date_of_birth = ?, registration_year = ?, student_status = ? WHERE student_id = ?";
+    const query = "UPDATE students SET course_id = ?, name = ?, email = ?, surname = ?, address=?, phone = ?, gender = ?, date_of_birth = ?, registration_year = ?, student_status = ? WHERE student_id = ?";
 
 
-    sqlObj.con.query(query, [course_id, name, surname, address, phone, gender, date_of_birth, registration_year, student_status, student_id], (err, result) => {
+    dbQuery.query(query, [course_id, name, email, surname, address, phone, gender, date_of_birth, registration_year, student_status, student_id], (err, result) => {
         if (err) {
+            console.log("error: "+err);
             return next(new HttpError(500, "Service Error. Please try again."));
         }
         res.status(200).json({ message: "Record updated" });

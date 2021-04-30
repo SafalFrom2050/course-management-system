@@ -6,7 +6,7 @@ function StudentItem(props) {
   const [fullTextView, setFullTextView] = useState(false);
 
   const {
-    student_id, name, course, email, status, address, phone, gender, registrationDate, dob,
+    student_id, name, course, email, status, address, phone, gender, registrationDate, dob, edit,
   } = props;
 
   function toggleFullTextView() {
@@ -68,7 +68,7 @@ function StudentItem(props) {
           </div>
 
           <div className="btns-container">
-            <button type="submit">Edit</button>
+            <button type="submit" onClick={edit}>Edit</button>
             <button type="submit">Remove</button>
           </div>
         </div>

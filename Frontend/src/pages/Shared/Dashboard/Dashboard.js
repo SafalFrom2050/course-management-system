@@ -27,10 +27,13 @@ import PersonalTutor from '../../Staff/PersonalTutor/PersonalTutor';
 import Messages from '../PerosnalMessages/Messages';
 import AssignGrades from '../../Staff/Grades/AssignGrades';
 
-import AddModule from '../../Admin/Module/AddModule';
-import AllTutors from '../../Admin/Tutor/AllTutors';
-import AllStudents from '../../Admin/Students/AllStudents';
 import AllModules from '../../Admin/Module/AllModules';
+import AddModule from '../../Admin/Module/AddModule';
+
+import AllStudents from '../../Admin/Students/AllStudents';
+import AddStudent from '../../Admin/Students/AddStudent';
+
+import AllTutors from '../../Admin/Tutor/AllTutors';
 import AddTutor from '../../Admin/Tutor/AddTutor';
 
 const Dashboard = (props) => {
@@ -64,6 +67,13 @@ const Dashboard = (props) => {
 
               <Route exact path="/students">
                 <AllStudents />
+              </Route>
+
+              <Route exact path="/students/add">
+                <AddStudent />
+              </Route>
+              <Route exact path="/students/edit">
+                <AddStudent />
               </Route>
 
             </>

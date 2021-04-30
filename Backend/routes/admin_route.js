@@ -16,7 +16,7 @@ router.post("/createStudent", [
     check("registration_year").not().isEmpty()
 ], admin.createStudent);
 
-router.patch("/editStudentInfo", [
+router.post("/editStudentInfo", [
     check("student_id").not().isEmpty(),
     check("course_id").isNumeric(),
     check("name").isLength({ min: 1 }),

@@ -62,7 +62,7 @@ function AllStudents() {
   const redirectToEdit = (index) => {
     history.push({
       pathname: '/students/edit',
-      student: students[index],
+      studentObj: students[index],
       mode: 'edit',
     });
   };
@@ -70,7 +70,7 @@ function AllStudents() {
   return (
     <div className="AllStudents">
       <div className="action-btn-container">
-        <button type="button" className="create-student-btn">Add New +</button>
+        <button type="button" className="create-student-btn" onClick={() => { history.push('/students/add'); }}>Add New +</button>
       </div>
 
       <div className="course-selector">

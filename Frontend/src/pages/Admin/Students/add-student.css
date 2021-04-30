@@ -1,0 +1,196 @@
+.student-submit-box {
+  margin-bottom: 26px;
+  margin-right: 20%;
+  margin-left: 20%;
+}
+
+.student-submit-box {
+  text-align: center;
+}
+.submit-student-label {
+  padding: 12px;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+
+  font-size: larger;
+  font-weight: bold;
+}
+
+.student-detail > form {
+  display: flex;
+  flex-direction: column;
+}
+.student-date {
+  font-size: small;
+  white-space: nowrap;
+
+  margin: 12px;
+  margin-right: 100%;
+  margin-left: 2rem;
+}
+.student-detail > form .name-input,
+.student-detail > form > .student-body {
+  padding: 12px;
+  margin: 8px;
+  padding-left: 22px;
+  padding-right: 22px;
+  border: #ddd solid 1px;
+}
+
+.student-detail > form .name-input:focus,
+.student-detail > form > .student-body:focus {
+  outline: none;
+  border: #999 solid 2px;
+}
+
+.student-detail > form .name-input {
+  width: max-content;
+  border-radius: 6px;
+  font-size: medium;
+  font-weight: normal;
+}
+
+.student-detail > form > .student-body {
+  border-radius: 8px;
+
+  font-weight: lighter;
+}
+
+.options-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  border: solid 1px #ddd;
+  border-radius: 12px;
+
+  margin: 8px;
+  margin-top: 2rem;
+  padding: 2rem;
+  padding-left: 3rem;
+}
+
+.options-box .heading {
+  margin-bottom: 1rem;
+}
+
+.options-box a {
+  font-size: small;
+  font-style: italic;
+  margin-left: 2rem;
+  margin-right: 1rem;
+}
+
+.options-box .link {
+  display: flex;
+  align-items: center;
+  margin: 4px;
+  width: 100%;
+  text-align: start;
+}
+.options-box .link button {
+  font-size: small;
+  font-weight: normal;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  margin-left: auto;
+  padding: 8px;
+  background-color: white;
+}
+
+.options-box .date-level-selector,
+.options-box .selector {
+  margin-top: 2rem;
+}
+
+#students-selector {
+  background-color: #95e1d3;
+  border: unset;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 8px;
+}
+
+form #start-date,
+form #end-date,
+form #level {
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
+  border: unset;
+  border-radius: 12px;
+  background-color: white;
+  text-align: center;
+  background-color: #95e1d3;
+}
+
+form #start-date:focus,
+form #end-date:focus,
+form #level:focus {
+  background-color: white;
+}
+
+.options-box .date-level-selector,
+.options-box .selector {
+  margin-top: 2rem;
+}
+
+#gender-selector,
+#modules-selector,
+#courses-selector {
+  background-color: #95e1d3;
+  border: unset;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 8px;
+}
+
+#gender-selector {
+  width: 50%;
+  background-color: white;
+  border: #ccc solid 1px;
+}
+
+form #level {
+  width: 3rem;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+form button {
+  border-radius: 10px 10px 10px 10px;
+  border: unset;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  padding: 12px;
+
+  background-color: #95e1d3;
+  box-shadow: 0px 0px 2px rgba(128, 128, 0, 0.493);
+
+  cursor: pointer;
+}
+
+.student-detail > form .save-student-btn {
+  font-size: medium;
+  margin: 1rem;
+  background-color: #95e1d3;
+  font-weight: bold;
+
+  margin-left: auto;
+}
+
+form button:hover,
+.student-detail > form .save-student-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 6px rgba(128, 128, 0, 0.493);
+}
+
+.compound-row-inputs {
+  width: 50%;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
