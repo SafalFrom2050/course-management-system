@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import './add-student.css';
@@ -86,11 +87,10 @@ function AddStudent() {
 
     let result;
     if (!mode) {
-      console.log(info);
       result = await sendRequest('http://localhost:5000/admin/createStudent', 'POST', {
         ...info,
       }, config).catch((err) => {
-        showAlertBox('Network error! Please try again later...', 2000);
+        showAlertBox(err, 2000);
       });
     } else {
       result = await sendRequest('http://localhost:5000/admin/editStudentInfo', 'POST', {
@@ -100,13 +100,17 @@ function AddStudent() {
         showAlertBox('Network error! Please try again later...', 2000);
       });
     }
-
     if (!result) {
       showAlertBox('Error adding/editing student. Try again with some changes.', 2000);
       return;
     }
-    showAlertBox('Student added. Temporary password sent to the email address.', 2000);
-    // TODO: Redirect to all students
+    if (!mode) {
+      const text = `${result.data.email}  ${result.data.password}`;
+      navigator.clipboard.writeText(text);
+    } else {
+      showAlertBox('Information edited', 2000);
+    }
+    history.push('/students');
   };
 
   return (
@@ -171,17 +175,19 @@ function AddStudent() {
                 required
               />
             </div>
-            <div className="compound-row-inputs">
-              <label htmlFor="password">Password</label>
-              <input
-                className="name-input"
-                onChange={(e) => { setInfo({ ...info, password: e.target.value }); }}
-                type="password"
-                name=""
-                id="password"
-                placeholder={mode ? '(Unchanged)' : 'New Password'}
-              />
-            </div>
+            {mode ? (
+              <div className="compound-row-inputs">
+                <label htmlFor="password">Password</label>
+                <input
+                  className="name-input"
+                  onChange={(e) => { setInfo({ ...info, password: e.target.value }); }}
+                  type="password"
+                  name=""
+                  id="password"
+                  placeholder={mode ? '(Unchanged)' : 'New Password'}
+                />
+              </div>
+            ) : null}
 
             <div className="compound-row-inputs">
               <label htmlFor="address">Address</label>

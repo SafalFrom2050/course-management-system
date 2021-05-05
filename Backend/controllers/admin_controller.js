@@ -20,7 +20,21 @@ const createStudent = async (req, res, next) => {
     const phone = req.body.phone;
     const gender = req.body.gender;
     const date_of_birth = req.body.date_of_birth;
+    const personalEmail = req.body.email;
     const registration_year = req.body.registration_year;
+    const student_status = req.body.student_status;
+
+    const countQuery = "SELECT COUNT(personalEmail) as count FROM students WHERE personalEmail = ?";
+    let resultCount;
+    try {
+        resultCount = await dbQuery.query(countQuery,[personalEmail]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    if(resultCount[0].count>0){
+        return next(new HttpError(409, "Error. Conflict. Email already exists."));
+    }
 
     let password = generator.generate({
         length: 10,
@@ -39,6 +53,7 @@ const createStudent = async (req, res, next) => {
     try {
         result = await dbQuery.query(query,[course_id]);
     } catch (error) {
+        console.log(error);
         return next(new HttpError(500, "Service Error. Please try again."));
     }
 
@@ -47,28 +62,30 @@ const createStudent = async (req, res, next) => {
         num = result[0][key];
     }
     ++num;
-    const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+    const email = name.toLowerCase() + "." + surname.toLowerCase() + num + "@woodland.edu.uk";
 
-    const insertQuery = "INSERT INTO students VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    const insertQuery = "INSERT INTO students VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         
     try {
-        await dbQuery.query(insertQuery,[num, course_id, name, email, pass, surname, address, phone, gender, date_of_birth, registration_year, "Live"]);
+        await dbQuery.query(insertQuery,[num, course_id, name,personalEmail, email, pass, surname, address, phone, gender, date_of_birth, registration_year, student_status]);
     } catch (error) {
+        console.log(error);
         return next(new HttpError(500, "Service Error. Please try again."));
     }
     res.status(200).json({ email, password });
 }
 
-const editStudentInfo = (req, res, next) => {
+const editStudentInfo =async (req, res, next) => {
+    const dbQuery = new Query();
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return next(new HttpError(422, "Invalid input passed"));
     }
-    console.log(req.body)
     const student_id = req.body.student_id;
     const course_id = req.body.course_id;
     const name = req.body.name;
-    const email = req.body.email;
+    const personalEmail = req.body.email;
+    let password = req.body.password;
     const surname = req.body.surname;
     const address = req.body.address;
     const phone = req.body.phone;
@@ -77,16 +94,22 @@ const editStudentInfo = (req, res, next) => {
     const registration_year = req.body.registration_year;
     const student_status = req.body.student_status;
 
-    const query = "UPDATE students SET course_id = ?, name = ?, email = ?, surname = ?, address=?, phone = ?, gender = ?, date_of_birth = ?, registration_year = ?, student_status = ? WHERE student_id = ?";
+    let query =  "UPDATE students SET course_id = ?, name = ?, personalEmail = ?, surname = ?, address=?, phone = ?, gender = ?, date_of_birth = ?, registration_year = ?, student_status = ? WHERE student_id = ?";
+    let array = [course_id, name, personalEmail, surname, address, phone, gender, date_of_birth, registration_year, student_status, student_id];
+    if(password.length>0){
+        password = await bcrypt.hash(password,10);
+        query = "UPDATE students SET course_id = ?, name = ?, personalEmail = ?, password = ?, surname = ?, address=?, phone = ?, gender = ?, date_of_birth = ?, registration_year = ?, student_status = ? WHERE student_id = ?";
+        array = [course_id, name, personalEmail,password, surname, address, phone, gender, date_of_birth, registration_year, student_status, student_id];
+    }
 
+    try {
+        await  dbQuery.query(query, array);
+    } catch (error) {
+        console.log("error: "+err);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
 
-    dbQuery.query(query, [course_id, name, email, surname, address, phone, gender, date_of_birth, registration_year, student_status, student_id], (err, result) => {
-        if (err) {
-            console.log("error: "+err);
-            return next(new HttpError(500, "Service Error. Please try again."));
-        }
-        res.status(200).json({ message: "Record updated" });
-    })
+    res.status(200).json({ message: "Record updated" });
 }
 
 const createStaff = async (req, res, next) => {
