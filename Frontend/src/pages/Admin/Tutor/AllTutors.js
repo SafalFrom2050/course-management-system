@@ -94,7 +94,7 @@ export default function AllTutors() {
             staff_id={item.staff_id}
             name={item.name}
             surname={item.surname}
-            email={item.personalEmail}
+            email={item.email}
             address={item.address}
             role={item.role}
             date_of_join={item.date_of_join}

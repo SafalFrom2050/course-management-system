@@ -172,7 +172,7 @@ const createStaff = async (req, res, next) => {
             num = maxResult[0][key];
         }
         ++num;
-        email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+        email = name.toLowerCase() + "." + surname.toLowerCase() + num + "@woodland.edu.uk";
         query = "INSERT INTO staff (staff_id, name, surname, email,personalEmail, address,course_id,module_id,salary,role, password) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         array = [num, name, surname, email,personalEmail, address,course_id,module_id, salary, role, pass]
     }

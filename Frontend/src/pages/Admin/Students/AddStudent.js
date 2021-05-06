@@ -107,6 +107,7 @@ function AddStudent() {
     if (!mode) {
       const text = `${result.data.email}  ${result.data.password}`;
       navigator.clipboard.writeText(text);
+      showAlertBox('Student added. Login info added to clipboard', 2000);
     } else {
       showAlertBox('Information edited', 2000);
     }
