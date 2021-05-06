@@ -154,7 +154,7 @@ const createStaff = async (req, res, next) => {
         }
         let nums;
         for (const key in emailResult[0]) {
-            nums = emailResult[0][key];
+            nums = emailResult[0][key]; 
         }
         if(nums>0){
             return next(new HttpError(409, "Email already exists. Try another email"));
@@ -263,7 +263,6 @@ const createModule =async (req, res, next) => {
             return next(new HttpError(500, "Service Error. Please try again."));
         }
         if(checkResult.length>0){
-            console.log("Error");
             return next(new HttpError(409, "Course already exists. Try another module id"));
         }
     }

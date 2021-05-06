@@ -13,7 +13,7 @@ export const useHttpClient = () => {
 
       if (method === 'GET') {
         try {
-          const result = axios.get(url, payload, config);
+          const result = await axios.get(url, payload, config);
           return result;
         } catch (err) {
           setError(err);
@@ -44,7 +44,6 @@ export const useHttpClient = () => {
 
           return result;
         } catch (err) {
-          console.log(err);
           setError(err);
         } finally {
           setIsLoading(false);
