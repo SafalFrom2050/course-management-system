@@ -6,7 +6,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher, faAdjust,
+  faTasks, faBook, faCheckCircle, faBookOpen, faCalendarWeek, faChalkboardTeacher,
+  faClock, faAdjust,
   faGraduationCap,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../../contexts/AuthContext';
@@ -186,6 +187,19 @@ function SideNavBar() {
                 >
                   <FontAwesomeIcon icon={faChalkboardTeacher} className="icons" />
                   Students
+                </NavLink>
+              </li>
+
+              <li className={`timetable ${activeMenuItem === 'timetable' ? 'active' : ''}`}>
+                <NavLink
+                  to="/timetable"
+                  onClick={() => {
+                    setTitle('Timetable');
+                    setActiveMenuItem('timetable');
+                  }}
+                >
+                  <FontAwesomeIcon icon={faClock} className="icons" />
+                  Timetable
                 </NavLink>
               </li>
             </>
