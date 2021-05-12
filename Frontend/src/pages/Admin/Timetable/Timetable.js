@@ -26,9 +26,17 @@ export default function Timetable() {
   const { sendRequest, error } = useHttpClient();
 
   useEffect(() => {
-    loadCourses();
     downloadModules('101');
+    loadCourses();
   }, []);
+
+  useEffect(() => {
+    setInfo({ ...info, course_id: courses[0] ? courses[0].course_id : '' });
+  }, [courses]);
+
+  useEffect(() => {
+    setInfo({ ...info, module_id: modules[0] ? modules[0].module_id : '' });
+  }, [modules]);
 
   const loadCourses = async () => {
     const config = {
@@ -45,7 +53,6 @@ export default function Timetable() {
       showAlertBox('Network error. try again.', 2000);
     }
     setCourses(result.data);
-    setInfo({ ...info, course_id: result.data[0].course_id });
   };
 
   const downloadModules = async (course_id) => {
@@ -64,11 +71,56 @@ export default function Timetable() {
       return;
     }
     setModules(result.data);
-    setInfo({ ...info, module_id: result.data[0].module_id });
   };
 
   const buttonClickHandler = (day) => {
     setActiveBtn(day);
+  };
+
+  const addRoutine = async (e) => {
+    e.preventDefault();
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/admin/addRoutine', 'POST', {
+      day: activeBtn,
+      course_id: info.course_id,
+      class_type: info.class_type,
+      semester: info.level,
+    }, config).catch((err) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      showAlertBox('Error while adding routine. Try again..', 2000);
+      return;
+    }
+    addRoutineModule(result.data.routine_id);
+  };
+
+  const addRoutineModule = async (routine_id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/admin/addRoutineModule', 'POST', {
+      routine_id,
+      module_id: info.module_id,
+      start_time: info.start_time,
+      end_time: info.end_time,
+    }, config).catch((err) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      showAlertBox('Error while adding routine module. Try again..', 2000);
+    }
+    showAlertBox('Routine added to database.', 2000);
   };
 
   return (
@@ -83,7 +135,7 @@ export default function Timetable() {
             name="modules"
             id="modules-selector"
             onChange={(e) => {
-              setInfo({ ...info, course_id: e.target.value });
+              setInfo({ ...info, course_id: `${e.target.value}` });
               downloadModules(e.target.value);
             }}
             style={{ width: '50%', marginLeft: '0' }}
@@ -136,7 +188,7 @@ export default function Timetable() {
             <option key={2} value="Tutorial">Tutorial</option>
 
           </select>
-          <form className="class-item">
+          <form className="class-item" onSubmit={addRoutine}>
             <div className="second-row">
               <label>Start Time</label>
               <input
@@ -166,7 +218,7 @@ export default function Timetable() {
             </div>
           </form>
 
-          <button type="submit">Add New</button>
+          <button type="submit" style={{ visibility: 'hidden', marginBottom: '25px' }}>Add New</button>
         </div>
       </div>
 

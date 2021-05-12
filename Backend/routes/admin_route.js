@@ -69,4 +69,8 @@ router.post("/deleteModule", [
 
 router.get("/getAllTutors",admin.getAllTutors);
 
+router.post("/addRoutine",admin.addRoutine);
+
+router.post("/addRoutineModule",admin.addRoutineModule);
+
 module.exports = router;
