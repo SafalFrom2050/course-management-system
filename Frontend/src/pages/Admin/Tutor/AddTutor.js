@@ -118,7 +118,7 @@ export default function AddTutor() {
       return;
     }
     showAlertBox('Tutor added. Temporary password sent to the email address.', 2000);
-    // TODO: Redirect to all tutors
+    history.push('/tutor');
   };
 
   return (
@@ -193,6 +193,7 @@ export default function AddTutor() {
                 id="salary"
                 placeholder="Salary"
                 required
+                min={0}
                 value={info.salary}
               />
             </div>

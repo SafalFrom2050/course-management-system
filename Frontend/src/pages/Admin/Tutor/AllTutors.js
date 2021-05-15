@@ -14,7 +14,7 @@ export default function AllTutors() {
   const [tutors, setTutors] = useState([]);
   const [courses, setCourses] = useState([]);
 
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, error } = useHttpClient();
   const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
   const history = useHistory();
@@ -23,6 +23,12 @@ export default function AllTutors() {
     downloadTutors('101');
     loadCourses();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      showAlertBox(error.response.data.message, 2000);
+    }
+  }, [error]);
 
   const downloadTutors = async (course_id) => {
     const config = {
@@ -67,6 +73,27 @@ export default function AllTutors() {
     setCourses(result.data);
   };
 
+  const removeStaff = async (staff_id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/admin/deleteStaff', 'POST', { staff_id }, config).catch((err) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      return;
+    }
+    setTutors((prevState) => {
+      const newArray = prevState.filter((item) => item.staff_id !== staff_id);
+      return newArray;
+    });
+    showAlertBox('Tutor removed successfully.', 2000);
+  };
+
   return (
     <div className="AllTutors">
       <div className="action-btn-container">
@@ -100,6 +127,7 @@ export default function AllTutors() {
             date_of_join={item.date_of_join}
             key={item.staff_id}
             edit={() => { redirectToEdit(index); }}
+            remove={() => { removeStaff(item.staff_id); }}
           />
         ))}
       </div>

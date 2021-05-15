@@ -15,7 +15,7 @@ function AllStudents() {
   const [students, setStudents] = useState([]);
   const [courses, setCourses] = useState([]);
 
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, error } = useHttpClient();
   const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
   const history = useHistory();
@@ -24,6 +24,12 @@ function AllStudents() {
     downloadStudents('101');
     loadCourses();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      showAlertBox(error.response.data.message, 2000);
+    }
+  }, [error]);
 
   const downloadStudents = async (course_id) => {
     const config = {
@@ -68,6 +74,27 @@ function AllStudents() {
     });
   };
 
+  const removeStudent = async (student_id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/admin/deleteStudent', 'POST', { student_id }, config).catch((err) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      return;
+    }
+    setStudents((prevState) => {
+      const newArray = prevState.filter((item) => item.student_id !== student_id);
+      return newArray;
+    });
+    showAlertBox('Student deleted.', 2000);
+  };
+
   return (
     <div className="AllStudents">
       <div className="action-btn-container">
@@ -104,6 +131,7 @@ function AllStudents() {
             registrationDate={item.registration_year.split('T')[0].replace('-', ' - ')}
             dob={item.date_of_birth.split('T')[0].replace('-', ' - ')}
             edit={() => { redirectToEdit(index); }}
+            remove={() => { removeStudent(item.student_id); }}
           />
         ))}
       </div>

@@ -110,7 +110,7 @@ export default function AddMoudle() {
     if (!result) {
       return;
     }
-    history.push('/modules/view');
+    history.push('/modules');
   };
 
   return (

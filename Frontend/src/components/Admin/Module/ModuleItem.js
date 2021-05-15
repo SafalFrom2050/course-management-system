@@ -4,7 +4,7 @@ import { React } from 'react';
 
 export default function ModuleItem(props) {
   const {
-    module_name, module_level, module_id, module_credit, course_id, edit,
+    module_name, module_level, module_id, module_credit, course_id, edit, remove,
   } = props;
   return (
     <div className="module-item">
@@ -42,7 +42,7 @@ export default function ModuleItem(props) {
           </div>
 
           <button className="action-btn" type="submit" onClick={edit}>Edit</button>
-          <button className="action-btn" type="submit">Remove</button>
+          <button className="action-btn" type="submit" onClick={remove}>Remove</button>
         </div>
       </div>
     </div>

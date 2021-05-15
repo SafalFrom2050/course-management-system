@@ -14,7 +14,7 @@ export default function AllModules() {
   const [modules, setModules] = useState([]);
   const [courses, setCourses] = useState([]);
 
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, error } = useHttpClient();
   const auth = useContext(AuthContext);
   const showAlertBox = useAlertBoxShowMsg();
   const history = useHistory();
@@ -23,6 +23,12 @@ export default function AllModules() {
     downloadModules('101');
     loadCourses();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      showAlertBox(error.response.data.message, 2000);
+    }
+  }, [error]);
 
   const downloadModules = async (course_id) => {
     const config = {
@@ -67,6 +73,26 @@ export default function AllModules() {
     setCourses(result.data);
   };
 
+  const removeModule = async (module_id) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${auth.token}`,
+      },
+    };
+
+    const result = await sendRequest('http://localhost:5000/admin/deleteModule', 'POST', { module_id }, config).catch((err) => {
+      showAlertBox('Network error! Please try again later...', 2000);
+    });
+    if (!result) {
+      return;
+    }
+    setModules((prevState) => {
+      const newArray = prevState.filter((item) => item.module_id !== module_id);
+      return newArray;
+    });
+  };
+
   return (
     <div className="containAllModules">
 
@@ -98,6 +124,7 @@ export default function AllModules() {
             course_id={item.course_id}
             key={item.module_id}
             edit={() => { redirectToEdit(index); }}
+            remove={() => { removeModule(item.module_id); }}
           />
         ))}
       </div>

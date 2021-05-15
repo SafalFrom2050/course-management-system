@@ -112,6 +112,20 @@ const editStudentInfo =async (req, res, next) => {
     res.status(200).json({ message: "Record updated" });
 }
 
+const deleteStudent = async (req, res, next) => {
+    const dbQuery = new Query();
+    const student_id = req.body.student_id;
+
+    const query = "DELETE FROM students WHERE student_id = ?";
+    try {
+        await dbQuery.query(query,[student_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Cannot delete student. Dependencies exists."));
+    }
+    res.json({message:"Student deleted"});
+}
+
 const createStaff = async (req, res, next) => {
     const dbQuery = new Query();
     const errors = validationResult(req);
@@ -189,43 +203,19 @@ const createStaff = async (req, res, next) => {
     res.status(200).json({ email, password });
 }
 
+const deleteStaff =async (req, res, next) => {
+    const dbQuery = new Query();
+    const staff_id = req.body.staff_id;
 
-const createCourse = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return next(new HttpError(422, "Invalid input passed"));
+    const query = "DELETE FROM staff WHERE staff_id = ?";
+    try {
+        await dbQuery.query(query,[staff_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Cannot delete staff. Dependencies exists."));
     }
-
-    const course_id = req.body.course_id;
-    const course_head_staff_id = req.body.course_head_staff_id;
-    const course_name = req.body.course_name;
-    const start_date = req.body.start_date;
-
-    const query = "INSERT INTO courses values(?,?,?,?)";
-
-
+    res.json({message:"Staff deleted"})
 }
 
-const deleteCourse = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return next(new HttpError(422, "Invalid input passed"));
-    }
-
-    const course_id = req.body.course_id;
-
-    const query = "DELETE FROM courses WHERE course_id = ?";
-
-
-    sqlObj.con.query(query, [course_id], (err, result) => {
-        console.log(err);
-        if (!err) {
-            res.status(200).json({ message: "Success" });
-        } else {
-            return next(new HttpError(500, "Service Error. Please try again."));
-        }
-    })
-}
 
 const createModule =async (req, res, next) => {
     const dbQuery = new Query();
@@ -328,8 +318,17 @@ const getAllStudents = async (req,res,next)=>{
     res.json(result);
 }
 
-const deleteModule = (req, res, next) => {
+const deleteModule =async (req, res, next) => {
+    const dbQuery = new Query();
+    const module_id = req.body.module_id;
 
+    const query = "DELETE FROM modules WHERE module_id = ?";
+    try {
+        await dbQuery.query(query,[module_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Cannot delete module. Dependencies exists."));
+    }
+    res.json({message:"Module deleted"})
 }
 
 const addRoutine =async (req,res,next)=>{
@@ -380,13 +379,12 @@ const addRoutineModule = async(req,res,next)=>{
 }
 
 
-
 exports.createStudent = createStudent;
 exports.editStudentInfo = editStudentInfo;
+exports.deleteStudent = deleteStudent;
 exports.createStaff = createStaff;
+exports.deleteStaff = deleteStaff;
 exports.getAllTutors = getAllTutors;
-exports.createCourse = createCourse;
-exports.deleteCourse = deleteCourse;
 exports.createModule = createModule;
 exports.getAllModules = getAllModules;
 exports.getAllCourses = getAllCourses;
