@@ -56,8 +56,10 @@ async function currentModule(student_id, next) {
     } catch (error) {
         return next(new HttpError(500, "User not found"));
     }
-    const sem = parseInt(getCurrentYear(smtp[0].registration_year) / 2);
-
+    let sem = parseInt(getCurrentYear(smtp[0].registration_year) / 2);
+    if(sem===0){
+        sem++;
+    }
     const query1 = "SELECT modules.*, staff.name as tutor_name, staff.surname as tutor_surname "+
         "FROM modules JOIN staff " +
         "WHERE modules.module_id = staff.module_id AND " +
@@ -331,7 +333,7 @@ const getPersonalTutorDetails = async (req,res,next)=>{
     try {
        result = await dbQery.query(courseQuery,[student_id]); 
     } catch (error) {
-        return next(new HttpError(500, "Something went wrong while geting PAT details1"));
+        return next(new HttpError(500, "Something went wrong while geting PAT details"));
     }
     const semester = await getSemester(student_id);
     const query = "SELECT s.staff_id, s.name, s.surname, s.email , s.role FROM staff s INNER JOIN personaltutor p ON p.staff_id = s.staff_id WHERE p.semester = ? AND p.course_id = ?";
@@ -341,6 +343,9 @@ const getPersonalTutorDetails = async (req,res,next)=>{
     } catch (error) {
         console.log(error);
         return next(new HttpError(500, "Something went wrong while geting PAT details"));
+    }
+    if(newResult.length===0){
+        return res.json([]);
     }
     const messageQuery = "SELECT message, sent_date FROM messages WHERE staff_id = ? AND student_id = ? ORDER BY sent_date DESC LIMIT 1";
     let messageResult;
@@ -394,6 +399,9 @@ const getFeedbacks = async (req,res,next)=>{
         item.staff = staffResult[0].name + " " + staffResult[0].surname;
         return item;
     }))
+    if(finalResult.length===0){
+        return res.json(finalResult)
+    }
     finalResult[0].semester = semester; 
     res.json(finalResult)
 }
@@ -407,7 +415,10 @@ const getSemester = async (student_id) => {
     } catch (error) {
         return next(new HttpError(500, "Invalid user"));
     }
-    const sem = getCurrentYear(dateResult[0].registration_year);
+    let sem = getCurrentYear(dateResult[0].registration_year);
+    if(sem<=0){
+        sem = 1;
+    }
     return Promise.resolve(sem);
 }
 

@@ -76,7 +76,7 @@ export default function PersonalTutor() {
               <button className="action-btn" type="button" onClick={redirectToMessages}>Message</button>
             </div>
           </div>
-        ) : <h2>Personal Tutor not found.. Try again.</h2>}
+        ) : <h2 style={{ marginLeft: '23rem' }}>Personal Tutor not found.. Try again.</h2>}
     </>
   );
 }

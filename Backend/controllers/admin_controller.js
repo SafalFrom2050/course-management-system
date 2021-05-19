@@ -112,6 +112,20 @@ const editStudentInfo =async (req, res, next) => {
     res.status(200).json({ message: "Record updated" });
 }
 
+const deleteStudent = async (req, res, next) => {
+    const dbQuery = new Query();
+    const student_id = req.body.student_id;
+
+    const query = "DELETE FROM students WHERE student_id = ?";
+    try {
+        await dbQuery.query(query,[student_id]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Cannot delete student. Dependencies exists."));
+    }
+    res.json({message:"Student deleted"});
+}
+
 const createStaff = async (req, res, next) => {
     const dbQuery = new Query();
     const errors = validationResult(req);
@@ -154,7 +168,7 @@ const createStaff = async (req, res, next) => {
         }
         let nums;
         for (const key in emailResult[0]) {
-            nums = emailResult[0][key];
+            nums = emailResult[0][key]; 
         }
         if(nums>0){
             return next(new HttpError(409, "Email already exists. Try another email"));
@@ -172,7 +186,7 @@ const createStaff = async (req, res, next) => {
             num = maxResult[0][key];
         }
         ++num;
-        email = name.toLowerCase() + "." + surname.toLowerCase() + num + "woodland.edu.uk";
+        email = name.toLowerCase() + "." + surname.toLowerCase() + num + "@woodland.edu.uk";
         query = "INSERT INTO staff (staff_id, name, surname, email,personalEmail, address,course_id,module_id,salary,role, password) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
         array = [num, name, surname, email,personalEmail, address,course_id,module_id, salary, role, pass]
     }
@@ -189,43 +203,19 @@ const createStaff = async (req, res, next) => {
     res.status(200).json({ email, password });
 }
 
+const deleteStaff =async (req, res, next) => {
+    const dbQuery = new Query();
+    const staff_id = req.body.staff_id;
 
-const createCourse = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return next(new HttpError(422, "Invalid input passed"));
+    const query = "DELETE FROM staff WHERE staff_id = ?";
+    try {
+        await dbQuery.query(query,[staff_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Cannot delete staff. Dependencies exists."));
     }
-
-    const course_id = req.body.course_id;
-    const course_head_staff_id = req.body.course_head_staff_id;
-    const course_name = req.body.course_name;
-    const start_date = req.body.start_date;
-
-    const query = "INSERT INTO courses values(?,?,?,?)";
-
-
+    res.json({message:"Staff deleted"})
 }
 
-const deleteCourse = (req, res, next) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return next(new HttpError(422, "Invalid input passed"));
-    }
-
-    const course_id = req.body.course_id;
-
-    const query = "DELETE FROM courses WHERE course_id = ?";
-
-
-    sqlObj.con.query(query, [course_id], (err, result) => {
-        console.log(err);
-        if (!err) {
-            res.status(200).json({ message: "Success" });
-        } else {
-            return next(new HttpError(500, "Service Error. Please try again."));
-        }
-    })
-}
 
 const createModule =async (req, res, next) => {
     const dbQuery = new Query();
@@ -263,7 +253,6 @@ const createModule =async (req, res, next) => {
             return next(new HttpError(500, "Service Error. Please try again."));
         }
         if(checkResult.length>0){
-            console.log("Error");
             return next(new HttpError(409, "Course already exists. Try another module id"));
         }
     }
@@ -329,20 +318,77 @@ const getAllStudents = async (req,res,next)=>{
     res.json(result);
 }
 
-const deleteModule = (req, res, next) => {
+const deleteModule =async (req, res, next) => {
+    const dbQuery = new Query();
+    const module_id = req.body.module_id;
 
+    const query = "DELETE FROM modules WHERE module_id = ?";
+    try {
+        await dbQuery.query(query,[module_id]);
+    } catch (error) {
+        return next(new HttpError(500, "Cannot delete module. Dependencies exists."));
+    }
+    res.json({message:"Module deleted"})
 }
 
+const addRoutine =async (req,res,next)=>{
+    const dbQuery = new Query();
+
+    const day = req.body.day;
+    const course_id = req.body.course_id;
+    const class_type = req.body.class_type;
+    const semester = req.body.semester;
+    const routine_id = parseInt(Math.random()*100000000);
+
+    const countQuery = "SELECT routine_id FROM routines WHERE day=? AND course_id = ? AND class_type=? AND semester = ?";
+    let countRes;
+    try {
+      countRes =  await  dbQuery.query(countQuery,[day,course_id,class_type,semester]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    if(countRes.length>0){
+        return res.json({routine_id:countRes[0].routine_id});
+    }
+    const sqlQuery = "INSERT INTO routines (routine_id, day, course_id, class_type, semester) VALUES (?,?,?,?,?);";
+    try {
+        await  dbQuery.query(sqlQuery,[routine_id,day,course_id,class_type,semester]);
+    } catch (error) {
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json({routine_id});
+}
+
+const addRoutineModule = async(req,res,next)=>{
+    const dbQuery = new Query();
+    const routine_id = req.body.routine_id;
+    const module_id = req.body.module_id;
+    const start_time = req.body.start_time;
+    const end_time = req.body.end_time;
+
+    const sqlQuery = "INSERT INTO routinemodules (routine_id, module_id, start_time, end_time) VALUES (?,?,?,?);";
+    try {
+        await dbQuery.query(sqlQuery,[routine_id,module_id,start_time,end_time]); 
+    } catch (error) {   
+        console.log(error);
+        return next(new HttpError(500, "Service Error. Please try again."));
+    }
+    res.json({message:"Routine added to database."})
+}
 
 
 exports.createStudent = createStudent;
 exports.editStudentInfo = editStudentInfo;
+exports.deleteStudent = deleteStudent;
 exports.createStaff = createStaff;
+exports.deleteStaff = deleteStaff;
 exports.getAllTutors = getAllTutors;
-exports.createCourse = createCourse;
-exports.deleteCourse = deleteCourse;
 exports.createModule = createModule;
 exports.getAllModules = getAllModules;
 exports.getAllCourses = getAllCourses;
 exports.getAllStudents = getAllStudents;
 exports.deleteModule = deleteModule;
+exports.addRoutine = addRoutine;
+exports.addRoutineModule = addRoutineModule;

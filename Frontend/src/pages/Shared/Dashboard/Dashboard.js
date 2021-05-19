@@ -29,12 +29,11 @@ import AssignGrades from '../../Staff/Grades/AssignGrades';
 
 import AllModules from '../../Admin/Module/AllModules';
 import AddModule from '../../Admin/Module/AddModule';
-
 import AllStudents from '../../Admin/Students/AllStudents';
 import AddStudent from '../../Admin/Students/AddStudent';
-
 import AllTutors from '../../Admin/Tutor/AllTutors';
 import AddTutor from '../../Admin/Tutor/AddTutor';
+import AdminTimetable from '../../Admin/Timetable/Timetable';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -75,7 +74,9 @@ const Dashboard = (props) => {
               <Route exact path="/students/edit">
                 <AddStudent />
               </Route>
-
+              <Route exact path="/timetable">
+                <AdminTimetable />
+              </Route>
             </>
           ) : null}
 

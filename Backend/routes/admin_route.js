@@ -29,6 +29,10 @@ router.post("/editStudentInfo", [
     check("student_status").not().isEmpty()
 ], admin.editStudentInfo);
 
+router.post("/deleteStudent", [
+    check("student_id").isNumeric(),
+], admin.deleteStudent);
+
 router.post("/createStaff", [
     check("name").isLength({ min: 1 }),
     check("surname").isLength({ min: 1 }),
@@ -37,17 +41,9 @@ router.post("/createStaff", [
     check("salary").isNumeric()
 ], admin.createStaff);
 
-
-router.post("/createCourse", [
-    check("course_id").isNumeric(),
-    check("course_head_staff_id").isNumeric(),
-    check("course_name").isLength({ min: 1 }),
-    check("start_date").not().isEmpty(),
-], admin.createCourse);
-
-router.post("/deleteCourse", [
-    check("course_id").isNumeric(),
-], admin.deleteCourse);
+router.post("/deleteStaff", [
+    check("staff_id").isNumeric(),
+], admin.deleteStaff);
 
 router.post("/createModule", [
     check("module_id").isNumeric(),
@@ -68,5 +64,9 @@ router.post("/deleteModule", [
 ], admin.deleteModule);
 
 router.get("/getAllTutors",admin.getAllTutors);
+
+router.post("/addRoutine",admin.addRoutine);
+
+router.post("/addRoutineModule",admin.addRoutineModule);
 
 module.exports = router;

@@ -1,0 +1,118 @@
+
+.timetable-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-right: 13rem;
+    padding-left: 13rem;
+  }
+  
+  .timetable-container .heading {
+    font-size: larger;
+    font-weight: bolder;
+  }
+  
+  .timetable-container
+    > .class-information
+    > .class-list
+    > .class-item
+    > .first-row
+    > .title {
+    font-weight: bold;
+  }
+  
+  .timetable-container > .class-information > *,
+  .timetable-container > .days-selector > * {
+    margin: 2rem;
+  }
+  .timetable-container > .class-information > .class-list,
+  .timetable-container > .days-selector > .days-button-list {
+    display: flex;
+    flex-direction: column;
+  }
+  .timetable-container > .days-selector > .heading {
+    text-align: center;
+  }
+  
+  .timetable-container > .class-information > .class-list .first-row,
+  .timetable-container > .class-information > .class-list .second-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .timetable-container > .class-information > .class-list .second-row {
+    margin-bottom: 28px;
+  }
+  
+  .timetable-container > .class-information > .class-list form .title {
+    width: 100%;
+    padding: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-right: 0.5rem;
+    border-radius: 10px 10px 10px 10px;
+  }
+  
+  .timetable-container > .class-information > .class-list form label {
+    font-size: small;
+  }
+  
+  .timetable-container > .class-information > .class-list .first-row > .tutor,
+  .timetable-container > .class-information > .class-list .level,
+  .timetable-container
+    > .class-information
+    > .class-list
+    .second-row
+    > .start-time,
+  .timetable-container
+    > .class-information
+    > .class-list
+    .second-row
+    > .end-time {
+    padding: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 8px;
+    background-color: #95e1d3;;
+    border-radius: 10px 10px 10px 10px;
+  }
+  
+  button,
+  .timetable-container > .class-information > .class-list form button,
+  .timetable-container > .days-selector > .days-button-list > button {
+    padding: 12px;
+    margin: 4px;
+  
+    border: solid #eee 1px;
+    border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    font-size: medium;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .timetable-container > .class-information > .class-list form button {
+    background-color: #95e1d3;;
+    margin-left: 4rem;
+  }
+  button:hover,
+  .timetable-container > .days-selector > .days-button-list > .selected-btn {
+    border: unset;
+    outline: none;
+    background-color: #95e1d3;;
+    box-shadow: 0px 0px 6px rgba(255, 255, 36, 0.61);
+  }
+  
+  .timetable-container > .class-information > .class-list form button:hover,
+  .timetable-container > .days-selector > .days-button-list > button:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 6px rgba(255, 255, 36, 0.61);
+  }
+  
+  form #start-time,
+  form #end-time,
+  form #tutor,
+  form #level {
+    background-color: white;
+    text-align: center;
+  }

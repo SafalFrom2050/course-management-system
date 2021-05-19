@@ -62,7 +62,7 @@ export default function ModuleItem(props) {
           </div>
           <div className="data-label">
             Next Class On
-            <label className="data">{stateNextClass}</label>
+            <label className="data">{stateNextClass || 'N/A'}</label>
           </div>
           <button className="action-btn" type="submit" onClick={onViewClick}>View</button>
         </div>

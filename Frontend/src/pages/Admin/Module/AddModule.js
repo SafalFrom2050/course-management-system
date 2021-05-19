@@ -27,7 +27,7 @@ export default function AddMoudle() {
 
   const showAlertBox = useAlertBoxShowMsg();
   const auth = useContext(AuthContext);
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, error } = useHttpClient();
   const history = useHistory();
   const { mode, moduleObj } = useLocation();
 
@@ -41,6 +41,12 @@ export default function AddMoudle() {
     }
     loadCourses();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      showAlertBox(error.response.data.message, 2000);
+    }
+  }, [error]);
 
   const loadData = () => {
     // eslint-disable-next-line guard-for-in
@@ -62,7 +68,7 @@ export default function AddMoudle() {
       showAlertBox('Network error! Please try again later...', 2000);
     });
     if (!result) {
-      showAlertBox('Error while adding module. Try again with new dataset.', 2000);
+      showAlertBox('Network error. try again.', 2000);
     }
     setCourses(result.data);
   };
@@ -70,22 +76,22 @@ export default function AddMoudle() {
   const formSubmitHandler = async (e) => {
     e.preventDefault();
     let sum = 0;
-    let error = false;
+    let errorData = false;
     const array = Object.values(module);
     array.forEach((element, index) => {
       if (element.trim().length === 0 && index < 5) {
         showAlertBox('Do not leave any fields empty', 2000);
-        error = true;
+        errorData = true;
       }
-      if (index === 4 && typeof parseInt(element) !== 'number' && !error) {
+      if (index === 4 && typeof parseInt(element) !== 'number' && !errorData) {
         showAlertBox('Module credit should be a number.', 2000);
-        error = true;
+        errorData = true;
       }
       if (index >= 5 && element.trim().length !== 0) {
         sum += parseInt(element);
       }
     });
-    if (error) {
+    if (errorData) {
       return;
     }
     if (sum !== Number && sum !== 100) {
@@ -100,14 +106,11 @@ export default function AddMoudle() {
       },
     };
 
-    const result = await sendRequest('http://localhost:5000/admin/createModule', 'POST', { ...module, mode }, config).catch((err) => {
-      showAlertBox('Network error! Please try again later...', 2000);
-    });
+    const result = await sendRequest('http://localhost:5000/admin/createModule', 'POST', { ...module, mode }, config);
     if (!result) {
-      showAlertBox('Error while adding module. Try again with new dataset.', 2000);
       return;
     }
-    history.push('/modules/view');
+    history.push('/modules');
   };
 
   return (

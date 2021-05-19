@@ -10,7 +10,7 @@ export default function TutorItem(props) {
     setFullTextView((prevFullTextView) => !prevFullTextView);
   }
   const {
-    name, surname, email, address, date_of_join, role, edit,
+    name, surname, email, address, date_of_join, role, edit, remove,
   } = props;
   return (
     <div
@@ -51,7 +51,7 @@ export default function TutorItem(props) {
 
           <div className="btns-container">
             <button type="submit" onClick={edit}>Edit</button>
-            <button type="submit">Remove</button>
+            <button type="submit" onClick={remove}>Remove</button>
           </div>
         </div>
       </div>

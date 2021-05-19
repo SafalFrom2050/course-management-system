@@ -29,7 +29,7 @@ export default function AddTutor() {
 
   const showAlertBox = useAlertBoxShowMsg();
   const auth = useContext(AuthContext);
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, error } = useHttpClient();
   const { mode, tutorObj } = useLocation();
   const history = useHistory();
 
@@ -46,6 +46,12 @@ export default function AddTutor() {
     }
     loadCourses();
   }, []);
+
+  useEffect(() => {
+    if (error) {
+      showAlertBox(error.response.data.message, 2000);
+    }
+  }, [error]);
 
   const loadData = () => {
     // eslint-disable-next-line guard-for-in
@@ -107,15 +113,12 @@ export default function AddTutor() {
       course_id: selected.course,
       module_id: selected.module,
       mode,
-    }, config).catch((err) => {
-      showAlertBox('Network error! Please try again later...', 2000);
-    });
+    }, config);
     if (!result) {
-      showAlertBox('Error adding/editing tutor. Try again with some changes.', 2000);
       return;
     }
     showAlertBox('Tutor added. Temporary password sent to the email address.', 2000);
-    // TODO: Redirect to all tutors
+    history.push('/tutor');
   };
 
   return (
@@ -190,6 +193,7 @@ export default function AddTutor() {
                 id="salary"
                 placeholder="Salary"
                 required
+                min={0}
                 value={info.salary}
               />
             </div>

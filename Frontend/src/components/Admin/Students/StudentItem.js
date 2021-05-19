@@ -8,6 +8,7 @@ function StudentItem(props) {
 
   const {
     student_id, name, course, email, status, address, phone, gender, registrationDate, dob, edit,
+    remove,
   } = props;
 
   function toggleFullTextView() {
@@ -70,7 +71,7 @@ function StudentItem(props) {
 
           <div className="btns-container">
             <button type="submit" onClick={edit}>Edit</button>
-            <button type="submit">Remove</button>
+            <button type="submit" onClick={remove}>Remove</button>
           </div>
         </div>
       </div>
