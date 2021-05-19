@@ -241,8 +241,12 @@ const getAllAssignedStudents =async (req,res,next)=>{
     const maxDateQuery = "SELECT sent_date, message FROM `messages` WHERE staff_id = ? AND student_id = ? ORDER BY sent_date DESC LIMIT 1; ";
     const finalResult = await Promise.all( newResult.map( async item=>{
         const date = await dbQuery.query(maxDateQuery,[staff_id,item.student_id]);
-        item.lastConvo = date[0].sent_date;
-        item.lastMessage = date[0].message
+        
+        if(date[0] != null){
+            item.lastConvo = date[0].sent_date;
+            item.lastMessage = date[0].message;
+        }
+        
         item.semester = await getCurrentYear(item.registration_year);
         item.student_id
         return item;
