@@ -8,7 +8,7 @@ export default function StudentItem(props) {
   } = props;
 
   return (
-    <div className="student-item">
+    <div className="personal-message-item">
       <div className="student-detail">
         <div className="student-heading">{name}</div>
 

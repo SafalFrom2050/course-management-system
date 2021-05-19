@@ -29,6 +29,8 @@ export default function PersonalTutor() {
     }, null).catch(() => {
       showAlertBox('Network error! Please try again later...', 2000);
     });
+    console.log(result.data);
+
     setStudents(result.data);
   };
 
@@ -40,12 +42,12 @@ export default function PersonalTutor() {
   };
 
   return (
-    <div className="student-list">
+    <div className="personal-message-list">
       {students.map((item) => (
         <StudentItem
           name={`${item.name} ${item.surname}`}
           lastConvo={new Date(item.lastConvo).toDateString()}
-          lastMessage={item.lastMessage.slice(0, 50)}
+          lastMessage={item.lastMessage ? item.lastMessage.slice(0, 50) : ''}
           semester={item.semester}
           messageHandler={() => { redirectToMessages(item.student_id); }}
         />

@@ -1,33 +1,35 @@
-.student-item {
+.personal-message-item {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 26px;
-
+  width: 100%;
   cursor: pointer;
 }
 
-.student-list {
+.personal-message-list {
+  display: flex;
+  flex-direction: column;
   text-align: center;
   margin-right: 13rem;
   margin-left: 26rem;
 }
 
-.student-list > .level-seperator {
+.personal-message-list > .level-seperator {
   text-align: center;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.student-list > .level-seperator > h3 {
+.personal-message-list > .level-seperator > h3 {
   width: max-content;
   border-bottom: #a5a5a5 4px solid;
   padding: 1rem;
 }
 
-.student-item > .student-detail {
+.personal-message-item > .student-detail {
   width: 100%;
   height: fit-content;
   min-height: 150px;
@@ -44,12 +46,12 @@
   transition: background-color 0.2s;
 }
 
-.student-item > .student-detail > .student-heading {
+.personal-message-item > .student-detail > .student-heading {
   font-size: large;
   font-weight: bold;
 }
 
-.student-item > .student-detail > .body-container {
+.personal-message-item > .student-detail > .body-container {
   height: max-content;
   padding: 12px;
   margin-top: 12px;
@@ -58,7 +60,7 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.student-item > .student-detail > .body-container > .body {
+.personal-message-item > .student-detail > .body-container > .body {
   width: 100%;
 
   text-align: justify;
@@ -70,13 +72,17 @@
   margin-bottom: 8px;
 }
 
-.student-item > .student-detail > .body-container > .data-label {
+.personal-message-item > .student-detail > .body-container > .data-label {
   height: min-content;
   margin-top: 22px;
   margin-right: auto;
 }
 
-.student-item > .student-detail > .body-container > .data-label > .data {
+.personal-message-item
+  > .student-detail
+  > .body-container
+  > .data-label
+  > .data {
   border-radius: 8px;
   padding: 4px;
   margin-right: 2rem;
@@ -86,19 +92,29 @@
   font-weight: 600;
 }
 
-.student-item .student-detail:hover {
+.personal-message-item .student-detail:hover {
   border: none;
   background-color: #95e1d3;
 }
 
-.student-item > .student-detail:hover > .body-container > .data-label > .data {
+.personal-message-item
+  > .student-detail:hover
+  > .body-container
+  > .data-label
+  > .data {
   border: unset;
   background-color: #fff;
 }
-.student-item > .student-detail > .body-container > .message-student-btn {
+.personal-message-item
+  > .student-detail
+  > .body-container
+  > .message-student-btn {
   visibility: collapse;
 }
-.student-item > .student-detail:hover > .body-container > .message-student-btn {
+.personal-message-item
+  > .student-detail:hover
+  > .body-container
+  > .message-student-btn {
   visibility: visible;
   padding: 12px;
   margin-left: auto;
@@ -112,7 +128,7 @@
 
   cursor: pointer;
 }
-.student-item
+.personal-message-item
   > .student-detail:hover
   > .body-container
   > .message-student-btn:hover {
