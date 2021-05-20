@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-.module-list {
+.all-module-list {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -15,7 +15,7 @@
   padding-right: 2rem;
 }
 
-.module-item {
+.all-module-item {
   width: 30%;
   text-align: center;
   display: flex;
@@ -28,11 +28,14 @@
   margin-bottom: 2rem;
 }
 
-.module-item > .module-detail {
+.all-module-item > .all-module-detail {
   height: fit-content;
   min-height: 150px;
 
   margin-top: 16px;
+  padding: 1rem;
+  padding-top: 1.5rem;
+  padding-left: 1.5rem;
 
   border-radius: 16px 16px 16px 16px;
   border: #dddddd solid 2px;
@@ -41,12 +44,12 @@
   transition: background-color 0.2s;
 }
 
-.module-item > .module-detail > .module-heading {
+.all-module-item > .all-module-detail > .all-module-heading {
   font-size: large;
   font-weight: bold;
 }
 
-.module-item > .module-detail > .body-container {
+.all-module-item > .all-module-detail > .body-container {
   height: max-content;
   padding: 12px;
   margin-top: 12px;
@@ -56,13 +59,13 @@
   justify-content: flex-start;
 }
 
-.module-item > .module-detail > .body-container > .data-label {
+.all-module-item > .all-module-detail > .body-container > .data-label {
   height: min-content;
   margin: 12px;
   margin-top: 22px;
 }
 
-.module-item > .module-detail > .body-container > .data-label > .data {
+.all-module-item > .all-module-detail > .body-container > .data-label > .data {
   border-radius: 8px;
   padding: 4px;
   padding-right: 8px;
@@ -71,18 +74,22 @@
   border: #dddddd solid 1px;
 }
 
-.module-item .module-detail:hover {
+.all-module-item .all-module-detail:hover {
   border: none;
   background-color: #95e1d3;
 }
 
-.module-item > .module-detail:hover > .body-container > .data-label > .data {
+.all-module-item
+  > .all-module-detail:hover
+  > .body-container
+  > .data-label
+  > .data {
   border: unset;
   background-color: #fff;
 }
 
 .create-module-btn,
-.module-item button {
+.all-module-item button {
   width: fit-content;
   margin-left: 9rem;
   padding: 12px;
@@ -96,13 +103,13 @@
 
   cursor: pointer;
 }
-.module-item button {
+.all-module-item button {
   margin: 8px;
   margin-left: auto;
 }
 
 .create-module-btn:hover,
-.module-item button:hover {
+.all-module-item button:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 6px rgba(36, 36, 36, 0.3);
 }
@@ -111,7 +118,7 @@
   text-align: end;
 }
 
-.module-selector {
+.all-module-selector {
   margin: 0;
   margin-top: 2rem;
   margin-right: 4rem;

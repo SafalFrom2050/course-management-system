@@ -7,3 +7,23 @@
   color: #444444;
   font-family: "Montserrat", sans-serif;
 }
+
+.ml-13r {
+  margin-left: 13rem;
+}
+
+.ml-26r {
+  margin-left: 26rem;
+}
+
+.mr-13r {
+  margin-right: 13rem;
+}
+
+.mr-26r {
+  margin-right: 26rem;
+}
+
+.text-center {
+  text-align: center;
+}

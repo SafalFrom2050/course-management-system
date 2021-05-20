@@ -18,25 +18,23 @@
   padding: 1rem;
 }
 
-.module-item {
+.grade-item {
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 26px;
-  margin-right: 20%;
-  margin-left: 20%;
 }
-.feedbacks-list .module-item,
-.grades-list .module-item {
+.feedbacks-list .grade-item,
+.grades-list .grade-item {
   cursor: pointer;
   width: 100%;
 }
 
-.module-item > .module-detail {
+.grade-item > .grade-detail {
   width: 100%;
   height: fit-content;
-  min-height: 150px;
+  min-height: 100px;
 
   margin-top: 16px;
   padding: 22px;
@@ -48,14 +46,19 @@
   text-align: start;
 
   transition: background-color 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
-.module-item > .module-detail > .module-heading {
+.grade-item > .grade-detail > .grade-heading {
   font-size: large;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.module-item > .module-detail > .body-container {
+.grade-item > .grade-detail > .body-container {
   height: max-content;
   padding: 12px;
   margin-top: 12px;
@@ -65,19 +68,19 @@
   justify-content: flex-start;
   flex-wrap: wrap;
 }
-.module-item > .module-detail > .body-container > .body {
+.grade-item > .grade-detail > .body-container > .body {
   width: 100%;
   margin-bottom: 1rem;
   margin-right: 1rem;
 }
 
-.module-item > .module-detail > .body-container > .data-label {
+.grade-item > .grade-detail > .body-container > .data-label {
   height: min-content;
   margin: 12px;
   margin-top: 22px;
 }
 
-.module-item > .module-detail > .body-container > .data-label > .data {
+.grade-item > .grade-detail > .body-container > .data-label > .data {
   border-radius: 8px;
   padding: 4px;
   padding-right: 8px;
@@ -86,14 +89,14 @@
   border: #dddddd solid 1px;
 }
 
-.grades-list .module-item .module-detail:hover {
+.grades-list .grade-item .grade-detail:hover {
   border: none;
   background-color: #95e1d3;
 }
 
 .grades-list
-  .module-item
-  > .module-detail:hover
+  .grade-item
+  > .grade-detail:hover
   > .body-container
   > .data-label
   > .data {
@@ -106,7 +109,7 @@
 
   font-size: xxx-large;
 }
-.module-item > .module-detail button {
+.grade-item > .grade-detail button {
   margin-left: 1rem;
   padding: 12px;
   margin-left: auto;
@@ -121,7 +124,7 @@
   cursor: pointer;
 }
 
-.module-item > .module-detail button:hover {
+.grade-item > .grade-detail button:hover {
   transform: scale(1.1);
   box-shadow: 0px 0px 6px rgba(36, 36, 36, 0.3);
 }

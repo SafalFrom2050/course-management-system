@@ -7,11 +7,10 @@
 }
 
 .nav > .logo {
-  border: #666666 solid 1px;
-  border-radius: 42px 0 84px 42px;
-  padding: 1.5rem;
-  padding-left: 2rem;
-  padding-right: 2.5rem;
+  padding-left: 4rem;
+}
+.nav > .logo > img {
+  max-height: 75px;
 }
 
 .nav > .login-message {

@@ -6,18 +6,18 @@
   justify-content: center;
   flex-wrap: wrap;
   margin-left: 13rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  margin-right: 13rem;
 }
 
 .tutor-item {
+  width: 40%;
+  height: max-content;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 26px;
-  margin-right: 12px;
-  margin-left: 12px;
+
   cursor: pointer;
 }
 .action-btn-container {
@@ -25,10 +25,10 @@
   justify-content: center;
 }
 
-.tutor-item > .module-detail {
-  width: 100%;
-  height: fit-content;
+.tutor-item > .tutor-detail {
   min-height: 150px;
+  min-width: 90%;
+  max-width: 90%;
 
   margin-top: 16px;
   padding: 22px;
@@ -42,12 +42,12 @@
   transition: background-color 0.2s;
 }
 
-.tutor-item > .module-detail > .module-heading {
+.tutor-item > .tutor-detail > .tutor-heading {
   font-size: large;
   font-weight: bold;
 }
 
-.tutor-item > .module-detail > .body-container {
+.tutor-item > .tutor-detail > .body-container {
   height: max-content;
   padding: 12px;
   margin-top: 12px;
@@ -75,17 +75,17 @@
   line-height: 1.5rem;
 }
 
-.tutor-item:hover .module-detail {
+.tutor-item:hover .tutor-detail {
   border: none;
   background-color: #95e1d3;
 }
 
-.expanded:hover .module-detail {
+.expanded:hover .tutor-detail {
   background-color: #fff;
   box-shadow: #dddddd 0 0 12px;
 }
 
-.tutor-item > .module-detail:hover > .body-container .data-label > .data {
+.tutor-item > .tutor-detail:hover > .body-container .data-label > .data {
   background-color: #fff;
 }
 

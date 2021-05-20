@@ -32,7 +32,7 @@ export default function GradePage() {
   }
 
   return (
-    <div className="grade-detail" id="grade-detail">
+    <div className="grade-page-detail" id="grade-page-detail">
       <div className="heading">
         <h3>
           {gradeInfo.module_name}

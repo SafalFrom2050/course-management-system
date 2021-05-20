@@ -1,4 +1,4 @@
-.grade-detail {
+.grade-page-detail {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,7 +8,7 @@
   margin-right: 13rem;
 }
 
-.grade-detail > .profile-img-circular {
+.grade-page-detail > .profile-img-circular {
   height: 100px;
   width: 100px;
   border-radius: 50%;
@@ -20,37 +20,37 @@
   margin-bottom: 28px;
 }
 
-.grade-detail > .heading {
+.grade-page-detail > .heading {
   text-align: center;
   width: max-content;
   border-bottom: #a5a5a5 4px solid;
   padding: 1rem;
 }
-.grade-detail > .foo {
+.grade-page-detail > .foo {
   margin-top: 3rem;
   font-size: xx-small;
 }
 
-.grade-detail > .gradeDetails {
+.grade-page-detail > .gradeDetails {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
 }
 
-.grade-detail > .gradeDetails > .body1 {
+.grade-page-detail > .gradeDetails > .body1 {
   padding: 2rem;
   margin-bottom: 1rem;
   padding-bottom: 2rem;
   border-bottom: #aaa solid 2px;
 }
 
-.grade-detail > .gradeDetails > .row {
+.grade-page-detail > .gradeDetails > .row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
-.grade-detail > .gradeDetails > .row > .data {
+.grade-page-detail > .gradeDetails > .row > .data {
   border: #aaa solid 1px;
   border-radius: 12px;
   margin: 6px;
@@ -61,7 +61,7 @@
   padding-right: 12px;
 }
 
-.grade-detail > .actions {
+.grade-page-detail > .actions {
   margin-top: 2rem;
   text-align: end;
 }
