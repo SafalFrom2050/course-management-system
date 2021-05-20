@@ -117,7 +117,13 @@ export default function AddTutor() {
     if (!result) {
       return;
     }
-    showAlertBox('Tutor added. Temporary password sent to the email address.', 2000);
+    if (!mode) {
+      const text = `${result.data.email}  ${result.data.password}`;
+      navigator.clipboard.writeText(text);
+      showAlertBox('Tutor added. Login info added to clipboard', 2000);
+    } else {
+      showAlertBox('Information edited', 2000);
+    }
     history.push('/tutor');
   };
 

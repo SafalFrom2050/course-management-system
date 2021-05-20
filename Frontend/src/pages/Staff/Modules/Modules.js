@@ -40,7 +40,7 @@ export default function Modules() {
           moduleId={module.module_id}
           heading={module.module_name}
           level={module.module_level}
-          nextClass=""
+          nextClass="N/A"
         />
       ))}
     </div>

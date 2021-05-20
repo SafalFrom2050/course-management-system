@@ -60,6 +60,7 @@ async function currentModule(student_id, next) {
     if(sem===0){
         sem++;
     }
+    console.log(sem);
     const query1 = "SELECT modules.*, staff.name as tutor_name, staff.surname as tutor_surname "+
         "FROM modules JOIN staff " +
         "WHERE modules.module_id = staff.module_id AND " +
