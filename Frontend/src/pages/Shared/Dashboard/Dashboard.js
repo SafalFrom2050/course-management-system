@@ -1,4 +1,5 @@
 import '../../../components/Shared/SideNavBar/SideNavBar.css';
+import '../../../App.css';
 
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
@@ -34,6 +35,7 @@ import AddStudent from '../../Admin/Students/AddStudent';
 import AllTutors from '../../Admin/Tutor/AllTutors';
 import AddTutor from '../../Admin/Tutor/AddTutor';
 import AdminTimetable from '../../Admin/Timetable/Timetable';
+import GradeGuidelines from '../../Staff/Grades/GradeGuidelines';
 
 const Dashboard = (props) => {
   const { userType } = props;
@@ -158,12 +160,28 @@ const Dashboard = (props) => {
               <Route path="/grades/assign">
                 <AssignGrades />
               </Route>
+              <Route path="/grades">
+                <GradeGuidelines />
+              </Route>
             </>
           ) : null}
 
           <Redirect to="/modules" />
-        </Switch>
 
+        </Switch>
+        <Route exact path="/">
+          <div>
+            <div className="ml-13r text-center">
+              <img src="logo512.png" alt="Woodlands University Logo" />
+            </div>
+            <br />
+
+            <h1 className="ml-13r text-center">Welcome to Woodlands University College!</h1>
+            <br />
+            <br />
+            <h4 className=" text-center">Select options from side navigation menu to continue.</h4>
+          </div>
+        </Route>
       </>
     );
   }
