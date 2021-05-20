@@ -4,6 +4,7 @@ import { React, useRef, useContext } from 'react';
 import './Login.css';
 import './highlighters.css';
 import './typography.css';
+import { useHistory } from 'react-router-dom';
 import Nav from './Nav';
 
 import { useHttpClient } from '../../../hooks/http-hook';
@@ -15,6 +16,7 @@ export default function Login() {
 
   const usernameRef = useRef();
   const passwordRef = useRef();
+  const history = useHistory();
 
   async function authenticate(e) {
     const obj = { email: usernameRef.current.value, password: passwordRef.current.value };
@@ -28,6 +30,7 @@ export default function Login() {
     try {
       const returnedData = await sendRequest('http://localhost:5000/common/login', 'POST', obj, config);
       auth.login(returnedData.data);
+      history.push('/');
     } catch (error) {
       //
     }
