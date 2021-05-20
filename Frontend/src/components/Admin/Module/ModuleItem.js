@@ -7,9 +7,9 @@ export default function ModuleItem(props) {
     module_name, module_level, module_id, module_credit, course_id, edit, remove,
   } = props;
   return (
-    <div className="module-item">
-      <div className="module-detail">
-        <div className="module-heading">
+    <div className="all-module-item">
+      <div className="all-module-detail">
+        <div className="all-module-heading">
           {module_name}
           {' '}
           | Level

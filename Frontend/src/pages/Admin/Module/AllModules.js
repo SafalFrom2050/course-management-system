@@ -100,7 +100,7 @@ export default function AllModules() {
         <button className="create-module-btn" type="button" onClick={() => { history.push('/modules/add'); }}>Add New +</button>
       </div>
 
-      <div className="module-selector">
+      <div className="all-module-selector">
         <label htmlFor="modules">Select Course</label>
 
         <select
@@ -114,7 +114,7 @@ export default function AllModules() {
 
         </select>
       </div>
-      <div className="module-list">
+      <div className="all-module-list">
         {modules.map((item, index) => (
           <ModuleItem
             module_id={item.module_id}

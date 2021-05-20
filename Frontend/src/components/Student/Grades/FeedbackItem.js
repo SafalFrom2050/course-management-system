@@ -9,9 +9,9 @@ export default function FeedbackItem(props) {
   } = props;
   return (
 
-    <div className="module-item">
-      <div className="module-detail">
-        <div className="module-heading">
+    <div className="grade-item">
+      <div className="grade-detail">
+        <div className="grade-heading">
           {module_name}
           &nbsp; | &nbsp;
           {module_id}

@@ -11,9 +11,9 @@ export default function GradeItem(props) {
   } = props;
   return (
 
-    <div className="module-item" onClick={redirect} role="navigation">
-      <div className="module-detail">
-        <div className="module-heading">
+    <div className="grade-item" onClick={redirect} role="navigation">
+      <div className="grade-detail">
+        <div className="grade-heading">
           {module_name}
 &nbsp; | &nbsp;
           {module_id}

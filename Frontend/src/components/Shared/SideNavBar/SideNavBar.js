@@ -35,7 +35,11 @@ function SideNavBar() {
     const route = location.pathname.slice(1).split('/')[0];
     setActiveMenuItem(route);
     const head = route.charAt(0).toUpperCase() + route.slice(1);
-    setTitle(head);
+    if (head === '') {
+      setTitle('Dashboard');
+    } else {
+      setTitle(head);
+    }
   }
 
   return (

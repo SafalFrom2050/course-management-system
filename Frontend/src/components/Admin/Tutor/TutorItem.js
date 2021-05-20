@@ -16,12 +16,12 @@ export default function TutorItem(props) {
     <div
       role="button"
       tabIndex={0}
-      className={`diary-detail ${fullTextView === true ? 'module-item expanded' : 'module-item'}`}
+      className={`${fullTextView === true ? 'tutor-item expanded' : 'tutor-item'}`}
       onClick={toggleFullTextView}
       onKeyPress={toggleFullTextView}
     >
-      <div className="module-detail">
-        <div className="module-heading">
+      <div className="tutor-detail">
+        <div className="tutor-heading">
           {name}
           {' '}
           {surname}
