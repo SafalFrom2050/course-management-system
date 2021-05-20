@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2021 at 03:28 PM
+-- Generation Time: May 20, 2021 at 07:53 AM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -62,9 +62,9 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`assignment_id`, `module_id`, `title`, `deadline`, `content`, `semester`, `isActive`) VALUES
-(3, 2006, 'Swing GUI Vehicle rental', '2021-04-22 23:59:59', 'A vehicle tracking system combines the use of automatic vehicle location in individual vehicles with software that collects these fleet data for a comprehensive picture of vehicle locations. Modern vehicle tracking systems commonly use GPS or GLONASS technology for locating the vehicle, but other types of automatic vehicle location technology can also be used. Vehicle information can be viewed on electronic maps via the Internet or specialized software. Urban public transit authorities are an increasingly common user of vehicle tracking systems, particularly in large cities.', 4, 1),
-(12, 2004, 'FSSS Relations', '2021-05-06 20:27:00', 'If the system specification was to be extended to include a freetype \r\nRESPONSE, to cater for system output messages, extend the system specification \r\nyou produced for “place_an_order” to include suitable system output messages \r\nand precondition violations. (You do not need to include an English translation \r\nfor the mathematical statements in your specification). The new specification \r\nshould be called “place_an_order_with_error_conisderations”', 4, 1),
-(17, 2002, 'Data structures implementation', '2021-03-25 15:31:06', 'An array is the most fundamental data structure, which stores elements at a contiguous memory location. It is also one of the darling topics of\r\ninterviewers and you will hear a lot of questions about an array in any coding interview, e.g. reversing an array, sorting the array, or searching elements on the array.', 4, 1),
+(3, 2006, 'Swing GUI Vehicle rental', '2021-04-30 23:59:59', 'A vehicle tracking system combines the use of automatic vehicle location in individual vehicles with software that collects these fleet data for a comprehensive picture of vehicle locations. Modern vehicle tracking systems commonly use GPS or GLONASS technology for locating the vehicle, but other types of automatic vehicle location technology can also be used. Vehicle information can be viewed on electronic maps via the Internet or specialized software. Urban public transit authorities are an increasingly common user of vehicle tracking systems, particularly in large cities.', 4, 1),
+(12, 2004, 'FSSS Relations', '2021-05-31 20:27:00', 'If the system specification was to be extended to include a freetype \r\nRESPONSE, to cater for system output messages, extend the system specification \r\nyou produced for “place_an_order” to include suitable system output messages \r\nand precondition violations. (You do not need to include an English translation \r\nfor the mathematical statements in your specification). The new specification \r\nshould be called “place_an_order_with_error_conisderations”', 4, 1),
+(17, 2002, 'Data structures implementation', '2021-06-17 15:31:06', 'An array is the most fundamental data structure, which stores elements at a contiguous memory location. It is also one of the darling topics of\r\ninterviewers and you will hear a lot of questions about an array in any coding interview, e.g. reversing an array, sorting the array, or searching elements on the array.', 4, 1),
 (19, 2004, 'Assignment 2', '2021-05-14 13:20:00', 'A formal software specification is a statement expressed in a language whose vocabulary, syntax, and semantics are formally defined. The need for a formal semantic definition means that the specification languages cannot be based on natural language; it must be based on mathematics.', 4, 1);
 
 -- --------------------------------------------------------
@@ -91,7 +91,8 @@ INSERT INTO `attendancemodules` (`attendance_modules_id`, `module_id`, `attendan
 (5, 2004, '2020-03-02 07:00:46', 4, 0, 1, 'Lecture'),
 (9, 2005, '2020-03-02 07:00:46', 4, 0, 2, 'Lecture'),
 (15, 2004, '2021-03-07 10:19:00', 4, 0, 3, 'Lecture'),
-(21, 2004, '2021-03-19 13:35:00', 4, 0, 6, 'Lecture');
+(21, 2004, '2021-03-19 13:35:00', 4, 0, 6, 'Lecture'),
+(25, 1001, '2021-05-17 11:00:00', 1, 0, 1, 'Lecture');
 
 -- --------------------------------------------------------
 
@@ -120,7 +121,8 @@ INSERT INTO `attendances` (`attendance_id`, `attendance_module_id`, `student_id`
 (27, 21, 2, '2021-03-19 13:36:01'),
 (28, 5, 5, '2021-03-01 21:03:45'),
 (29, 21, 5, '2021-03-19 13:36:01'),
-(30, 15, 5, '2021-03-07 09:19:39');
+(30, 15, 5, '2021-03-07 09:19:39'),
+(31, 25, 6, '2021-05-17 10:06:04');
 
 -- --------------------------------------------------------
 
@@ -162,7 +164,8 @@ CREATE TABLE `diaries` (
 --
 
 INSERT INTO `diaries` (`diary_id`, `student_id`, `title`, `body`, `date_created`) VALUES
-(13, 1, 'My first diary', 'Hello this is my first diary.', '2021-03-26 10:29:49');
+(13, 1, 'My first diary', 'Hello this is my first diary.', '2021-03-26 10:29:49'),
+(15, 1, 'My second diary.', 'Good News for NEB Class 12 Students: Ahile dherai College haru banda vayera student lai garo vayeko karan UTC le Science/Management student lai sajilo hos vanera Free ma \"30 Days Crash Course\" Tution Classes lyayeko chha jasle garda students lai gharmai basera preparation garna sajilo huna sakcha.', '2021-04-25 18:14:39');
 
 -- --------------------------------------------------------
 
@@ -239,12 +242,13 @@ CREATE TABLE `modules` (
 
 INSERT INTO `modules` (`module_id`, `course_id`, `module_name`, `module_credit`, `module_level`, `ass_1`, `ass_2`, `exam`) VALUES
 (1001, 101, 'Computing Mathematics', 20, 1, 50, 0, 50),
+(1002, 101, 'Linear Algebra', 20, 1, 50, 0, 50),
 (2002, 101, 'Software Implementation 2', 20, 2, 40, 0, 60),
 (2004, 101, 'Formal Specification of Software Systems 1', 20, 2, 40, 0, 60),
 (2005, 101, 'Database Technology ', 20, 2, 40, 0, 60),
 (2006, 101, 'Group Project and Project Management', 20, 2, 100, 0, 0),
-(2332, 102, 'New Module', 25, 2, 50, 0, 50),
-(2335, 102, 'New Module', 12, 2, 50, 0, 50),
+(2332, 102, 'Principles of Management.', 25, 2, 50, 0, 50),
+(2335, 102, 'Operations Research.', 12, 2, 50, 0, 50),
 (3001, 102, 'Economics', 120, 2, 100, 0, 0);
 
 -- --------------------------------------------------------
@@ -271,7 +275,8 @@ INSERT INTO `module_materials` (`module_materials_id`, `module_id`, `title`, `bo
 (3, 2005, 'Chapter 1', 'Database : is collection of data, typically describing the activities of one or more related organizations. DBMS : or database management system, is...', '2021-03-27 01:08:41'),
 (4, 2006, 'Chapter 1', 'Project Background, Objectives, and Research Approach: TRB\'s National Cooperative Highway Research Program (NCHRP) Report...', '2021-03-27 01:08:41'),
 (5, 2004, 'Functions', 'It is usual for there to be a\r\nrule that, for a Library, any\r\nbook may only be on-loan\r\nto one person at a time The lent_to function illustrated would be declared by:\r\nlent_to : BOOK ß PERSON\r\nwhich denotes the set of all functions from the set BOOK to the set PERSON\r\n! The type of lent_to is: P (BOOK × PERSON)\r\n\r\nhttps://www.unf.edu/~ncoulter/cen6070/handouts/specifications.pdf\r\n', '2021-03-29 16:33:31'),
-(6, 2004, 'Chapter 4: Total Functions', ' If the domain of a function is the whole of the source (or from-set), the function is said to be total The symbol for a total function is similar to that\r\nfor a partial function but without the transverse bar.\r\n\r\nhttps://www.sciencedirect.com/topics/computer-science/formal-specification', '2021-03-29 16:35:43');
+(6, 2004, 'Chapter 4: Total Functions', ' If the domain of a function is the whole of the source (or from-set), the function is said to be total The symbol for a total function is similar to that\r\nfor a partial function but without the transverse bar.\r\n\r\nhttps://www.sciencedirect.com/topics/computer-science/formal-specification', '2021-03-29 16:35:43'),
+(10, 1001, 'New material', 'New 123', '2021-05-17 10:01:31');
 
 -- --------------------------------------------------------
 
@@ -300,7 +305,7 @@ INSERT INTO `personaltutor` (`personal_tutor_id`, `staff_id`, `semester`, `cours
 --
 
 CREATE TABLE `routinemodules` (
-  `routine_modules_id` int(10) NOT NULL,
+  `routine_modules_id` int(25) NOT NULL,
   `routine_id` int(10) NOT NULL,
   `module_id` int(10) NOT NULL,
   `start_time` time NOT NULL,
@@ -314,7 +319,11 @@ CREATE TABLE `routinemodules` (
 INSERT INTO `routinemodules` (`routine_modules_id`, `routine_id`, `module_id`, `start_time`, `end_time`) VALUES
 (1, 1, 2004, '07:00:00', '09:30:00'),
 (2, 1, 2005, '11:00:00', '12:30:00'),
-(5, 2, 2005, '09:00:00', '11:00:00');
+(5, 2, 2005, '09:00:00', '11:00:00'),
+(21, 35024009, 2006, '10:00:00', '12:00:00'),
+(22, 35024009, 2004, '10:00:00', '12:00:00'),
+(23, 87819200, 1002, '08:00:00', '10:00:00'),
+(24, 69768975, 1001, '08:00:00', '10:00:00');
 
 -- --------------------------------------------------------
 
@@ -323,7 +332,7 @@ INSERT INTO `routinemodules` (`routine_modules_id`, `routine_id`, `module_id`, `
 --
 
 CREATE TABLE `routines` (
-  `routine_id` int(10) NOT NULL,
+  `routine_id` int(25) NOT NULL,
   `day` varchar(255) NOT NULL,
   `course_id` int(10) NOT NULL,
   `class_type` varchar(255) NOT NULL,
@@ -337,7 +346,10 @@ CREATE TABLE `routines` (
 INSERT INTO `routines` (`routine_id`, `day`, `course_id`, `class_type`, `semester`) VALUES
 (1, 'Sunday', 101, 'Lecture', 4),
 (2, 'Monday', 101, 'Tutorial', 4),
-(3, 'Sunday', 101, 'Tutorial', 4);
+(3, 'Sunday', 101, 'Tutorial', 4),
+(35024009, 'Wednesday', 101, 'Lecture', 4),
+(69768975, 'Monday', 101, 'Lecture', 1),
+(87819200, 'Sunday', 101, 'Lecture', 1);
 
 -- --------------------------------------------------------
 
@@ -365,11 +377,9 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`staff_id`, `name`, `surname`, `email`, `personalEmail`, `address`, `date_of_join`, `course_id`, `module_id`, `salary`, `role`, `password`) VALUES
-(1, 'Thomas', 'Smith edit', 'tomsmith@gmail.com', 'tomsmith@gmail.com', 'Somewhere_in_UK', '2016-03-11 00:00:00', 101, 1001, 2000, 'Head Of Computing', '$2b$12$ZehgVeUwRFW.QFmpB6mQWOXpXq.LkN.p1r.U3AWxPetDg5LsgwoSm'),
-(2, 'Michael', 'Jackson', 'jacksonmichael@email.com', '', 'Jorpati', '2020-02-03 00:00:00', 101, 2005, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
+(2, 'Mike', 'Jackson', 'jacksonmichael@email.com', 'jacksonmichael@email.com', 'Jorpati', '2020-02-03 00:00:00', 101, 1001, 23223, 'Database Technology Tutor', '$2b$12$H8HJPnpYfax4xnHwKc.Z.udy/ZpqqNxo3lLrj0NNL1AbXhgbTIMta\"'),
 (4, 'Helen ', 'W Bluhm', 'WBluhm@gmail.com', '', '3932  Kenwood Place', '2017-02-21 00:00:00', 101, 2004, 5000, '	\r\nFormal Specification of Software Systems 1\r\n', '$2b$12$eYxG5WR9NYoXDecUC18OC.VW3jJ53urlwPZU2H6hjrJiH1b35mC1m'),
-(5, 'Carole ', 'S Fairley', 'hlzjsku5lhr@temporary-mail.net', '', 'North Carolina', '2014-05-15 00:00:00', 101, 2006, 2340, 'Group Project Teacher', '$2b$12$sL32BActEQmrvaHtVpCX9uFnGlWXgYgydOusY2XL2b7dEGMqEUCV6'),
-(6, 'Kushal', 'Upreti', 'kushal.upreti6woodland.edu.uk', 'kushalupreti101@gmail.com', 'Kapan-Kathmandu', '2021-04-19 19:10:51', 101, 1001, 5, 'No role. ', '$2b$10$bRGEcWXaORRjo7jbYJYnE.231ZV8sNMUjATektls4MEmAmIZlpoIq');
+(5, 'John', 'Smith', 'john.smith5@woodland.edu.uk', 'john@email.com', 'Somewhere in UK', '2021-05-17 09:56:25', 101, 1002, 5000, 'No role', '$2b$10$j0JNvpcK4WhGngOo3Og/.eDzQXa5XIWa0SsCyrtyPHuj4l.ZAj.ie');
 
 -- --------------------------------------------------------
 
@@ -385,6 +395,14 @@ CREATE TABLE `staffdiaries` (
   `date_created` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `staffdiaries`
+--
+
+INSERT INTO `staffdiaries` (`diary_id`, `staff_id`, `title`, `body`, `date_created`) VALUES
+(8, 4, '2021.25.4', 'But before we proceed to our list, let us share with you the benefits of keeping a daily journal. Some of you might think of journaling as inconvenient and time-consuming, but in reality it is quite easy and provides numerous benefits.', '2021-04-25 18:49:47'),
+(9, 5, 'My first diary', 'Hey this is my first diary.', '2021-05-17 10:08:14');
+
 -- --------------------------------------------------------
 
 --
@@ -395,6 +413,7 @@ CREATE TABLE `students` (
   `student_id` int(10) NOT NULL,
   `course_id` int(10) NOT NULL,
   `name` varchar(50) NOT NULL,
+  `personalEmail` varchar(255) NOT NULL,
   `email` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `surname` varchar(50) NOT NULL,
@@ -410,11 +429,12 @@ CREATE TABLE `students` (
 -- Dumping data for table `students`
 --
 
-INSERT INTO `students` (`student_id`, `course_id`, `name`, `email`, `password`, `surname`, `address`, `phone`, `gender`, `date_of_birth`, `registration_year`, `student_status`) VALUES
-(1, 101, 'Kushal', 'kupreti@email.com', '$2b$10$G2mR97nXqVTw6E3/kbJ6g./3VBgzJ.N0i5Luu/MiH4QUuuj3Jt0yu', 'Upreti', 'Jorpati', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live'),
-(2, 101, 'Salina', 'salina.khadka2woodland.edu.uk', '$2b$10$GbgIrYiEa1QTcVCmWAIcAeAJH4WXPzO4diDXRf9R9mf6RKpnKvGYq', 'Khadka', 'Kapan', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live'),
-(3, 101, 'Prawesh', 'prawesh.gautam3woodland.edu.uk', '$2b$10$u8.ZlRzmxwUN.QBJcWNpluaOEflksbgP2qQA2GOpcOIaLpevgWJHq', 'Gautam', 'Kapan', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live'),
-(5, 101, 'Safal', 'safal.sharma5woodland.edu.uk', '$2b$10$6M5B5GljtE4c3mGoCqjsjuT0x3AFmWOQy5svl3P0G/AxuVMR33YAa', 'Sharma', 'Bhaktapur', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live');
+INSERT INTO `students` (`student_id`, `course_id`, `name`, `personalEmail`, `email`, `password`, `surname`, `address`, `phone`, `gender`, `date_of_birth`, `registration_year`, `student_status`) VALUES
+(1, 101, 'Kushal', 'kushal101@gmail.com', 'kupreti@email.com', '$2b$10$G2mR97nXqVTw6E3/kbJ6g./3VBgzJ.N0i5Luu/MiH4QUuuj3Jt0yu', 'Upreti', 'Jorpati', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live'),
+(2, 101, 'Salina', 'salina101@gmail.com', 'salina.khadka2@woodland.edu.uk', '$2b$10$GbgIrYiEa1QTcVCmWAIcAeAJH4WXPzO4diDXRf9R9mf6RKpnKvGYq', 'Khadka', 'Kapan', '+977-3342342555', 'F', '2000-02-14', '2019-03-21', 'Live'),
+(3, 101, 'Prawesh', 'praweshnoob@gmail.com', 'prawesh.gautam3@woodland.edu.uk', '$2b$10$u8.ZlRzmxwUN.QBJcWNpluaOEflksbgP2qQA2GOpcOIaLpevgWJHq', 'Gautam', 'Kapan', '+977-3342342555', 'M', '2000-02-14', '2019-03-21', 'Live'),
+(5, 101, 'Safal', 'safal.sharma5@woodland.edu.uk', 'safal.sharma5@woodland.edu.uk', '$2b$10$HW4.//rJHjRqlgi08lcqR.99CqoN1QvpmXE0aXjhlFFwvcplM0VQK', 'Sharma', 'Bhaktapur', '+977-3342342555', 'M', '2000-02-12', '2019-03-19', 'Live'),
+(6, 101, 'New', 'new@gmail.com', 'new.tutor6@woodland.edu.uk', '$2b$10$AZqIcqgFOXQe2MZ7A.Nw/.f0s3qmZfHtaq9kiDV5foeKd9gTCgTWW', 'Tutor', 'Kapan-Kathmandu', '+9779869840123', 'P', '1999-07-17', '2020-09-17', 'Live');
 
 -- --------------------------------------------------------
 
@@ -588,19 +608,19 @@ ALTER TABLE `assignments`
 -- AUTO_INCREMENT for table `attendancemodules`
 --
 ALTER TABLE `attendancemodules`
-  MODIFY `attendance_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `attendance_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `attendances`
 --
 ALTER TABLE `attendances`
-  MODIFY `attendance_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `attendance_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `diaries`
 --
 ALTER TABLE `diaries`
-  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `grades`
@@ -618,7 +638,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `module_materials`
 --
 ALTER TABLE `module_materials`
-  MODIFY `module_materials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `module_materials_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `personaltutor`
@@ -630,13 +650,7 @@ ALTER TABLE `personaltutor`
 -- AUTO_INCREMENT for table `routinemodules`
 --
 ALTER TABLE `routinemodules`
-  MODIFY `routine_modules_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `routines`
---
-ALTER TABLE `routines`
-  MODIFY `routine_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `routine_modules_id` int(25) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `staff`
@@ -648,13 +662,13 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT for table `staffdiaries`
 --
 ALTER TABLE `staffdiaries`
-  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `diary_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `submissions`
