@@ -27,6 +27,9 @@ export default function ModuleItem(props) {
     }, null);
 
     let row;
+    if (!result) {
+      return;
+    }
     if (Array.isArray(result.data)) {
       row = result.data[0];
     } else {

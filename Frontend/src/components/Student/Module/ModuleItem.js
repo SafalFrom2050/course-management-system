@@ -25,7 +25,9 @@ export default function ModuleItem(props) {
         Authorization: `Bearer ${auth.token}`,
       },
     }, null);
-
+    if (!result) {
+      return;
+    }
     let row;
     if (Array.isArray(result.data)) {
       row = result.data[0];

@@ -13,7 +13,7 @@ export default function CreateAssignment(props) {
     title: '',
     content: '',
     deadline: '',
-    semester: '',
+    semester: '1',
   });
   const [links, setLinks] = useState([]);
   const [linkText, setLinkText] = useState('');
@@ -150,12 +150,30 @@ export default function CreateAssignment(props) {
               <button type="button" onClick={linkHandler}>{linkActive ? 'Post Link' : 'Add new'}</button>
 
               {user.userType === 'staff' && props.assignment ? (
-                <div className="date-level-selector">
-                  <label>Due Date</label>
-                  <input type="datetime-local" id="end-date" value={formData.deadline} onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} />
-                  <label>Semester</label>
-                  <input type="text" id="level" value={formData.semester} placeholder="..." onChange={(e) => setFormData({ ...formData, semester: e.target.value })} />
-                </div>
+                <>
+                  <div className="date-level-selector">
+                    <label>Due Date</label>
+                    <input type="datetime-local" id="end-date" value={formData.deadline} onChange={(e) => setFormData({ ...formData, deadline: e.target.value })} />
+                  </div>
+                  <div className="module-selector">
+                    <label htmlFor="modules">Select Level</label>
+
+                    <select
+                      name="modules"
+                      id="modules-selector"
+                      onChange={(e) => {
+                        setFormData({ ...formData, semester: e.target.value });
+                      }}
+                    >
+                      <option key={1} value="1">1</option>
+                      <option key={2} value="2">2</option>
+                      <option key={3} value="3">3</option>
+                      <option key={4} value="4">4</option>
+                      <option key={5} value="5">5</option>
+                      <option key={6} value="6">6</option>
+                    </select>
+                  </div>
+                </>
               ) : null}
             </div>
 

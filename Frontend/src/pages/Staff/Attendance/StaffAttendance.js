@@ -41,7 +41,10 @@ const StaffAttendance = () => {
         Authorization: `Bearer ${auth.token}`,
       },
     }, null);
-    setModuleName(name.data.module_name);
+    if (name) {
+      setModuleName(name.data.module_name);
+    }
+
     const result = await sendRequest('http://localhost:5000/staff/getAllAttendanceRecords', 'GET', {
       params,
       headers: {
@@ -124,6 +127,7 @@ const StaffAttendance = () => {
         Authorization: `Bearer ${auth.token}`,
       },
     };
+    console.log('Called');
     const res = await sendRequest('http://localhost:5000/staff/activateAttendance', 'POST', obj, config);
     if (!res) { return; }
     const { attendance_modules_id } = res.data;

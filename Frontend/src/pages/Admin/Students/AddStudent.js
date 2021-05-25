@@ -44,11 +44,11 @@ function AddStudent() {
     if (mode) loadData();
   }, []);
 
-  useEffect(() => {
-    if (error) {
-      showAlertBox(error.response.data.message, 2000);
-    }
-  }, [error]);
+  // useEffect(() => {
+  //   if (error) {
+  //     showAlertBox(error.response.data.message, 2000);
+  //   }
+  // }, [error]);
 
   const loadData = () => {
     // eslint-disable-next-line guard-for-in
@@ -206,7 +206,7 @@ function AddStudent() {
 
             <div className="compound-row-inputs">
               <label htmlFor="gender">Gender</label>
-              <select name="gender" id="gender-selector" onChange={(e) => { setInfo({ ...info, gender: e }); }}>
+              <select name="gender" id="gender-selector" onChange={(e) => { setInfo({ ...info, gender: e.target.value }); }}>
                 {mode ? <option value={info.gender}>{info.gender}</option> : ''}
                 <option value="M">M</option>
                 <option value="F">F</option>
