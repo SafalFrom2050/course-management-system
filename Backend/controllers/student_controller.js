@@ -174,25 +174,28 @@ const getAttendanceStatus = async (req, res, next) => {
         }
         responseArray.push(obj);
     }
-
+    console.log(responseArray);
     const statusQuery = "SELECT attendancemodules.week, modules.module_name FROM attendances INNER JOIN attendancemodules ON" +
         " attendances.attendance_module_id = attendancemodules.attendance_modules_id INNER JOIN modules ON attendancemodules.module_id " +
         " = modules.module_id WHERE student_id = ? AND attendancemodules.semester = ? ORDER BY modules.module_name ASC";
     let statusResult;
+
     try {
         statusResult = await dbQuery.query(statusQuery, [student_id, sem]);
     } catch (error) {
         return next(new HttpError(500, "Error while fetching attendances"));
     }
-
+    console.log(statusResult);
     for (const key in statusResult) {
         const element = statusResult[key];
         let obj = responseArray.find((item) => {
+            // console.log(item.module_name + " " + element.module_name);
             return item.module_name === element.module_name;
         })
 
         obj.attendance_status[element.week] = 1;
     }
+
     res.json(responseArray);
 }
 
