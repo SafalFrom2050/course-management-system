@@ -1,9 +1,9 @@
 This project is a full-fledge university portal that contains the student, tutor and admin section. This is a group project completed by 4 second year students studying at the University of Northampton.
 
 Team members include:
-[Safal Sharma](https://github.com/SafalFrom2050)
-[Salina Khadka](https://github.com/salina199)
-[Prawesh Gautam](https://github.com/sujal-coder26)
+[Safal Sharma](https://github.com/SafalFrom2050)<br/>
+[Salina Khadka](https://github.com/salina199)<br/>
+[Prawesh Gautam](https://github.com/sujal-coder26)<br/>
 [Kushal Upreti](https://github.com/KushalUpreti)
 
 Unfortunately since the database is in MySQL, the project is not hosted in the internet as free SQL hosting providers are hard to find.
