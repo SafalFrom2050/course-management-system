@@ -1,6 +1,6 @@
 This project is a full-fledge university portal that contains the student, tutor and admin section. This is a group project completed by 4 second year students studying at the University of Northampton.
 
-Team members include:
+Team members include:<br/>
 [Safal Sharma](https://github.com/SafalFrom2050)<br/>
 [Salina Khadka](https://github.com/salina199)<br/>
 [Prawesh Gautam](https://github.com/sujal-coder26)<br/>
