@@ -24,7 +24,7 @@ Student Section:
 
 | Time Table| Student Grades|
 |--|--|
-| <a href="https://drive.google.com/uc?export=view&id=11UJMZm5-Pi0Q5IkNNn9w7bcsny7VEdsR">![Time Table](https://drive.google.com/uc?export=view&id=1qLHExCaHhc8_XTSPFsDYIaHAlpdA1WmE) </a> | <a href="https://drive.google.com/uc?export=view&id=1qLHExCaHhc8_XTSPFsDYIaHAlpdA1WmE">![Grades](https://drive.google.com/uc?export=view&id=1qLHExCaHhc8_XTSPFsDYIaHAlpdA1WmE)</a> |
+| <a href="https://drive.google.com/uc?export=view&id=11UJMZm5-Pi0Q5IkNNn9w7bcsny7VEdsR">![Time Table](https://drive.google.com/uc?export=view&id=11UJMZm5-Pi0Q5IkNNn9w7bcsny7VEdsR) </a> | <a href="https://drive.google.com/uc?export=view&id=1qLHExCaHhc8_XTSPFsDYIaHAlpdA1WmE">![Grades](https://drive.google.com/uc?export=view&id=1qLHExCaHhc8_XTSPFsDYIaHAlpdA1WmE)</a> |
 
 <br/>
 <br/>
